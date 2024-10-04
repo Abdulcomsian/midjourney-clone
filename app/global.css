@@ -7,15 +7,15 @@
 ----------------------------*/
 @font-face {
 	font-family: DMSans-Regular;
-	src: url(../src/assets/fonts/DMSans-Regular.ttf);
+	src: url(../public/assets/fonts/DMSans-Regular.ttf);
 }
 @font-face {
 	font-family: DMSans-Medium;
-	src: url(../src/assets/fonts/DMSans-Medium.ttf);
+	src: url(../public//assets/fonts/DMSans-Medium.ttf);
 }
 @font-face {
 	font-family: DMSans-Bold;
-	src: url(../src/assets/fonts/DMSans-Bold.ttf);
+	src: url(../public/assets/fonts/DMSans-Bold.ttf);
 }
 /*---------------------------
 	  Root Variables
