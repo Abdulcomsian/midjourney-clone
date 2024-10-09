@@ -43,6 +43,18 @@
 	--body-color: #fcfcfd;
 	--search-border: #e3e4e8;
 	--white-color: #ffffff;
+	--text-green: #479830;
+	--tw-ring-shadow: 0 0 #0000;
+	--tw-ring-offset-shadow: 0 0 #0000;
+	--tw-text-opacity: 1;
+	--text-grey: #73798c;
+	--active-user-border-color: #c7c9d1;
+	--tw-bg-opacity: 1;
+
+	--room-green-badge: rgba(201, 232, 201, 0.65);
+	--room-purple-badge: rgba(232, 201, 222, 0.65);
+	--room-green-text: #59b770;
+	--room-purple-text: #a6459b;
 
 	/*---------------------------
 	  Font size Variables
@@ -90,6 +102,38 @@ input:focus {
 }
 .white-space-nowrap {
 	white-space: nowrap;
+}
+.fw-600{
+	font-weight: 600;
+}
+.main-heading{
+	font-size: 3rem;
+	font-weight: 800;
+	color: var(--hover-nav-color);
+}
+.sub-heading{
+	font-size: 1.2rem;
+    color: hsl(225 10% 50% / var(--tw-text-opacity));
+}
+.common-section{
+	padding: 3rem 1.5rem;
+}
+.fs-12{
+	font-size: var(--small-font);
+}
+.fs-14{
+	font-size: var(--medium-font);
+}
+.fs-16{
+	font-size: var(--large-font);
+}
+.room-green-badge{
+	background-color: var(--room-green-badge);
+	color: var(--room-green-text);
+}
+.room-purple-badge{
+	background-color: var(--room-purple-badge);
+	color: var(--room-purple-text);
 }
 /*---------------------------
 	  Sidebar Styling
@@ -140,7 +184,7 @@ input:focus {
 }
 /*---------------------------
 	  Bottom Nav Styling
-  ----------------------------*/
+----------------------------*/
 .bottom-mobile-nav {
 	display: none;
 	z-index: 9;
@@ -148,6 +192,7 @@ input:focus {
 	width: 100%;
 	bottom: 0;
 	font-family: DMSans-Medium;
+	min-height: 134px;
 	background-image: linear-gradient(
 		0deg,
 		#fcfcfd 0,
@@ -334,6 +379,147 @@ main {
 	font-size: var(--medium-font);
 }
 /*---------------------------
+  Update Wrapper Styling
+  ----------------------------*/
+  .content-wrapper .update-wrapper{
+	max-width: 64rem;
+	padding: 48px 0px;
+  }
+  .content-wrapper .update-wrapper h1,  .content-wrapper .update-wrapper h3{
+	color: var(--hover-nav-color);
+  }
+  .content-wrapper .update-wrapper .left-update-panel{
+	width: 25%;
+  }
+  .content-wrapper .update-wrapper .right-update-panel{
+	flex: 1 1;
+  }
+  .content-wrapper .update-wrapper .right-update-panel h3{
+	font-weight: 600;
+  }
+  .content-wrapper .update-wrapper .right-update-panel p,.content-wrapper .update-wrapper .right-update-panel ul li{
+	font-size: var(--medium-font);
+	margin-bottom: 1.2rem !important;
+  }
+  .content-wrapper .update-wrapper .right-update-panel a{
+	color: var(--active-nav-color);
+	font-weight: 600;
+	text-decoration: underline;
+  }
+  .content-wrapper .update-wrapper .left-update-panel .date-time{
+	position: sticky;
+	top: 0;
+  }
+  .content-wrapper .update-wrapper .left-update-panel .date-time .announcement,.content-wrapper .update-wrapper .left-update-panel .date-time .time{
+	font-size: var(--small-font);
+  }
+  .content-wrapper .update-wrapper .line{
+	position: absolute;
+	left: 25%;
+	top: 2.5rem;
+	bottom: 0;
+  }
+  .content-wrapper .update-wrapper .shape{
+	min-width: 0.5rem;
+    height: 0.5rem;
+    border: 1px solid hsl(225 10% 80% / var(--tw-text-opacity));
+    position: absolute;
+    left: 24.75%;
+    transform: rotate(45deg);
+    top: 33px;
+    --tw-text-opacity: 1;
+    background: #fff;
+  }
+  /*---------------------------
+  Packages Wrapper Styling
+  ----------------------------*/
+  .subscription-wrapper .packages .package-box .price-div span:first-child{
+	--tw-text-opacity: 1;
+    color: hsl(225 10% 50% / var(--tw-text-opacity));
+}
+.subscription-wrapper .packages .package-box .price-div span:first-child,.subscription-wrapper .packages .package-box .price-div span:nth-child(2){
+	font-size: 2.25rem;
+	font-weight: 600;
+}
+.subscription-wrapper .packages .package-box .price-div span:last-child{
+	font-size: 1.25rem;
+}
+.subscription-wrapper .packages .package-box .off-text {
+	font-size: var(--large-font);
+}
+.subscription-wrapper .packages .package-box{
+	
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+/*---------------------------
+  Chat Wrapper Styling
+  ----------------------------*/
+  .chat-wrapper .tab-chat-content{
+	width: 100%;
+    max-width: 91%;
+    margin: auto;
+
+  }
+  .chat-wrapper .tab-chat-content .chat-nav .main-child,
+  .chat-wrapper .tab-chat-content .chat-nav-body .main-child{
+	min-width: 300px;
+	width: 33.333333%;
+	border: none;
+  }
+  .chat-wrapper .tab-chat-content .chat-nav div,
+  .chat-wrapper .tab-chat-content .chat-nav-body div{
+	min-width: 118px;
+	width: 8.333333%;
+	border-left: 4px solid var(--white-color);
+  }
+  .chat-wrapper .tab-chat-content .chat-nav div span{
+	color: var(--text-grey);
+  }
+  .chat-wrapper .tab-chat-content .chat-nav-body h5{
+	color: var(--hover-nav-color);
+  }
+  .chat-wrapper .tab-chat-content .chat-nav-body:nth-child(odd){
+    background-color: hsl(225 10% 95% / var(--tw-bg-opacity));
+  }
+  .chat-wrapper .tab-chat-content .chat-nav-body .common-room-badge span{
+	width: 28px;
+	height: 28px;
+  }
+  .chat-wrapper .tab-chat-content .chat-nav-body .common-room-badge.unactive span{
+	border: 1px dashed var(--active-user-border-color);
+  }
+  .chat-wrapper .tab-chat-content .chat-nav-body .common-room-badge.active span{
+	border: 1px dashed var(--active-user-border-color);
+  }
+  .activity-images-wrapper .activity-grid .grid-item:first-child figure img,.activity-images-wrapper .activity-grid .grid-item:first-child figure,.activity-images-wrapper .activity-grid .grid-item:first-child{
+		width: 100px;
+		border-top-left-radius: 8px;
+		border-bottom-left-radius: 8px;
+  }
+  .activity-images-wrapper .activity-grid .grid-item:last-child figure img, .activity-images-wrapper .activity-grid .grid-item:last-child figure,.activity-images-wrapper .activity-grid .grid-item:last-child{
+	width: 100px;
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+  }
+  .activity-images-wrapper .activity-grid .grid-item figure img,.activity-images-wrapper .activity-grid .grid-item figure,.activity-images-wrapper .activity-grid .grid-item {
+	width: 56px;
+	height: 56px;
+    min-width: 56px !important;
+  }
+/*---------------------------
+  Help Wrapper Styling
+  ----------------------------*/
+  .help-section{
+	max-width: 1200px;
+  }
+  .help-section .resources .multiple-resources{
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+    display: grid;
+  }
+  .help-section .resources .multiple-resources .resource-card:hover{
+	background-color: hsl(225 10% 70%/0.3);
+  }
+/*---------------------------
 	  Media Screen Styling
   ----------------------------*/
 @media only screen and (max-width: 1344px) {
@@ -387,6 +573,25 @@ main {
 	main {
 		margin-top: 1%;
 	}
+}
+@media only screen and (max-width: 768px) {
+	.content-wrapper .update-wrapper .main-panel{
+		display: block !important;
+	}
+	.content-wrapper .update-wrapper .main-panel .line,.content-wrapper .update-wrapper .main-panel .shape,.content-wrapper .update-wrapper .left-update-panel .date-time .time{
+		display: none;
+	}
+	.content-wrapper .update-wrapper .left-update-panel{
+		width: 100%;
+		padding-left: 1.5rem;
+		padding-right: 1.5rem;
+	}
+	.content-wrapper .update-wrapper .left-update-panel .date-time{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	
 }
 @media only screen and (max-width: 640px) {
 	.content-wrapper .gallery-wrapper {

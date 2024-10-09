@@ -5,7 +5,7 @@ function BottomNav(params) {
     return(
         <div className="bottom-mobile-nav">
             <TopSearch/>
-            <ul className="d-flex justify-content-between list-unstyled p-3">
+            <ul className="d-flex justify-content-between list-unstyled p-3 position-fixed bottom-0 w-100">
                 <li className="grow flex-1">
                     <a className="d-flex flex-column justify-content-center align-items-center text-decoration-none">
                         <span className="icon">

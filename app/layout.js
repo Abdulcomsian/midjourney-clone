@@ -1,8 +1,11 @@
 // /app/layout.js
 import Sidebar from './component/sidebar/sidebar'
 import 'bootstrap/dist/css/bootstrap.min.css'
-
 import './global.css' // equivalent to App.css in React
+import 'bootstrap/dist/css/bootstrap.min.css'; 
+import $ from 'jquery'; 
+import Popper from 'popper.js'; 
+
 
 export const metadata = {
 	title: 'My Next.js App',

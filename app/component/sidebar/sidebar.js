@@ -25,6 +25,22 @@ function Sidebar(params) {
                             <span className='link-name'>Surveys</span>
                         </a>
                     </li>
+                    <li>
+                        <a className='d-flex align-items-center gap-2 p-2 rounded-5'>
+                            <span className='icon'>
+                                <svg height="22" class="inline-block relative" width="22" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1" xmlns="http://www.w3.org/2000/svg"><g id="Avatar"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 23C5.92487 23 1 18.0751 1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23ZM19.3995 17.1246C20.4086 15.6703 21 13.9042 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 13.9042 3.59138 15.6703 4.6005 17.1246C5.72595 15.6381 8.3706 15 12 15C15.6294 15 18.274 15.6381 19.3995 17.1246ZM17.9647 18.7398C17.672 17.6874 15.5694 17 12 17C8.43062 17 6.328 17.6874 6.03532 18.7398C7.6233 20.1462 9.71194 21 12 21C14.2881 21 16.3767 20.1462 17.9647 18.7398ZM12 15C9.76086 15 8 13.4274 8 10C8 7.75576 9.5791 6 12 6C14.4142 6 16 7.92158 16 10.2C16 13.4796 14.2181 15 12 15ZM10 10C10 12.2693 10.8182 13 12 13C13.1777 13 14 12.2984 14 10.2C14 8.95042 13.2157 8 12 8C10.7337 8 10 8.81582 10 10Z"></path></g></svg>
+                            </span>
+                            <span className='link-name'>Subscribe</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a className='d-flex align-items-center gap-2 p-2 rounded-5'>
+                            <span className='icon'>
+                                <svg height="22" class="inline-block relative" width="22" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1" xmlns="http://www.w3.org/2000/svg"><g id="ChatAlt2Icon"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" fill="none" stroke="currentColor"></path></g></svg>
+                            </span>
+                            <span className='link-name'>Chat</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
             <div className='bottom-nav grow d-flex flex-column gap-3 justify-content-end'>
