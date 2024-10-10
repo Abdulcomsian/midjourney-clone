@@ -82,8 +82,10 @@ ul {
 	color: var(--hover-nav-color);
 	opacity: 40%;
 }
-input:focus {
+input:focus,select:focus,button:focus {
 	outline: none;
+	box-shadow: none !important;
+	border-color: var(--active-user-border-color) !important; 
 }
 .filter-blur {
 	filter: blur(12px);
@@ -115,14 +117,34 @@ input:focus {
 .fs-16{
 	font-size: var(--large-font);
 }
-.room-green-badge{
+.bg-green-badge{
 	background-color: var(--room-green-badge);
 	color: var(--room-green-text);
 }
-.room-purple-badge{
+.bg-purple-badge{
 	background-color: var(--room-purple-badge);
 	color: var(--room-purple-text);
 }
+.modal-content{
+	border: none !important;
+	--tw-shadow: 0 20px 25px -5px rgba(0, 0, 0, .1), 0 8px 10px -6px rgba(0, 0, 0, .1);
+    --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.border-doted{
+	border-style: dotted;
+	border-color: var(--active-user-border-color);
+	border-width: 1px;
+}
+/* .close-modal-button .btn-close:hover{
+	background-color: hsl(225 10% 70%/0.3);
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+} */
+ .pointer-event-none{
+	pointer-events: none;
+ }
 /*---------------------------
 	  Sidebar Styling
   ----------------------------*/
@@ -439,6 +461,38 @@ main {
 	
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
+.subscription-wrapper .packages-tab{
+	max-width: 24rem;
+    margin: 3rem auto !important;
+	--tw-bg-opacity: 1;
+    background-color: hsl(225 10% 90% / var(--tw-bg-opacity));
+    border-radius: 9999px;
+	padding: 0.25rem !important;
+} 
+.subscription-wrapper .packages-tab li .nav-link{
+	box-shadow: none;
+	border-radius: 9999px;
+	color: var(--hover-nav-color);
+	font-weight: 500;
+	font-size: var(--medium-font);
+}
+.subscription-wrapper .packages-tab li .nav-link.active{
+
+	background-color: var(--hover-nav-color);
+	color: var(--white-color);
+	
+}
+.subscription-wrapper .accordion{
+	max-width: 72rem;
+    margin: auto;
+}
+
+.subscription-wrapper .accordion .accordion-item,.subscription-wrapper .accordion .accordion-item .accordion-header .accordion-button{
+	--tw-bg-opacity: 1;
+    background-color: hsl(225 10% 95% / var(--tw-bg-opacity));
+	box-shadow: none;
+	border: 0;
+}
 /*---------------------------
   Chat Wrapper Styling
   ----------------------------*/
@@ -499,6 +553,10 @@ main {
   ----------------------------*/
   .help-section{
 	max-width: 1200px;
+	height: 100vh;
+	overflow: auto;
+	-ms-overflow-style: none;  /* IE and Edge */
+	scrollbar-width: none;  /* Firefox */
   }
   .help-section .resources .multiple-resources{
 	grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -506,6 +564,12 @@ main {
   }
   .help-section .resources .multiple-resources .resource-card:hover{
 	background-color: hsl(225 10% 70%/0.3);
+  }
+  /*---------------------------
+  Auth Modal Styling
+  ----------------------------*/
+  .auth-modal{
+	background-color: hsl(225 10% 95% / 0.9);
   }
 /*---------------------------
 	  Media Screen Styling
@@ -611,5 +675,13 @@ main {
 	}
 	.content-wrapper header {
 		display: none !important;
+	}
+}
+@media only screen and (min-width: 576px) {
+	.auth-modal .modal-dialog{
+		max-width: 400px;
+	}
+	.auth-modal .modal-dialog .modal-content{
+		border-radius: 1rem;
 	}
 }

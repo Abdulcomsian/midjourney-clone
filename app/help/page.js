@@ -1,7 +1,11 @@
-import React from 'react';
+"use client";
+import React, { useState } from 'react';
+import { FaChevronDown, FaPlus, FaTrash, FaCheck  } from "react-icons/fa";
+import $ from 'jquery';
+
 
 function Help () {
-
+    const [affectedUrl,setAffectedUrl] =  useState([]);
     const resourcesArray = [
         {resourceName: 'Getting Started', sulg:'A quick how-to guide to get you started making images as fast as possible'},
         {resourceName: 'In-Depth Documentation', sulg:'A quick how-to guide to get you started making images as fast as possible'},
@@ -10,6 +14,13 @@ function Help () {
         {resourceName: 'Prompt Crafting Chatroom', sulg:'A quick how-to guide to get you started making images as fast as possible'},
         {resourceName: 'Billing Support', sulg:'A quick how-to guide to get you started making images as fast as possible'}
     ]
+    const add = () => {
+        setAffectedUrl(prevRowList => [...prevRowList, true]);
+      };
+    
+    const remove = (i) => {
+        setAffectedUrl(prevRowList => prevRowList.filter((_, index) => index !== i));
+    };
     return(
         <div className='content-wrapper'>
             <div className='help-section common-section'>
@@ -38,17 +49,109 @@ function Help () {
                             })}
                         </div>
                     </div>
-                    {/* <div className='container-fluid'>
+                    <div className='container-fluid'>
                         <div className='row'>
                             <div className='col-md-6'>
-                                <div className='help-common-box'>
-                                    <h6>Report an Issue</h6>
-                                    <p>If you've run into a bug or a issue on our service please report it here. It's the best way to let us know something is broken. These messages go directly to a special engineering channel and will not receive a response.</p>
-                                    <textarea className='w-100 border rounded-2' rows={5}/>
+                                <div className='help-common-box border rounded-4 p-4 mt-5 pb-5'>
+                                    <h6 className='fw-600 mb-2'>Report an Issue</h6>
+                                    <p className='fs-14 mb-3'>If you've run into a bug or a issue on our service please report it here. It's the best way to let us know something is broken. These messages go directly to a special engineering channel and will not receive a response.</p>
+                                    <div className='form-div'>
+                                        <textarea className='w-100 border rounded-2' rows={5}/>
+                                        <div className='with-icon-select position-relative mb-2'>
+                                            <select className='w-100 form-control fs-14'>
+                                                <option disable>Select a category</option>
+                                            </select>
+                                            <span className='position-absolute end-0 top-0 h-100 w-auto bg-secondary-subtle d-flex py-2 px-2 align-items-center rounded-end-3 fs-12 pointer-event-none'><FaChevronDown /></span>
+                                        </div>
+                                        <div className='multiple-affected-url'>
+                                            {affectedUrl.map((item, index) => (
+                                                <div className='with-icon-select position-relative mb-2' key={index}>
+                                                    <input class='w-100 form-control' placeholder='Affected job URL or prompt'/>
+                                                    <span className='position-absolute end-0 top-0 h-100 w-auto bg-secondary-subtle d-flex py-2 px-2 align-items-center rounded-end-3 fs-12'><FaTrash onClick={()=>remove(index)}/></span>
+                                                </div>
+                                            ))}
+                                            <div className='with-icon-select position-relative mb-2'>
+                                                <input class='w-100 form-control' placeholder='Affected job URL or prompt'/>
+                                                <span className='position-absolute end-0 top-0 h-100 w-auto bg-secondary-subtle d-flex py-2 px-2 align-items-center rounded-end-3 fs-12'><FaPlus onClick={add}/></span>
+                                            </div>
+                                            <div className='attachment-image form-control position-relative cursor-pointer text-center fs-14 mb-2'>
+                                                <input type='file' className='opacity-0 position-absolute w-100 start-0 top-0 h-100'/>
+                                                <p>
+                                                    <span></span>
+                                                    <span>Attach Images</span>
+                                                </p>
+                                            </div>
+                                            <button className='form-control bg-dark text-white text-center disabled opacity-50'>Send Report</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='col-md-6'>
+                                <div className='help-common-box border rounded-4 p-4 mt-5'>
+                                    <h6 className='fw-600 mb-2'>Server Status</h6>
+                                    <p className='fs-14 mb-3'>This is a dashboard showing you the status of our service so you can tell if there is a known service related issue.</p>
+                                    <div className='status-header mb-3 bg-green-badge d-flex align-items-center justify-content-between py-1 rounded-2 px-2 fs-14'>
+                                        <span>System Status</span>
+                                        <span><FaCheck /></span>
+                                    </div>
+                                    <div className='status-body'>
+                                        <div className='py-1 px-3 d-flex justify-content-between align-items-center fs-14'>
+                                            <span>Image Generation</span>
+                                            <span className='flex-1 border-doted mx-2'></span>
+                                            <span>Ok</span>
+                                        </div>
+                                        <div className='py-1 px-3 d-flex justify-content-between align-items-center fs-14'>
+                                            <span>Job Submissions</span>
+                                            <span className='flex-1 border-doted mx-2'></span>
+                                            <span>Ok</span>
+                                        </div>
+                                        <div className='py-1 px-3 d-flex justify-content-between align-items-center fs-14'>
+                                            <span>Discord Bot</span>
+                                            <span className='flex-1 border-doted mx-2'></span>
+                                            <span>Ok</span>
+                                        </div>
+                                        <div className='py-1 px-3 d-flex justify-content-between align-items-center fs-14'>
+                                            <span>Gallery</span>
+                                            <span className='flex-1 border-doted mx-2'></span>
+                                            <span>Ok</span>
+                                        </div>
+                                    </div>
+                                    <div className='status-header mt-3 mb-2 bg-green-badge d-flex align-items-center justify-content-between py-1 rounded-2 px-2 fs-14'>
+                                        <span>System Status</span>
+                                        <span><FaCheck /></span>
+                                    </div>
+                                    <div className='status-body'>
+                                        <div className='py-1 px-3 d-flex justify-content-between align-items-center fs-14'>
+                                            <span>Default Models</span>
+                                            <span className='flex-1 border-doted mx-2'></span>
+                                            <span>Fast / Relax</span>
+                                        </div>
+                                        
+                                        <div className='py-1 px-3 d-flex justify-content-between align-items-center fs-14'>
+                                            <span>v6 Grids</span>
+                                            <span className='flex-1 border-doted mx-2'></span>
+                                            <span>3s / 23s</span>
+                                        </div>
+                                        <div className='py-1 px-3 d-flex justify-content-between align-items-center fs-14'>
+                                            <span>v6 Upscaler</span>
+                                            <span className='flex-1 border-doted mx-2'></span>
+                                            <span>Ok</span>
+                                        </div>
+                                        <div className='py-1 px-3 d-flex justify-content-between align-items-center fs-14'>
+                                            <span>Niji v6 Grids</span>
+                                            <span className='flex-1 border-doted mx-2'></span>
+                                            <span>Ok</span>
+                                        </div>
+                                        <div className='py-1 px-3 d-flex justify-content-between align-items-center fs-14'>
+                                            <span>Niji v6 Upscaler</span>
+                                            <span className='flex-1 border-doted mx-2'></span>
+                                            <span>Ok</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div> */}
+                    </div>
                 </div>
                 <div className='right-panel'></div>
             </div>
