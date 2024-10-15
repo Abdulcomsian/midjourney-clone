@@ -139,6 +139,26 @@ input:focus,select:focus,button:focus {
 .w-fit-content{
 	width: fit-content;
 }
+.multi-language-dropdown .ReactFlagsSelect-module_selectBtn__19wW7{
+	font-size: 16px;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+	padding: 0;
+	justify-content: center;
+	font-size: 1rem !important;
+}
+.multi-language-dropdown .ReactFlagsSelect-module_selectBtn__19wW7::after{
+	content: none !important;
+}
+.multi-language-dropdown .ReactFlagsSelect-module_selectOptions__3LNBJ{
+	padding: 0 24px 0 12px !important;
+	list-style: none;
+	max-height: 250px;
+}
+.packages-tab li button{
+	border: none;
+}
 /* .close-modal-button .btn-close:hover{
 	background-color: hsl(225 10% 70%/0.3);
 	width: 2rem;
@@ -241,7 +261,6 @@ header {
 	left: 235px;
 	top: 0;
 	transform: translate(0, 0%);
-	/* background: #fcfcfd; */
 	height: 96px;
 	z-index: 9;
 	display: flex;
