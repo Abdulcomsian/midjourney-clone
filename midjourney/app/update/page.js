@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import BootamNav from '../component/bottom-nav/bottom-nav'
 
@@ -7,7 +6,7 @@ function Update (){
         <>
         <div className="content-wrapper">
             <div className="update-wrapper m-auto">
-                <h1 className="text-center fw-bold main-heading">Latest Updates</h1>
+                <h1 className="text-center fw-bold">Latest Updates</h1>
                 <div className="tab-panel">
                 <div className="tab-content pt-5" id="pills-tabContent">
                     <div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">

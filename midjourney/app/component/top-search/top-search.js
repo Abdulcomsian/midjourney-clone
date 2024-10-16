@@ -1,7 +1,7 @@
 import React,{useState} from "react";
 import ReactFlagsSelect from "react-flags-select";
 
-function TopSearch({showCreativeModal}) {
+function TopSearch(params) {
     const [selected, setSelected] = useState("");
 
     return(
@@ -10,7 +10,7 @@ function TopSearch({showCreativeModal}) {
                 <div className="row">
                     <div className="col-12">
                         <div className="d-flex gap-2 align-items-center">
-                            <div className="search-bar py-3 px-4 w-100" onClick={showCreativeModal}>
+                            <div className="search-bar py-3 px-4 w-100">
                                 <form>
                                     <div className="upload-file d-flex justify-content-between align-items-center position-relative gap-3">
                                         <input type="file"/>

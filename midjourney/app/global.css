@@ -72,9 +72,6 @@ ul {
 	padding: 0 !important;
 	margin: 0 !important;
 }
-input,select{
-	background: transparent;
-}
 .flex-1 {
 	flex: 1 1 0%;
 }
@@ -171,129 +168,6 @@ input:focus,select:focus,button:focus {
  .pointer-event-none{
 	pointer-events: none;
  }
- /*---------------------------
-	  Dark Mode Styling
-  ----------------------------*/
-  body.dark-mode,
-  body.dark-mode .popover-body{
-	background-color: hsl(225deg 13% 4%) !important;
-  }
-  body.dark-mode .modal .modal-content{
-	background-color: hsl(225deg 12% 14%/1)
-  }
-  body.dark-mode .modal .modal-content button.bg-dark{
-	background-color: var(--white-color) !important;
-	color: var(--dark-color);
-  }
-  body.dark-mode .modal .modal-content button.bg-transparent{
-	border-color: var(--white-color) !important;
-	color: var(--white-color) !important;
-  }
-  body.dark-mode .popover-body,body.dark-mode .modal{
-	background-color: hsl(225 10% 30%/0.7);
-	color: var(--white-color);
-  }
-  body.dark-mode header .search-bar,
-  body.dark-mode header .multi-language-dropdown .ReactFlagsSelect-module_selectBtn__19wW7{
-	background-color: hsl(225deg 11% 13%/1);
-	border: none;
-	color: var(--white-color);
-  }
-  body.dark-mode header .search-bar svg{
-	color: hsl(225deg 13% 93%/var(--tw-text-opacity))
-  }
-  body.dark-mode .sidebar {
-	border-color: rgba(31, 34, 40, .3);
-    border-right-width: 1px;
-    border-right-style: solid;
-  }
-  body.dark-mode .sidebar ul li a,
-  body.dark-mode .sidebar .logo a,
-  body.dark-mode .popover-body ul li a,
-  body.dark-mode .content-wrapper .image-detail-wrapper .detail-right-container .img-data,
-  body.dark-mode .main-heading,
-  body.dark-mode .subscription-wrapper .packages-tab .nav-link,
-  body.dark-mode .subscription-wrapper .packages .package-box a,
-  body.dark-mode .frequently-question h2,
-  body.dark-mode .resources,
-  body.dark-mode .content-wrapper .update-wrapper,
-  body.dark-mode .content-wrapper .update-wrapper h3,
-  body.dark-mode .content-wrapper .profile-section{
-	color: var(--white-color) !important;
-  }
-  body.dark-mode .line,body.dark-mode .shape {
-	border-color: hsl(225deg 10% 29% / 1) !important;
-  }
-  body.dark-mode .shape{
-	background-color: transparent !important;
-  }
-  body.dark-mode .help-common-box{
-    background-color: hsl(225deg 14% 10% / 1);
-    border-color: hsl(225deg 10% 29% / 1) !important;
-	color: hsl(225deg 10% 50%/1);
-  }
-  body.dark-mode .help-common-box textarea, body.dark-mode .help-common-box select, body.dark-mode .help-common-box input{
-	background-color: hsl(225deg 10% 18%/1) !important;
-	color: hsl(225deg 10% 50%/1) !important;
-  }
-  body.dark-mode .help-common-box .attachment-image{
-	background-color: hsl(225deg 10% 18%/1) !important;
-	color: var(--white-color) !important;
-  }
-  body.dark-mode .bg-green-badge{
-	background-color: rgba(4,120,87,.1);
-  }
-  body.dark-mode .main-heading + p,body.dark-mode .frequently-question h2 + p,body.dark-mode .frequently-question h2 + p + p{
-	color: hsl(225deg 10% 50%/1);
-  }
-  body.dark-mode .link-your-account{
-	border-color: var(--active-nav-color) !important;
-	background-color: rgba(242,51,13,.1);
-	color: var(--white-color);
-  }
-  body.dark-mode .subscription-wrapper .packages-tab{
-	padding: 0 !important;
-	border: none !important;
-	background-color: hsl(225deg 12% 14%/1);
-  }
-  body.dark-mode .subscription-wrapper .packages .package-box{
-	background-color: hsl(228deg 12% 8%/1);
-	border-color: hsl(225deg 12% 14% / 1) !important;
-	color: var(--white-color);
-  }
-  body.dark-mode .subscription-wrapper .packages .package-box button{
-	background-color: hsl(225deg 10% 29% / 1) !important;
-    border: none !important;
-  }
-  body.dark-mode .sidebar ul li a.active{
-	color: var(--active-nav-color) !important;
-  }
-  body.dark-mode .subscription-wrapper .packages-tab .nav-link{
-	border: none !important;
-  }
-  body.dark-mode .subscription-wrapper .packages-tab .nav-link.active{
-	background-color: var(--white-color) !important;
-	color: var(--dark-color) !important;
-  }
-  body.dark-mode .popover-body{
-	border-radius: 6px;
-    border-color: hsl(225deg 10% 29% / 1);
-    border-width: 1px;
-    border-style: solid;
-  }
-  body.dark-mode .content-wrapper .image-detail-wrapper .detail-left-container,body.dark-mode .content-wrapper .image-detail-wrapper .detail-right-container{
-	background-color: hsl(225deg 13% 4%/1);
-  }
-  body.dark-mode .content-wrapper .image-detail-wrapper .detail-right-container{
-	border-color: rgba(31, 34, 40, .3);
-    border-left-width: 1px;
-    border-left-style: solid;
-  }
-  body.dark-mode  .subscription-wrapper .accordion .accordion-item, 
-  body.dark-mode  .subscription-wrapper .accordion .accordion-item .accordion-header .accordion-button{
-	background-color: hsl(225deg 14% 10% / 1);
-    color: var(--white-color);
-  }
 /*---------------------------
 	  Sidebar Styling
   ----------------------------*/
@@ -347,7 +221,6 @@ input:focus,select:focus,button:focus {
 .bottom-mobile-nav {
 	display: none;
 	z-index: 9;
-	left: 0;
 	position: fixed;
 	width: 100%;
 	bottom: 0;
@@ -477,9 +350,6 @@ main {
 	left: 0;
 	top: 0;
 	--tw-bg-opacity: 1;
-	overflow: auto;
-	-ms-overflow-style: none;  /* IE and Edge */
-	scrollbar-width: none;  /* Firefox */
 	background-color: hsl(225 10% 97% / var(--tw-bg-opacity));
 }
 .image-wrapper .img-container img {
@@ -636,7 +506,7 @@ main {
 }
 .subscription-wrapper .accordion{
 	max-width: 72rem;
-    margin: auto 3rem;
+    margin: auto;
 }
 
 .subscription-wrapper .accordion .accordion-item,.subscription-wrapper .accordion .accordion-item .accordion-header .accordion-button{
@@ -723,27 +593,6 @@ main {
   .auth-modal{
 	background-color: hsl(225 10% 95% / 0.9);
   }
-
-
-  .creative-modal .modal-left-side{
-	background-image: url('../public/assets/img/modal-img.png');
-	flex-basis: 43%;
-	background-size: cover;
-  }
-  .creative-modal .modal-right-side{
-	flex-basis: 55%;
-	padding: 2rem;
-  }
-  .creative-modal h2{
-	font-size: 2.2rem;
-	font-weight: 600;
-  }
-  .creative-modal p{
-	font-size: 1rem;
-  }
-  .creative-modal h4{
-	font-weight: 600;
-  }
 /*---------------------------
 	  Media Screen Styling
   ----------------------------*/
@@ -819,15 +668,6 @@ main {
 	
 }
 @media only screen and (max-width: 640px) {
-	.creative-modal .modal-left-side{
-		display: none;
-	  }
-	  .creative-modal .modal-right-side{
-		flex-basis: 100%;
-	  }
-	  .creative-modal .modal-dialog{
-		max-width: initial !important;
-	  }
 	.content-wrapper .gallery-wrapper {
 		column-count: 2;
 	}
@@ -855,11 +695,8 @@ main {
 	main {
 		margin: 0;
 	}
-	.content-wrapper header,.multi-language-dropdown {
+	.content-wrapper header {
 		display: none !important;
-	}
-	.content-wrapper .bottom-mobile-nav header{
-		display: block !important;
 	}
 }
 @media only screen and (min-width: 576px) {
