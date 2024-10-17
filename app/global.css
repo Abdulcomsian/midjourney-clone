@@ -175,7 +175,9 @@ input:focus,select:focus,button:focus {
 	  Dark Mode Styling
   ----------------------------*/
   body.dark-mode,
-  body.dark-mode .popover-body{
+  body.dark-mode .popover-body,
+  body.dark-mode .content-wrapper .image-detail-wrapper .detail-left-container,
+  body.dark-mode .content-wrapper .image-detail-wrapper .detail-right-container{
 	background-color: hsl(225deg 13% 4%) !important;
   }
   body.dark-mode .modal .modal-content{
@@ -592,6 +594,28 @@ main {
     --tw-text-opacity: 1;
     background: #fff;
   }
+  .content-wrapper .update-wrapper .update-tab{
+    justify-content: center;
+    margin: 70px auto !important;
+  }
+  .content-wrapper .update-wrapper .update-tab li,  .content-wrapper .update-wrapper .update-tab li button, .content-wrapper .update-wrapper .update-tab{
+    border: none;
+    font-size: var(--medium-font);
+    flex-basis: auto;
+    flex-grow: 0;
+  }
+  .content-wrapper .update-wrapper .update-tab li button{
+    color: var(--dark-color);
+    opacity: .6;
+  }
+  .content-wrapper .update-wrapper .update-tab li button.active{
+    opacity: 1;
+  }
+  .content-wrapper .update-wrapper .setting-popover{
+    position: absolute;
+    right: 5.5%;
+    top: 5.5%;
+  }
   /*---------------------------
   Packages Wrapper Styling
   ----------------------------*/
@@ -636,9 +660,8 @@ main {
 }
 .subscription-wrapper .accordion{
 	max-width: 72rem;
-    margin: auto 3rem;
+  margin: auto;
 }
-
 .subscription-wrapper .accordion .accordion-item,.subscription-wrapper .accordion .accordion-item .accordion-header .accordion-button{
 	--tw-bg-opacity: 1;
     background-color: hsl(225 10% 95% / var(--tw-bg-opacity));
@@ -704,7 +727,6 @@ main {
   Help Wrapper Styling
   ----------------------------*/
   .help-section{
-	max-width: 1200px;
 	height: 100vh;
 	overflow: auto;
 	-ms-overflow-style: none;  /* IE and Edge */
@@ -791,15 +813,65 @@ main {
 		column-count: 3;
 	}
 }
+@media only screen and (max-width: 860px) {
+	.image-detail-wrapper .detail-left-container{
+	  background-color: #000;
+	}
+	.image-detail-wrapper .detail-left-container,
+	.image-detail-wrapper .detail-right-container{
+	  width: 100%;
+	}
+	.image-detail-wrapper .detail-right-container{
+	  position: absolute;
+	  top: 0;
+	  background-color: transparent;
+	  overflow: hidden;
+	}
+	.image-detail-wrapper .detail-right-container .rts___tabs___container{
+	  right: 0px;
+	  height: auto;
+	  overflow: auto;
+	  left: 8px;
+	  width: 100%;
+	}
+	.img-data{
+	  top: initial;
+	  bottom: 0;
+	  color: #fff;
+	}
+	.image-detail-wrapper .detail-right-container .rts___tabs___container .rts___tabs.hide___rts___tabs___scroll{
+	  flex-direction: row;
+	}
+	.image-detail-wrapper{
+	  display: block;
+	}
+	.image-detail-wrapper .detail-left-container .img-container img{
+	  height: 300px;
+	}
+	.image-detail-wrapper .detail-right-container .rts___tab .tab-img img{
+	  width: 28px;
+	  height: 28px;
+	}
+	.image-detail-wrapper .detail-right-container .img-data{
+	  top: initial;
+	  bottom: 10px;
+	  color: var(--white-color);
+	}
+  }
 @media only screen and (max-width: 768px) {
+	.content-wrapper .update-wrapper .update-tab{
+		width: 100% !important;
+		margin: 50px auto !important;
+	  }
 	header {
 		display: none;
 	}
 	main {
 		margin-top: 1%;
 	}
-}
-@media only screen and (max-width: 768px) {
+	.help-section .resources .multiple-resources{
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	  }
 	.content-wrapper .update-wrapper .main-panel{
 		display: block !important;
 	}
@@ -819,6 +891,19 @@ main {
 	
 }
 @media only screen and (max-width: 640px) {
+	.help-section .resources .multiple-resources{
+		grid-template-columns: repeat(1, minmax(0, 1fr));
+	  }
+	.subscription-wrapper .link-your-account{
+		display: block !important;
+		text-align: center;
+	  }
+	.image-detail-wrapper .detail-right-container .img-data{
+		bottom: 170px;
+	  }
+	  .image-detail-wrapper .detail-left-container .img-container img{
+		top: 40%;
+	  }
 	.creative-modal .modal-left-side{
 		display: none;
 	  }
@@ -870,3 +955,13 @@ main {
 		border-radius: 1rem;
 	}
 }
+
+@media only screen and (max-width: 576px) {
+	.content-wrapper .update-wrapper .setting-popover{
+	  top: 0;
+	  right: 0;
+	}
+	.content-wrapper .update-wrapper .setting-popover svg{
+	  width: 22px;
+	}
+  }
