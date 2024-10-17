@@ -35,7 +35,6 @@ export default function RootLayout({ children }) {
 					<Sidebar showModal={handleShow} darkModeHandle={darkMode}/>
 					{children}
 					<AuthModal showModal={show} handleCloseAuthModal={handleClose}/>
-					
 				</div>
 			</body>
 		</html>

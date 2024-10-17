@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import DetailImage from './gallery-image-detail/detail-image'
+import BottomNav from '../bottom-nav/bottom-nav'
 
 const images = [
 	{ src: 'assets/img/img-1.png', slug: 'skull.with.hair' },
@@ -39,8 +40,10 @@ function MainGallery() {
 	const [imageDetail, setImageDetail] = useState(true)
 	
 	return (
+		<>
 		<main>
 			{imageDetail ? (
+				<>
 				<div className="gallery-grid-wrapper">
 					<div className="gallery-wrapper">
 						{images.map((item) => (
@@ -57,10 +60,14 @@ function MainGallery() {
 						<h6>log in to see more</h6>
 					</div>
 				</div>
+				<BottomNav />
+				</>
 			) : (
 				<DetailImage/>
 			)}
 		</main>
+		  
+		</>
 	)
 }
 export default MainGallery

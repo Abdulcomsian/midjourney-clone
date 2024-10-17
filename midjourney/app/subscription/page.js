@@ -11,9 +11,9 @@ function Subscription (){
                 <h1 className='main-heading fw-bold text-center'>Purchase a subscription</h1>
                 <p className='text-center'>Choose the plan that works for you</p>
                 <div className='align-items-center border d-flex gap-2 justify-content-around m-auto rounded-3 w-fit-content p-2 mt-4'>
-                    <p class="text-base">Already have a subscription?</p>
+                    <p className="text-base">Already have a subscription?</p>
                     <a className="text-danger d-inline-flex align-items-center gap-2">
-                        <span><svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" class="size-5 inline text-splash/90 mr-1 "><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg></span>
+                        <span><svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" className="size-5 inline text-splash/90 mr-1 "><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg></span>
                         <span>Link your accounts</span>    
                     </a>
                 </div>
@@ -35,23 +35,23 @@ function Subscription (){
                                         <a className='d-block text-center d-block text-dark text-decoration-none'><span>View monthly billing</span></a>
                                         <ul className='offer-list list-unstyled py-5'>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>Limited generations (~200 / month)</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>General commercial terms</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>Access to member gallery</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>Optional credit top ups</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>3 concurrent fast jobs</span>
                                             </li>
                                         </ul>
@@ -70,23 +70,23 @@ function Subscription (){
                                         <a className='d-block text-center d-block text-dark text-decoration-none'><span>View monthly billing</span></a>
                                         <ul className='offer-list list-unstyled py-5'>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>Limited generations (~200 / month)</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>General commercial terms</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>Access to member gallery</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>Optional credit top ups</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>3 concurrent fast jobs</span>
                                             </li>
                                         </ul>
@@ -105,23 +105,23 @@ function Subscription (){
                                         <a className='d-block text-center d-block text-dark text-decoration-none'><span>View monthly billing</span></a>
                                         <ul className='offer-list list-unstyled py-5'>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>Limited generations (~200 / month)</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>General commercial terms</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>Access to member gallery</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>Optional credit top ups</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>3 concurrent fast jobs</span>
                                             </li>
                                         </ul>
@@ -140,23 +140,23 @@ function Subscription (){
                                         <a className='d-block text-center d-block text-dark text-decoration-none'><span>View monthly billing</span></a>
                                         <ul className='offer-list list-unstyled py-5'>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>Limited generations (~200 / month)</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>General commercial terms</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>Access to member gallery</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>Optional credit top ups</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>3 concurrent fast jobs</span>
                                             </li>
                                         </ul>
@@ -183,23 +183,23 @@ function Subscription (){
                                         <a className='d-block text-center d-block text-dark text-decoration-none'><span>View monthly billing</span></a>
                                         <ul className='offer-list list-unstyled py-5'>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>Limited generations (~200 / month)</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>General commercial terms</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>Access to member gallery</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>Optional credit top ups</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>3 concurrent fast jobs</span>
                                             </li>
                                         </ul>
@@ -218,23 +218,23 @@ function Subscription (){
                                         <a className='d-block text-center d-block text-dark text-decoration-none'><span>View monthly billing</span></a>
                                         <ul className='offer-list list-unstyled py-5'>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>Limited generations (~200 / month)</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>General commercial terms</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>Access to member gallery</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>Optional credit top ups</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>3 concurrent fast jobs</span>
                                             </li>
                                         </ul>
@@ -253,23 +253,23 @@ function Subscription (){
                                         <a className='d-block text-center d-block text-dark text-decoration-none'><span>View monthly billing</span></a>
                                         <ul className='offer-list list-unstyled py-5'>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>Limited generations (~200 / month)</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>General commercial terms</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>Access to member gallery</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>Optional credit top ups</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>3 concurrent fast jobs</span>
                                             </li>
                                         </ul>
@@ -288,23 +288,23 @@ function Subscription (){
                                         <a className='d-block text-center d-block text-dark text-decoration-none'><span>View monthly billing</span></a>
                                         <ul className='offer-list list-unstyled py-5'>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>Limited generations (~200 / month)</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>General commercial terms</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>Access to member gallery</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>Optional credit top ups</span>
                                             </li>
                                             <li className='d-flex align-items-center gap-2 py-1'>
-                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" class=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
+                                                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
                                                 <span>3 concurrent fast jobs</span>
                                             </li>
                                         </ul>
