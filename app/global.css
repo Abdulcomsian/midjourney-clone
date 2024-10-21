@@ -120,6 +120,15 @@ input:focus,select:focus,button:focus {
 .fs-16{
 	font-size: var(--large-font);
 }
+.h-90-vh{
+	height: 90vh;
+ }
+ .bg-btn-primary{
+	background: var(--active-nav-bg);
+ }
+ .text-clr-primary{
+	color: var(--active-nav-color);
+ }
 .bg-green-badge{
 	background-color: var(--room-green-badge);
 	color: var(--room-green-text);
@@ -220,13 +229,27 @@ input:focus,select:focus,button:focus {
   body.dark-mode .resources,
   body.dark-mode .content-wrapper .update-wrapper,
   body.dark-mode .content-wrapper .update-wrapper h3,
-  body.dark-mode .content-wrapper .profile-section{
+  body.dark-mode .content-wrapper .profile-section,
+  body.dark-mode  main .filter-bar ul li button,
+  body.dark-mode .content-wrapper .update-wrapper .update-tab li button,
+  body.dark-mode .create-image h4,
+  body.dark-mode .create-image .label-with-options,
+  body.dark-mode .create-image button,
+  body.dark-mode .create-image select{
 	color: var(--white-color) !important;
   }
-  body.dark-mode .line,body.dark-mode .shape {
+  body.dark-mode .line,body.dark-mode .shape,
+  body.dark-mode .create-image .create-image-panel,
+  body.dark-mode .create-image .create-image-right-panel,
+  body.dark-mode .create-image button,
+  body.dark-mode .create-image .btn-group {
 	border-color: hsl(225deg 10% 29% / 1) !important;
   }
-  body.dark-mode .shape{
+  body.dark-mode .custom-icon svg g ,  body.dark-mode .custom-icon svg path{
+	fill: var(--white-color);
+  }
+  body.dark-mode .shape,
+  body.dark-mode .content-wrapper .update-wrapper .update-tab li button{
 	background-color: transparent !important;
   }
   body.dark-mode .help-common-box{
@@ -295,6 +318,12 @@ input:focus,select:focus,button:focus {
   body.dark-mode  .subscription-wrapper .accordion .accordion-item .accordion-header .accordion-button{
 	background-color: hsl(225deg 14% 10% / 1);
     color: var(--white-color);
+  }
+  body.dark-mode .create-image svg path{
+	fill: var(--white-color);
+  }
+  body.dark-mode .create-image .label-with-options button.active{
+	color: var(--active-nav-color) !important;
   }
 /*---------------------------
 	  Sidebar Styling
@@ -381,6 +410,27 @@ input:focus,select:focus,button:focus {
 .bottom-mobile-nav ul li a.active {
 	color: var(--active-nav-color);
 }
+.bottom-mobile-nav .bottom-menu{
+	width: 100%;
+    height: 100%;
+    background: var(--white-color);
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+    opacity: .95;
+}
+.bottom-menu ul{
+	position: absolute;
+	bottom: 90px;
+	left: 0;
+	padding: 1rem;
+}
+.bottom-mobile-nav ul li a {
+	font-size: var(--small-font);
+}
+.bottom-mobile-nav ul li a.active {
+	color: var(--active-nav-color);
+}
 /*---------------------------
 	  Header Styling
   ----------------------------*/
@@ -419,8 +469,23 @@ header .search-bar {
 /*---------------------------
 	  Main Styling
   ----------------------------*/
-main {
-	margin-top: 7%;
+  main {
+	margin-top: 4%;
+}
+main .filter-bar ul{
+	border: none;
+}
+main .filter-bar ul li button,main .filter-bar ul li{
+	width: auto !important;
+    background-color: transparent !important;
+    border: none !important;
+	flex-grow: 0 !important;
+	color: var(--dark-color);
+	opacity: 0.8;
+}
+main .filter-bar ul li button.active{
+	opacity: 1;
+	font-weight: 500;
 }
 /*---------------------------
 	  Gallery Wrapper Styling
@@ -767,6 +832,28 @@ main {
   .creative-modal h4{
 	font-weight: 600;
   }
+  /*---------------------------
+  Create Image Styling
+----------------------------*/
+.create-image-panel{
+	display: flex;
+}
+.create-image-panel .create-image-left-panel{
+	width: 70%;
+}
+.create-image-panel .create-image-left-panel .multiple-options ul li button{
+	min-width: 100px;
+}
+.create-image-panel .create-image-right-panel{
+	width: 30%;
+}
+.create-image-panel .create-image-right-panel .mid-content .btn-group button,.create-image-panel .create-image-right-panel .mid-content .btn-group select,.create-image-panel .create-image-right-panel .mid-content label{
+	font-size: var(--medium-font);
+}
+.create-image-panel .create-image-right-panel .mid-content .btn-group button.active{
+	background-color: var(--active-nav-bg) !important;
+	color: var(--active-nav-color);
+}
 /*---------------------------
 	  Media Screen Styling
   ----------------------------*/

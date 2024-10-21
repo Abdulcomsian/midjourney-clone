@@ -16,7 +16,7 @@ function MainWrapper(params) {
         <div className='content-wrapper p-4 position-relative'>
             <TopSearch showCreativeModal={handleShowCreative}/>
             <MainGallery/>
-          
+            <BottomNav/>
             <CreativeModal creativeModal={showCreativeModal} handleCloseCreativeModal={handleCloseCreative}/>
         </div>
     )

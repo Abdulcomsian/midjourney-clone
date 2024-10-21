@@ -5,6 +5,7 @@ import Subscription from './subscription/page';
 import Help from './help/page';
 import Update from './update/page';
 import ManageProfile from './manage-profile/page';
+import CreateImage from './create-image/page';
 
 export default function Page() {
 	return (
@@ -16,6 +17,7 @@ export default function Page() {
 						<Route path='/help' element={<Help />} />
 						<Route path='/update' element={<Update />} />
 						<Route path='/manage-profile' element={<ManageProfile />} />
+						<Route path='/create-image' element={<CreateImage />} />
 					</Routes>
 			</BrowserRouter>
 		</>

@@ -27,9 +27,11 @@ function CreativeModal ({creativeModal,handleCloseCreativeModal}) {
                 <p>Memberships start at $10/mo with a 20% discount on yearly plans</p>
             </div>
             <div className="btn-group flex-column gap-2 w-100 mt-3">
-            <Button variant="secondary" className="rounded py-2 bg-dark" onClick={handleCloseCreativeModal}>
-                Join now
-            </Button>
+            <a href='/create-image' className='w-100'>
+                <Button variant="secondary" className="rounded py-2 bg-dark w-100" onClick={handleCloseCreativeModal}>
+                    Join now
+                </Button>
+            </a>
             <Button variant="primary" className="rounded py-2 bg-transparent border-1 border-dark text-dark">Look around a bit</Button>
             </div>
         </div>

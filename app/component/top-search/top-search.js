@@ -2,7 +2,7 @@ import React,{useState} from "react";
 import ReactFlagsSelect from "react-flags-select";
 
 function TopSearch({showCreativeModal}) {
-    const [selected, setSelected] = useState("");
+    const [selected, setSelected] = useState("GB");
 
     return(
         <header>
@@ -28,8 +28,7 @@ function TopSearch({showCreativeModal}) {
                                 <ReactFlagsSelect
                                     selected={selected}
                                     onSelect={(code) => setSelected(code)}
-                                    countries={["SO", "KE", "DJ", "TZ", "UG", "NG", "GH", "SA", "ZM", "ZI", "MW", "SA", "MY", "IN"]}
-                                    placeholder="LN"
+                                    countries={["SO", "KE", "DJ", "TZ", "UG", "NG", "GH", "SA", "ZM", "ZI", "MW", "SA", "MY", "IN", "GB"]}
                                     showSelectedLabel={false}
                                     showSecondarySelectedLabel={false}
                                     showOptionLabel={false}
