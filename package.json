@@ -28,12 +28,7 @@
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
 	},
-	"eslintConfig": {
-		"extends": [
-			"react-app",
-			"react-app/jest"
-		]
-	},
+	
 	"browserslist": {
 		"production": [
 			">0.2%",
@@ -46,8 +41,6 @@
 			"last 1 safari version"
 		]
 	},
-	"packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610",
-	"devDependencies": {
-		"react-router-dom": "^6.27.0"
-	}
+	"packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
+	
 }

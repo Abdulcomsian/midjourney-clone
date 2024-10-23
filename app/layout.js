@@ -1,5 +1,5 @@
 // /app/layout.js
-"use client";
+'use client'
 import React, {useEffect , useState} from 'react'
 import Sidebar from './component/sidebar/sidebar'
 import AuthModal from './component/auth-modal/page'

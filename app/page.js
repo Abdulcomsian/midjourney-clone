@@ -1,16 +1,12 @@
 "use client";
 import MainWrapper from './component/main/main'
-import { BrowserRouter, Routes, Route, Router } from "react-router-dom"
-import Subscription from './subscription/page';
-import Help from './help/page';
-import Update from './update/page';
-import ManageProfile from './manage-profile/page';
-import CreateImage from './create-image/page';
+
 
 export default function Page() {
 	return (
 		<>
-			<BrowserRouter>
+		<MainWrapper/>
+			{/* <BrowserRouter>
 					<Routes>
 						<Route index element={<MainWrapper />}/>
 						<Route path='/subscription' element={<Subscription />} />
@@ -19,7 +15,7 @@ export default function Page() {
 						<Route path='/manage-profile' element={<ManageProfile />} />
 						<Route path='/create-image' element={<CreateImage />} />
 					</Routes>
-			</BrowserRouter>
+			</BrowserRouter> */}
 		</>
 	)
 }
