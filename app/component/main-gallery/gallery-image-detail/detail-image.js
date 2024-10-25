@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from 'react';
 import { Tabs, Tab, TabScreen } from 'react-tabs-scrollable'
 import 'react-tabs-scrollable/dist/rts.css'

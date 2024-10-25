@@ -1,9 +1,10 @@
-import React,{useState} from "react";
+'use client'
+import React, { useState } from "react";
 import TopSearch from "../top-search/top-search";
 
 function BottomNav(params) {
     const [showMenu, setShowmenu] = useState(false)
-    return(
+    return (
         <div className="bottom-mobile-nav">
             {showMenu ? (
                 <div className="bottom-menu">
@@ -20,33 +21,33 @@ function BottomNav(params) {
                         </li>
                         <li className="flex-1">
                             <button className="w-100 border py-2 bg-transparent rounded-1 text-start opacity-75">
-                            <a href='/help' className='d-flex align-items-center gap-2 p-2 rounded-5 fs-6'>
-                                <span className='icon'>
+                                <a href='/help' className='d-flex align-items-center gap-2 p-2 rounded-5 fs-6'>
+                                    <span className='icon'>
                                         <svg height="22" class="inline-block " width="22" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1" xmlns="http://www.w3.org/2000/svg"><g id="CircleQuestion"><path fill-rule="evenodd" clip-rule="evenodd" d="M1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1C5.92487 1 1 5.92487 1 12ZM21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12ZM12.0003 16.9983C12.5528 16.9983 13.0007 16.5506 13.0007 15.9983C13.0007 15.4461 12.5528 14.9983 12.0003 14.9983C11.4479 14.9983 11 15.4461 11 15.9983C11 16.5506 11.4479 16.9983 12.0003 16.9983ZM11 14H13C13 13.2016 13.1254 13.0553 13.9472 12.6444C15.3754 11.9303 16 11.2016 16 9.5C16 7.32063 14.2843 6 12 6C9.79086 6 8 7.79086 8 10H10C10 8.89543 10.8954 8 12 8C13.2772 8 14 8.55641 14 9.5C14 10.2984 13.8746 10.4447 13.0528 10.8556C11.6246 11.5697 11 12.2984 11 14Z"></path></g></svg>
                                     </span>
-                                <span>FAQ's</span>
-                            </a>
+                                    <span>FAQ's</span>
+                                </a>
                             </button>
                         </li>
                     </ul>
                 </div>
             ) : (
-                <TopSearch/>
+                <TopSearch />
             )}
-            
-            
+
+
             <ul className="d-flex justify-content-between list-unstyled p-3 position-fixed bottom-0 w-100">
                 <li className="grow flex-1">
-                    <a className="d-flex flex-column justify-content-center align-items-center text-decoration-none" onClick={()=>setShowmenu(!showMenu)}>
-                    {!showMenu ? (
-                        <span className="icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" height="24"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-                        </span>
-                    ):(
-                        <span className="icon">
-                            <svg version="1.0" xmlns="http://www.w3.org/2000/svg"  width="25px" height="25px" viewBox="0 0 50.000000 50.000000"  preserveAspectRatio="xMidYMid meet">  <g transform="translate(0.000000,50.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none"> <path d="M137 363 c-12 -12 -7 -21 37 -64 l51 -49 -51 -49 c-44 -43 -49 -52 -37 -64 12 -12 21 -7 63 37 l49 51 50 -49 c42 -41 52 -47 65 -37 13 11 8 20 -37 62 l-52 49 52 49 c45 42 50 51 37 62 -13 10 -23 4 -65 -37 l-50 -49 -49 51 c-42 44 -51 49 -63 37z"/> </g> </svg> 
-                        </span>
-                    )}
+                    <a className="d-flex flex-column justify-content-center align-items-center text-decoration-none" onClick={() => setShowmenu(!showMenu)}>
+                        {!showMenu ? (
+                            <span className="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" height="24"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+                            </span>
+                        ) : (
+                            <span className="icon">
+                                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" viewBox="0 0 50.000000 50.000000" preserveAspectRatio="xMidYMid meet">  <g transform="translate(0.000000,50.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none"> <path d="M137 363 c-12 -12 -7 -21 37 -64 l51 -49 -51 -49 c-44 -43 -49 -52 -37 -64 12 -12 21 -7 63 37 l49 51 50 -49 c42 -41 52 -47 65 -37 13 11 8 20 -37 62 l-52 49 52 49 c45 42 50 51 37 62 -13 10 -23 4 -65 -37 l-50 -49 -49 51 c-42 44 -51 49 -63 37z" /> </g> </svg>
+                            </span>
+                        )}
                         <span>Menu</span>
                     </a>
                 </li>
