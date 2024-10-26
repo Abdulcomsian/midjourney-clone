@@ -8,9 +8,9 @@ import AuthModal from './component/auth-modal/page'
 import './global.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import dynamic from 'next/dynamic'
-
+const BootstrapJS = dynamic(() => import('bootstrap/dist/js/bootstrap.bundle.min.js'), { ssr: false });
 export default function RootLayout({ children }) {
-  const BootstrapJS = dynamic(() => import('bootstrap/dist/js/bootstrap.bundle.min.js'), { ssr: false });
+
   useEffect(() => {
     BootstrapJS();
   }, []);
