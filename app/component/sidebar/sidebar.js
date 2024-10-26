@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
-import { toggleTheme } from '../../store/themeslice';
+
 function Sidebar({ showModal, darkModeHandle }) {
     // const [darkThemeMode, darkModeHandle] = useState(false);
 

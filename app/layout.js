@@ -4,8 +4,7 @@
 import React, { useEffect, useState } from 'react'
 import Sidebar from './component/sidebar/sidebar'
 import AuthModal from './component/auth-modal/page'
-import $ from 'jquery';
-import Popper from 'popper.js';
+
 import './global.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import dynamic from 'next/dynamic'

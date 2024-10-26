@@ -54,7 +54,7 @@ function DetailImage() {
 							</div>
 						</TabScreen>
 					))}
-					<div style={{ position: 'absolute', top: '13%', left: '95%', cursor: 'pointer' }} className="close-button" ><a href="/" className="text-decoration-none" style={{ color: 'GrayText' }}>
+					{/* <div style={{ position: 'absolute', top: '13%', left: '95%', cursor: 'pointer' }} className="close-button" ><a href="/" className="text-decoration-none" style={{ color: 'GrayText' }}>
 						<div
 							style={{
 								width: '30px',
@@ -79,7 +79,7 @@ function DetailImage() {
 								X
 							</p>
 						</div>
-					</a></div>
+					</a></div> */}
 				</div>
 			</div>
 			<div className="detail-right-container">

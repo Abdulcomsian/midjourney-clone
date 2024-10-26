@@ -549,14 +549,10 @@ main .filter-bar ul li button.active{
 	scrollbar-width: none;  /* Firefox */
 	background-color: hsl(225 10% 97% / var(--tw-bg-opacity));
 }
-.image-wrapper{
+/* .image-wrapper{
 	display: flex;
-}
-.close-button:hover p {
-	background-color: #f0f0f0; /* Change to your desired background color */
-	border-radius: 50%; /* Optional: makes the background rounded */
-	padding: 50px 50px; /* Optional: adds some padding to the X */
-  }
+} */
+
 .image-wrapper .img-container img {
 	border-width: 2px;
 	border-style: solid;
