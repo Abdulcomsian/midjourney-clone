@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import React from "react";
 import BootamNav from '../component/bottom-nav/bottom-nav';
 import {Tab, Tabs, OverlayTrigger, Popover, Accordion} from 'react-bootstrap';

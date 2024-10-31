@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import React, { useState } from 'react';
 import { FaChevronDown, FaPlus, FaTrash, FaCheck  } from "react-icons/fa";
 import $ from 'jquery';

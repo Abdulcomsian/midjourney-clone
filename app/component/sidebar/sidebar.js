@@ -1,9 +1,10 @@
+'use client'
 import React from 'react';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 
 
-function Sidebar({showModal,darkModeHandle}) {
+function Sidebar({showModal,darkModeHandle,userLogin}) {
     const popover = (
         <Popover id="popover-basic" rootClose="false">
           <Popover.Body className='p-1'>
@@ -162,22 +163,36 @@ function Sidebar({showModal,darkModeHandle}) {
                             </OverlayTrigger>
                             
                         </li>
-                        <li>
-                            <a className='d-flex align-items-center gap-2 p-2 rounded-5 un-active' onClick={showModal}>
-                                <span className='icon'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" height="22" width="22" class="aspect-square w-full shrink-0 rounded-full h-auto"><path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                </span>
-                                <span className='link-name d-block pe-4 text-center w-100'>Login</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a className='d-flex align-items-center gap-2 p-2 rounded-5 active ' onClick={showModal}>
-                                <span className='icon'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" height="22"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
-                                </span>
-                                <span className='link-name d-block pe-4 text-center w-100'>Sign Up</span>
-                            </a>
-                        </li>
+                        {userLogin ? (
+                            <>
+                            <li>
+                                <a className='d-flex align-items-center gap-2 p-2 rounded-5 un-active' onClick={()=>showModal('login')}>
+                                    <span className='icon'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" height="22" width="22" class="aspect-square w-full shrink-0 rounded-full h-auto"><path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    </span>
+                                    <span className='link-name d-block pe-4 text-center w-100'>Login</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a className='d-flex align-items-center gap-2 p-2 rounded-5 active ' onClick={()=>showModal('register')}>
+                                    <span className='icon'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" height="22"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                                    </span>
+                                    <span className='link-name d-block pe-4 text-center w-100'>Sign Up</span>
+                                </a>
+                            </li>
+                            </>
+                        ) : (
+                            <li>
+                                <a className='d-flex align-items-center gap-2 p-2 rounded-5 un-active'>
+                                    <span className='icon'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" height="22" width="22" class="aspect-square w-full shrink-0 rounded-full h-auto"><path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    </span>
+                                    <span className='link-name d-block pe-4 text-center w-100'>Logout</span>
+                                </a>
+                            </li>
+                        )}
+                        
                     </ul>
                 </div>
             </section>

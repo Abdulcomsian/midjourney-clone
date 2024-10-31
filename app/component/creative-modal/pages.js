@@ -1,6 +1,6 @@
-import React,{useState} from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+'use client'
+import React from 'react';
+import {Button ,Modal } from 'react-bootstrap';
 
 
 function CreativeModal ({creativeModal,handleCloseCreativeModal}) {

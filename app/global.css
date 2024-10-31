@@ -180,6 +180,10 @@ input:focus,select:focus,button:focus {
  .pointer-event-none{
 	pointer-events: none;
  }
+ .common-btn{
+	background-color: var(--active-nav-bg) !important;
+	color: var(--active-nav-color) !important;
+ }
  /*---------------------------
 	  Dark Mode Styling
   ----------------------------*/

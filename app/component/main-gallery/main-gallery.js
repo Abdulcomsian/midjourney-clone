@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import DetailImage from './gallery-image-detail/detail-image'
 import BottomNav from '../bottom-nav/bottom-nav'
-import {Tab, Tabs, Accordion} from 'react-bootstrap';
+import {Tab, Tabs} from 'react-bootstrap';
 
 const images = [
 	{ src: 'assets/img/img-1.png', slug: 'skull.with.hair' },
@@ -124,7 +124,6 @@ function MainGallery() {
 				<DetailImage/>
 			)}
 		</main>
-		  
 		</>
 	)
 }
