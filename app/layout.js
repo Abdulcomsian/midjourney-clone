@@ -1,65 +1,93 @@
 'use client'
-import React, { useEffect, useState } from 'react'
-import Sidebar from './component/sidebar/sidebar'
-import AuthModal from './component/auth-modal/page'
-import $ from 'jquery';
-import Popper from 'popper.js';
-import './global.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import dynamic from 'next/dynamic'
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import dynamic from 'next/dynamic';
+import React, { useEffect, useState } from 'react';
+import AuthModal from './component/auth-modal/page';
+import Sidebar from './component/sidebar/sidebar';
+import './global.css';
+import RegisterModal from './component/register-modal/page';
+import { Provider } from 'react-redux';
+import store from '../store/store';
 export default function RootLayout({ children }) {
   const BootstrapJS = dynamic(() => import('bootstrap/dist/js/bootstrap.bundle.min.js'), { ssr: false });
 
-  // State to manage dark theme mode and loading state
-  const [darkThemeMode, setDarkThemeMode] = useState(true);
-  const [show, setShow] = useState(false);
-  const [auth, setAuth] = useState(false);
-  const [isThemeReady, setIsThemeReady] = useState(false); // To prevent initial flicker
+  const [darkThemeMode, setDarkThemeMode] = useState(() => {
+    // Check if in the browser environment
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        return savedTheme === 'dark';
+      } else {
+        // Set default to dark mode if no theme is found
+        localStorage.setItem('theme', 'dark');
+        return true; // Default to dark mode
+      }
+    }
+    return true; // Fallback for server-side rendering
+  });
 
-  // Set dark or light mode based on user preference or system setting
+  const [show, setShow] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
+  const [auth, setAuth] = useState(false);
+  const [isThemeReady, setIsThemeReady] = useState(false);
+
   useEffect(() => {
     BootstrapJS();
 
-    // Check user's saved theme preference in localStorage
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      setDarkThemeMode(savedTheme === 'dark');
-    } else {
-      // Fallback to system preference if no theme is saved
-      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setDarkThemeMode(systemPrefersDark || true); // Default to dark mode
+    const updateTheme = () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        setDarkThemeMode(savedTheme === 'dark');
+      }
+    };
+
+    // Check if in the browser environment
+    if (typeof window !== 'undefined') {
+      // Initial theme setup
+      updateTheme();
+
+      // Add storage event listener for theme changes
+      window.addEventListener('storage', updateTheme);
     }
 
-    // Mark theme as ready to prevent initial flicker
+    // Mark theme as ready
     setIsThemeReady(true);
+
+    // Cleanup event listener on unmount
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('storage', updateTheme);
+      }
+    };
   }, []);
 
-  // Function to toggle dark/light mode
   const toggleTheme = () => {
-    const newTheme = !darkThemeMode ? 'dark' : 'light';
+    const newTheme = darkThemeMode ? 'light' : 'dark';
     setDarkThemeMode(!darkThemeMode);
-    // Save user preference in localStorage
     localStorage.setItem('theme', newTheme);
   };
 
   const handleClose = () => setShow(false);
-  const handleShow = () => auth ? setShow(false) : setShow(true);
+  const handleShow = () => (auth ? setShow(false) : setShow(true));
 
-  // Avoid rendering until the theme is ready
+  const handleRegisterClose = () => setShowRegister(false);
+  const handleRegisterShow = () => (auth ? setShowRegister(false) : setShowRegister(true));
+
   if (!isThemeReady) {
-    return null; // Or you can return a loader here
+    return null; // Or a loader
   }
 
   return (
     <html lang="en">
-      <body className={darkThemeMode ? 'dark-mode' : 'light-mode'}>
-        <div className="main-wrapper d-flex">
-          {/* Pass toggleTheme function to Sidebar to handle theme change */}
-          <Sidebar showModal={handleShow} darkModeHandle={toggleTheme} />
-          {children}
-          <AuthModal showModal={show} handleCloseAuthModal={handleClose} />
-        </div>
+      <body className={darkThemeMode ? 'dark-mode' : 'light-mode'} style={{ overflowY: 'auto', height: '100vh' }}>
+        <Provider store={store}>
+          <div className="main-wrapper d-flex" style={{ overflowY: 'auto', height: '100vh', width: '100%' }}>
+            <Sidebar showModal={handleShow} showRegisterModal={handleRegisterShow} darkModeHandle={toggleTheme} />
+            {children}
+            <AuthModal showModal={show} handleCloseAuthModal={handleClose} />
+            <RegisterModal showRegisterModal={showRegister} handleCloseRegisterModal={handleRegisterClose} />
+          </div>
+        </Provider>
       </body>
     </html>
   );
