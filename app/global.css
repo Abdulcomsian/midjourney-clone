@@ -751,6 +751,11 @@ main .filter-bar ul li button.active{
     margin: auto;
 
   }
+  .custom-input {
+	background-color: hsl(225deg 11% 13% / 1) !important;
+	color: lightgray !important;
+	padding: 3%;
+  }
   .chat-wrapper .tab-chat-content .chat-nav .main-child,
   .chat-wrapper .tab-chat-content .chat-nav-body .main-child{
 	min-width: 300px;

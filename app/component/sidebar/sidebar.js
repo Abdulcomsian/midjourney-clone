@@ -3,9 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../../features/auth/authSlice';
+import { useRouter } from 'next/navigation';
 function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
     const [darkThemeMode, setDarkThemeMode] = useState(false);
     const { user, token, isAuthenticated } = useSelector((state) => state.auth);
+    const router = useRouter();
     console.log("Isauthenticated", isAuthenticated);
 
     const dispatch = useDispatch();
@@ -23,6 +25,7 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
     }, []);
     const handleLogout = () => {
         dispatch(logout()); // Dispatch the logout action
+        router.push('/landing-page');
     };
     const popover = (
         <Popover id="popover-basic" rootClose="false">
@@ -87,7 +90,7 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
                                 <span className='icon'>
                                     <svg height="22" class="inline-block relative" width="22" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1" xmlns="http://www.w3.org/2000/svg"><g id="Compass"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12Z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M16.9471 7.05269C17.2149 7.32052 17.3085 7.71669 17.1887 8.07602L15.0687 14.436C14.9692 14.7346 14.7348 14.9689 14.4362 15.0685L8.07623 17.1885C7.7169 17.3083 7.32073 17.2147 7.0529 16.9469C6.78507 16.6791 6.69154 16.2829 6.81132 15.9236L8.93132 9.56356C9.03086 9.26496 9.26517 9.03064 9.56378 8.93111L15.9238 6.81111C16.2831 6.69133 16.6793 6.78485 16.9471 7.05269ZM10.6706 10.6704L9.34115 14.6587L13.3294 13.3292L14.6589 9.34093L10.6706 10.6704Z"></path></g></svg>
                                 </span>
-                                <span className='link-name'>Explore</span>
+                                <span className='link-name'>Discover</span>
                             </a>
                         </li>
                         {isAuthenticated && <li>
@@ -111,9 +114,21 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
                         <li>
                             <a href='/update' className='d-flex align-items-center gap-2 p-2 rounded-5'>
                                 <span className='icon'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" height="24" class=""><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" height="32" width="32" stroke="currentColor" stroke-width="2">
+
+                                        <circle cx="32" cy="24" r="14" fill="none" stroke="black" stroke-width="2" />
+
+
+                                        <line x1="32" y1="28" x2="32" y2="38" stroke="black" stroke-width="2" />
+
+
+                                        <rect x="22" y="40" width="20" height="8" rx="4" ry="4" fill="none" stroke="black" stroke-width="2" />
+                                        <rect x="28" y="48" width="8" height="6" fill="none" stroke="black" stroke-width="2" />
+                                    </svg>
+                                    {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" height="24" class=""><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg> */}
                                 </span>
-                                <span className='link-name'>Use Cses</span>
+                                <span className='link-name'>Use Cases</span>
                             </a>
                         </li>
 
