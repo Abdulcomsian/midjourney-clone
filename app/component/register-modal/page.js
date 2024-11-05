@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -17,6 +17,42 @@ function RegisterModal({ showRegisterModal, handleCloseRegisterModal }) {
     });
     const [loading, setLoading] = useState(false); // To show a loading state
     const [error, setError] = useState(''); // To display any error
+    const [countryMap, setCountryMap] = useState({}); // Country mapping
+    const [details, setDetails] = useState(null); // User location details
+
+    // Fetch all country names and codes
+    useEffect(() => {
+        fetch("https://restcountries.com/v3.1/all")
+            .then(response => response.json())
+            .then(data => {
+                const map = {};
+                data.forEach(country => {
+                    const { cca2, name } = country; // cca2 is the country code
+                    map[cca2] = name.common; // Store the common name
+                });
+                setCountryMap(map); // Save the country map in state
+            })
+            .catch(err => console.error("Error fetching countries:", err));
+    }, []);
+
+    // Fetch user's country based on IP
+    useEffect(() => {
+        fetch("https://ipinfo.io/json")
+            .then(response => response.json())
+            .then(data => {
+                console.log("Data", data);
+                setDetails(data);
+
+                if (data && data.country) {
+                    const countryName = countryMap[data.country] || data.country; // Get the full country name
+                    setFormData(prev => ({
+                        ...prev,
+                        country: countryName // Set the country name as default
+                    }));
+                }
+            })
+            .catch(err => console.error("Error fetching IP info:", err));
+    }, [countryMap]);
 
     // Handle form changes
     const handleChange = (e) => setFormData({
@@ -40,7 +76,6 @@ function RegisterModal({ showRegisterModal, handleCloseRegisterModal }) {
             } else {
                 setError(result.error || 'Registration failed');
                 console.log("Error", result);
-
             }
         } catch (error) {
             setError(error.message || 'An error occurred');
@@ -116,9 +151,7 @@ function RegisterModal({ showRegisterModal, handleCloseRegisterModal }) {
                             type="text"
                             name="country"
                             value={formData.country}
-                            onChange={handleChange}
-                            placeholder="Enter country"
-                            required
+                            readOnly // Make the country field readonly
                         />
                     </Form.Group>
 
