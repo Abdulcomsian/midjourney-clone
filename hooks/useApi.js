@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPricingData, fetchPaymentMethods, postData, resetState } from '../features/apiSlice';
+import { postData, resetState } from '../features/apiSlice';
 
 export const useApi = () => {
     const dispatch = useDispatch();

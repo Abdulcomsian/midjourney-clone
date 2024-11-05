@@ -1,13 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { loginUser } from '../../utils/api';
 
-// const initialState = {
-//     user: localStorage.getItem('user') || null,
-//     token: localStorage.getItem('token') || null,
-//     isAuthenticated: !!localStorage.getItem('token'),
-//     status: 'idle',
-//     error: null,
-// };
+
 const getLocalStorageItem = (key) => {
     if (typeof window !== 'undefined') {
         return localStorage.getItem(key);
