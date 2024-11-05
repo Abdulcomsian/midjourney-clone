@@ -55,9 +55,14 @@ function Subscription() {
                                                 <div className='border p-4 package-box rounded-4 mb-3'>
                                                     <h5 className='package-name fw-600'>{plan.name} Plan</h5>
                                                     <div className='price-div mt-3 d-flex align-items-center gap-2 flex-lg-wrap'>
-                                                        <span className='text-xs'>${parseFloat(plan.price * 12 * 0.8).toFixed(2)}</span>
-                                                        <span>${parseFloat(plan.price * 12).toFixed(2)}</span>
-                                                        <span>/ year</span>
+                                                        <div className='d-flex align-items-center gap-2'>
+                                                            <span className='text-xs'>${parseFloat(plan.price).toFixed(2)}/</span>
+                                                            <span>month</span>
+                                                        </div>
+                                                        <div className='d-flex align-items-center gap-2'>
+                                                            <span>${parseFloat(plan.price * 12).toFixed(2)}</span>
+                                                            <span>/ year</span>
+                                                        </div>
                                                     </div>
                                                     <p className='off-text'>20% off billed annually</p>
                                                     <button className='bg-dark border mt-3 mb-1 p-2 rounded text-white w-100'>
