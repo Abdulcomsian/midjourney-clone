@@ -122,33 +122,7 @@ const apiSlice = createSlice({
             state.error = null;
         },
     },
-    // extraReducers: (builder) => {
-    //     builder
-    //         .addCase(fetchPricingData.pending, (state) => {
-    //             state.loading = true;
-    //             state.error = null;
-    //         })
-    //         .addCase(fetchPricingData.fulfilled, (state, action) => {
-    //             state.loading = false;
-    //             state.pricingData = action.payload;
-    //         })
-    //         .addCase(fetchPricingData.rejected, (state, action) => {
-    //             state.loading = false;
-    //             state.error = action.payload;
-    //         })
-    //         .addCase(fetchPaymentMethods.pending, (state) => {
-    //             state.loading = true;
-    //             state.error = null;
-    //         })
-    //         .addCase(fetchPaymentMethods.fulfilled, (state, action) => {
-    //             state.loading = false;
-    //             state.paymentMethodsData = action.payload;
-    //         })
-    //         .addCase(fetchPaymentMethods.rejected, (state, action) => {
-    //             state.loading = false;
-    //             state.error = action.payload;
-    //         });
-    // },
+
     extraReducers: (builder) => {
         builder
             .addCase(fetchPricingAndPaymentData.pending, (state) => {
