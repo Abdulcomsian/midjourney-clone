@@ -1066,3 +1066,37 @@ main .filter-bar ul li button.active{
 	  width: 22px;
 	}
   }
+
+  .hero-section h1 {
+	color: white;
+	font-weight: bold;
+  }
+  
+  .hero-section p {
+	color: #b3b3b3;
+  }
+  
+  .slider-section {
+	background-color: #222;
+  }
+  
+  .prompt-card {
+	background-color: #333;
+	color: white;
+	border-radius: 8px;
+  }
+  
+  button.btn-warning {
+	background-color: #F77E21;
+	border: none;
+  }
+  
+  button.btn-outline-light {
+	border: 1px solid #F77E21;
+	color: #F77E21;
+  }
+  
+  button.btn-outline-light:hover {
+	background-color: #F77E21;
+	color: white;
+  }

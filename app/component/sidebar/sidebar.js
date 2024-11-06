@@ -8,7 +8,6 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
     const [darkThemeMode, setDarkThemeMode] = useState(false);
     const { user, token, isAuthenticated } = useSelector((state) => state.auth);
     const router = useRouter();
-    console.log("Isauthenticated", isAuthenticated);
 
     const dispatch = useDispatch();
     useEffect(() => {
@@ -114,19 +113,12 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
                         <li>
                             <a href='/update' className='d-flex align-items-center gap-2 p-2 rounded-5'>
                                 <span className='icon'>
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" height="32" width="32" stroke="currentColor" stroke-width="2">
-
-                                        <circle cx="32" cy="24" r="14" fill="none" stroke="black" stroke-width="2" />
-
-
-                                        <line x1="32" y1="28" x2="32" y2="38" stroke="black" stroke-width="2" />
-
-
-                                        <rect x="22" y="40" width="20" height="8" rx="4" ry="4" fill="none" stroke="black" stroke-width="2" />
-                                        <rect x="28" y="48" width="8" height="6" fill="none" stroke="black" stroke-width="2" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="22" height="22" stroke="currentColor" strokeWidth="2">
+                                        <circle cx="32" cy="24" r="14" fill="none" stroke="black" strokeWidth="2" />
+                                        <line x1="32" y1="28" x2="32" y2="38" stroke="black" strokeWidth="2" />
+                                        <rect x="22" y="40" width="20" height="8" rx="4" ry="4" fill="none" stroke="black" strokeWidth="2" />
+                                        <rect x="28" y="48" width="8" height="6" fill="none" stroke="black" strokeWidth="2" />
                                     </svg>
-                                    {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" height="24" class=""><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg> */}
                                 </span>
                                 <span className='link-name'>Use Cases</span>
                             </a>

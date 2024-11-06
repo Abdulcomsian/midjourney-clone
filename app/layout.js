@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from 'react';
@@ -8,27 +8,55 @@ import './global.css';
 import RegisterModal from './component/register-modal/page';
 import { Provider } from 'react-redux';
 import store from '../store/store';
+import { useSelector } from 'react-redux';
+import LandingPage from './landing-page/page';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+function LayoutContent({ children }) {
+  const { isAuthenticated } = useSelector((state) => state.auth);
+
+  const [show, setShow] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
+
+  const handleClose = () => {
+    console.log("Clicked", "modal shuld be open");
+
+    setShow(false)
+  };
+  const handleShow = () => {
+    console.log("Clicked", "modal shuld be open");
+    setShow(true)
+  };
+
+  const handleRegisterClose = () => setShowRegister(false);
+  const handleRegisterShow = () => setShowRegister(true);
+
+  return (
+    <>
+      {isAuthenticated ? (
+        <div className="main-wrapper d-flex" style={{ overflowY: 'auto', height: '100vh', width: '100%' }}>
+          <Sidebar showModal={handleShow} showRegisterModal={handleRegisterShow} />
+          {children}
+          <AuthModal showModal={show} handleCloseAuthModal={handleClose} />
+          <RegisterModal showRegisterModal={showRegister} handleCloseRegisterModal={handleRegisterClose} />
+        </div>
+      ) : (
+        <><LandingPage showModal={handleShow} showRegisterModal={handleRegisterShow} /><AuthModal showModal={show} handleCloseAuthModal={handleClose} /><RegisterModal showModal={show} handleCloseAuthModal={handleClose} /></>
+      )}
+    </>
+  );
+}
+
+
 export default function RootLayout({ children }) {
   const BootstrapJS = dynamic(() => import('bootstrap/dist/js/bootstrap.bundle.min.js'), { ssr: false });
 
   const [darkThemeMode, setDarkThemeMode] = useState(() => {
-    // Check if in the browser environment
     if (typeof window !== 'undefined') {
       const savedTheme = localStorage.getItem('theme');
-      if (savedTheme) {
-        return savedTheme === 'dark';
-      } else {
-        // Set default to dark mode if no theme is found
-        localStorage.setItem('theme', 'dark');
-        return true; // Default to dark mode
-      }
+      return savedTheme === 'dark';
     }
-    return true; // Fallback for server-side rendering
+    return true;
   });
-
-  const [show, setShow] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
-  const [auth, setAuth] = useState(false);
   const [isThemeReady, setIsThemeReady] = useState(false);
 
   useEffect(() => {
@@ -41,19 +69,13 @@ export default function RootLayout({ children }) {
       }
     };
 
-    // Check if in the browser environment
     if (typeof window !== 'undefined') {
-      // Initial theme setup
       updateTheme();
-
-      // Add storage event listener for theme changes
       window.addEventListener('storage', updateTheme);
     }
 
-    // Mark theme as ready
     setIsThemeReady(true);
 
-    // Cleanup event listener on unmount
     return () => {
       if (typeof window !== 'undefined') {
         window.removeEventListener('storage', updateTheme);
@@ -67,27 +89,18 @@ export default function RootLayout({ children }) {
     localStorage.setItem('theme', newTheme);
   };
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => (auth ? setShow(false) : setShow(true));
-
-  const handleRegisterClose = () => setShowRegister(false);
-  const handleRegisterShow = () => (auth ? setShowRegister(false) : setShowRegister(true));
-
   if (!isThemeReady) {
-    return null; // Or a loader
+    return null; // Or a loading spinner
   }
 
   return (
     <html lang="en">
       <body className={darkThemeMode ? 'dark-mode' : 'light-mode'} style={{ overflowY: 'auto', height: '100vh' }}>
-        <Provider store={store}>
-          <div className="main-wrapper d-flex" style={{ overflowY: 'auto', height: '100vh', width: '100%' }}>
-            <Sidebar showModal={handleShow} showRegisterModal={handleRegisterShow} darkModeHandle={toggleTheme} />
-            {children}
-            <AuthModal showModal={show} handleCloseAuthModal={handleClose} />
-            <RegisterModal showRegisterModal={showRegister} handleCloseRegisterModal={handleRegisterClose} />
-          </div>
-        </Provider>
+        <GoogleOAuthProvider clientId="404893580446-h7n8c6nqhh4psq4dqa9ab50ad8hvjrlk.apps.googleusercontent.com">
+          <Provider store={store}>
+            <LayoutContent children={children} />
+          </Provider>
+        </GoogleOAuthProvider>
       </body>
     </html>
   );
