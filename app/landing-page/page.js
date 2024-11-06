@@ -14,10 +14,10 @@ const LandingPage = ({ handleShow, handleRegisterShow }) => {
         dispatch(openRegisterModal());
     };
     return (
-        <Container fluid className="text-center" style={{ backgroundColor: '#1A1A1A', color: 'white', minHeight: '100vh' }}>
+        <Container fluid className="text-center" style={{ backgroundColor: '#1A1A1A', overflowY: 'auto', color: 'white', minHeight: '100vh' }}>
             <header className="d-flex justify-content-between align-items-center p-3 position-static w-100" style={{ borderBottom: '1px solid #333' }}>
                 <div className="logo">
-                    <img src="/logo.png" alt="Logo" style={{ height: '30px' }} />
+                    <img src="assets/img/img-31.png" alt="Logo" style={{ height: '30px' }} />
                     <span className="ms-2" style={{ color: '#F77E21', fontWeight: 'bold' }}>Footo</span>
                 </div>
                 <div>
@@ -37,21 +37,21 @@ const LandingPage = ({ handleShow, handleRegisterShow }) => {
                 <Row className="justify-content-center mt-4">
                     <Col md={3}>
                         <div className="prompt-card p-3" style={{ backgroundColor: '#333', borderRadius: '8px' }}>
-                            <img src="/images/prompt1.jpg" alt="Prompt 1" className="img-fluid mb-3" />
+                            <img src="assets/img/img-31.png" alt="Prompt 1" className="img-fluid mb-3  h-25" />
                             <p><strong>Prompt:</strong> "An astronaut riding a horse on Mars"</p>
                             <small>Blend different concepts into unique compositions</small>
                         </div>
                     </Col>
                     <Col md={3}>
                         <div className="prompt-card p-3" style={{ backgroundColor: '#333', borderRadius: '8px' }}>
-                            <img src="/images/prompt2.jpg" alt="Prompt 2" className="img-fluid mb-3" />
+                            <img src="assets/img/img-31.png" alt="Prompt 2" className="img-fluid mb-3  h-25" />
                             <p><strong>Prompt:</strong> "A steampunk train station"</p>
                             <small>Design alternative historical scenes with intricate details</small>
                         </div>
                     </Col>
                     <Col md={3}>
                         <div className="prompt-card p-3" style={{ backgroundColor: '#333', borderRadius: '8px' }}>
-                            <img src="/images/prompt3.jpg" alt="Prompt 3" className="img-fluid mb-3" />
+                            <img src="assets/img/img-31.png" alt="Prompt 3" className="img-fluid mb-3  h-25" />
                             <p><strong>Prompt:</strong> "A dragon made of crystal in a cave"</p>
                             <small>Create mythical creatures with unique materials</small>
                         </div>
