@@ -17,8 +17,8 @@ const LandingPage = ({ handleShow, handleRegisterShow }) => {
         <Container fluid className="text-center" style={{ backgroundColor: '#1A1A1A', overflowY: 'auto', color: 'white', minHeight: '100vh' }}>
             <header className="d-flex justify-content-between align-items-center p-3 position-static w-100" style={{ borderBottom: '1px solid #333' }}>
                 <div className="logo">
-                    <img src="assets/img/img-31.png" alt="Logo" style={{ height: '30px' }} />
-                    <span className="ms-2" style={{ color: '#F77E21', fontWeight: 'bold' }}>Footo</span>
+                    {/* <img src="assets/img/img-31.png" alt="Logo" style={{ height: '30px' }} /> */}
+                    <span className="ms-2" style={{ color: '#F77E21', fontWeight: 'bold' }}>Footo. <span style={{ color: '#FFFFFF', fontWeight: 'bold' }}>ai</span></span>
                 </div>
                 <div>
                     <Button variant="outline-light" className="me-2" onClick={handleSignInClick}>Sign In</Button>

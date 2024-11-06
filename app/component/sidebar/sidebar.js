@@ -80,8 +80,8 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
             <section className='sidebar pt-3 flex-column position-fixed d-flex'>
                 <div className='top-nav grow d-flex flex-column gap-3'>
                     <div className='logo d-flex align-items-center pl-1'>
-                        <a href='/' className='text-decoration-none text-dark'><p className='desktop-view'>Footo</p></a>
-                        <p className='mobile-view'>Footo</p>
+                        <a href='/' className='text-decoration-none text-dark d-flex gap-1'><p className='desktop-view' style={{ color: '#F77E21', fontWeight: 'bold' }}>Footo.</p><p style={{ color: '#ccc', fontWeight: 'bold' }}>ai</p></a>
+                        <p className='mobile-view'>Footo.ai</p>
                     </div>
                     <ul className='list-unstyled d-flex flex-column gap-2'>
                         <li>
