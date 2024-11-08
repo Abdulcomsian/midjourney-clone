@@ -7,8 +7,12 @@ import Form from 'react-bootstrap/Form';
 import { registerUser } from '../../../utils/api'; // Import your registerUser function
 import { useDispatch, useSelector } from 'react-redux';
 import { closeRegisterModal } from '../../../features/modalSlice';
-import { GoogleLogin } from '@react-oauth/google';
-function RegisterModal({ showRegisterModal, handleCloseRegisterModal }) {
+
+
+
+import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+import { registerGoogleUser } from '../../../utils/api';
+import { socialLogin } from '../../../features/auth/authSlice'; function RegisterModal({ showRegisterModal, handleCloseRegisterModal }) {
     const router = useRouter();
     const dispatch = useDispatch();
     const showModalState = useSelector((state) => state.modal.showRegisterModal);
@@ -23,6 +27,8 @@ function RegisterModal({ showRegisterModal, handleCloseRegisterModal }) {
     const [error, setError] = useState(''); // To display any error
     const [countryMap, setCountryMap] = useState({}); // Country mapping
     const [details, setDetails] = useState(null); // User location details
+    const [user, setUser] = useState([]);
+    const [profile, setProfile] = useState([]);
     const handleCloseAuthModalState = () => dispatch(closeRegisterModal());
     // Fetch all country names and codes
     useEffect(() => {
@@ -87,21 +93,54 @@ function RegisterModal({ showRegisterModal, handleCloseRegisterModal }) {
             setLoading(false);
         }
     };
-    const handleGoogleLogin = (response) => {
-        // Extract token from Google response
-        const googleToken = response.credential;
-        if (googleToken) {
-            dispatch(login({ googleToken })) // Dispatch action to handle Google login with the token
-                .unwrap()
-                .then(() => {
-                    handleCloseAuthModalState();
-                    router.push('/');
+    const googleLogin = useGoogleLogin({
+        onSuccess: (codeResponse) => {
+            console.log("Code response", codeResponse);
+
+            fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${codeResponse.access_token}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${user.access_token}`,
+                    'Accept': 'application/json',
+                },
+            })
+                .then((response) => response.json()) // Parse the JSON response
+                .then(async (data) => {
+                    console.log("Data", data);
+                    try {
+                        const result = await registerGoogleUser(data, codeResponse.access_token); // Call the register API
+
+                        if (result && !result.error) {
+                            console.log("Result Data", result);
+                            dispatch(socialLogin({
+                                user: result.user,
+                                token: result.access_token,
+                            }));
+                            handleCloseAuthModalState(); // Close modal on successful login
+
+
+                            router.push('/');
+                            router.reload();
+                            // If registration is successful, redirect or show success message
+                        } else {
+                            setError(result.error || 'Registration failed');
+                            console.log("Error", result);
+                        }
+                    } catch (error) {
+                        console.log(error);
+
+                    } finally {
+                        setLoading(false);
+                    }
+                    setProfile(data); // Update state with profile data
                 })
-                .catch((err) => {
-                    alert(err);
-                });
-        }
-    };
+                .catch((err) => console.log(err));
+            setUser(codeResponse)
+        },
+        onError: (error) => console.log('Login Failed:', error)
+    });
+
+
     return (
         <Modal show={showModalState} onHide={handleCloseAuthModalState} centered>
             <Modal.Header closeButton className='custom-input'>
@@ -193,14 +232,11 @@ function RegisterModal({ showRegisterModal, handleCloseRegisterModal }) {
                             <span><svg width="24" height="24" viewBox="0 0 48 48" fill="currentColor" stroke="none" stroke-width="1" class="inline-block undefined" xmlns="http://www.w3.org/2000/svg"><g id="GoogleLogo"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path></g></svg></span>
                         </Button> */}
 
-                        <GoogleLogin
-                            onSuccess={handleGoogleLogin}
-                            onError={(error) => {
-                                alert("Google login failed:", error);
-                            }}
-                            useOneTap
-                            theme="outline"
-                        />
+                        <Button onClick={googleLogin} className="border btn mb-3 p-2 w-100 bg-transparent text-dark d-flex justify-content-center gap-2 align-items-center fs-14">
+                            <span><svg width="24" height="24" viewBox="0 0 48 48" fill="currentColor" stroke="none" stroke-width="1" class="inline-block undefined" xmlns="http://www.w3.org/2000/svg"><g id="GoogleLogo"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path></g></svg></span>
+
+                        </Button>
+
                     </div>
                     <Button variant="warning" type="submit" className="w-100" disabled={loading}>
                         {loading ? 'Registering...' : 'Register'}

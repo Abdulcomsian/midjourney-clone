@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from 'react';
 import AuthModal from './component/auth-modal/page';
 import Sidebar from './component/sidebar/sidebar';
+import { useRouter } from 'next/navigation';
 import './global.css';
 import RegisterModal from './component/register-modal/page';
 import { Provider } from 'react-redux';
@@ -11,9 +12,15 @@ import store from '../store/store';
 import { useSelector } from 'react-redux';
 import LandingPage from './landing-page/page';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-function LayoutContent({ children }) {
+function LayoutContent({ children, toggleTheme }) {
   const { isAuthenticated } = useSelector((state) => state.auth);
-
+  const router = useRouter();
+  console.log("IS Authenticated", isAuthenticated);
+  useEffect(() => {
+    if (isAuthenticated && router.pathname === '/') {
+      router.push('/'); // Redirect only if already on the landing page
+    }
+  }, [isAuthenticated, router]);
   const [show, setShow] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
 
@@ -34,7 +41,7 @@ function LayoutContent({ children }) {
     <>
       {isAuthenticated ? (
         <div className="main-wrapper d-flex" style={{ overflowY: 'auto', height: '100vh', width: '100%' }}>
-          <Sidebar showModal={handleShow} showRegisterModal={handleRegisterShow} />
+          <Sidebar showModal={handleShow} showRegisterModal={handleRegisterShow} darkModeHandle={toggleTheme} />
           {children}
           <AuthModal showModal={show} handleCloseAuthModal={handleClose} />
           <RegisterModal showRegisterModal={showRegister} handleCloseRegisterModal={handleRegisterClose} />
@@ -98,7 +105,7 @@ export default function RootLayout({ children }) {
       <body className={darkThemeMode ? 'dark-mode' : 'light-mode'} style={{ overflowY: 'auto', height: '100vh' }}>
         <GoogleOAuthProvider clientId="404893580446-h7n8c6nqhh4psq4dqa9ab50ad8hvjrlk.apps.googleusercontent.com">
           <Provider store={store}>
-            <LayoutContent children={children} />
+            <LayoutContent children={children} toggleTheme={toggleTheme} />
           </Provider>
         </GoogleOAuthProvider>
       </body>
