@@ -6,6 +6,8 @@ const initialState = {
     paymentMethodsData: null, // For payment methods data
     loading: false,
     error: null,
+    paymentMethod: null,
+    errorPaymentMethod: null
 };
 export const fetchPricingAndPaymentData = createAsyncThunk(
     'api/fetchPricingAndPaymentData',
@@ -47,6 +49,8 @@ export const fetchPricingAndPaymentData = createAsyncThunk(
         }
     }
 );
+
+
 // Async thunk for GET request using fetch
 // export const fetchPricingData = createAsyncThunk(
 //     'api/fetchPricingData',
@@ -110,6 +114,31 @@ export const postData = createAsyncThunk(
 );
 
 
+export const fetchPaymentMethod = createAsyncThunk(
+    'api/fetchPaymentMethods',
+    async ({ paymentMethodEndPoint, token, packageID }, { rejectWithValue }) => {
+        try {
+            // Fetch pricing data
+            const paymentMethodResponse = await fetch(paymentMethodEndPoint, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                
+            });
+            if (!paymentMethodResponse.ok) {
+                throw new Error('Payment method not found');
+            }
+            const paymentMethod = await paymentMethodResponse.json();
+            console.log("Payment Method: ",paymentMethod);
+            return { paymentMethod };
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
 // Create the slice
 const apiSlice = createSlice({
     name: 'api',
@@ -120,6 +149,7 @@ const apiSlice = createSlice({
             state.paymentMethodsData = null;
             state.loading = false;
             state.error = null;
+            state.errorPaymentMethod= null;
         },
     },
 
@@ -137,6 +167,14 @@ const apiSlice = createSlice({
             .addCase(fetchPricingAndPaymentData.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
+            })
+            .addCase(fetchPaymentMethod.rejected, (state, action) => {
+                state.loading = false;
+                state.errorPaymentMethod = action.payload;
+            })
+            .addCase(fetchPaymentMethod.fulfilled, (state, action) => {
+                state.loading = false;
+                state.paymentMethod = action.payload
             });
     }
 });

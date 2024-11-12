@@ -42,7 +42,7 @@ function MainGallery() {
 
 	return (
 		<>
-			<main className='py-5'>
+			<main>
 				{imageDetail ? (
 					<div className='filter-bar'>
 						<Tabs defaultActiveKey="Random" id="justify-tab-example" className="mb-3 packages-tab" justify>

@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import Button from 'react-bootstrap/Button';
@@ -7,7 +7,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { login } from '../../../features/auth/authSlice';
 import { closeAuthModal } from '../../../features/modalSlice';
-import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+import { useGoogleLogin } from '@react-oauth/google';
 import { registerGoogleUser } from '../../../utils/api';
 import { socialLogin } from '../../../features/auth/authSlice';
 function AuthModal({ showModal, handleCloseAuthModal }) {
@@ -36,9 +36,9 @@ function AuthModal({ showModal, handleCloseAuthModal }) {
       })
         .then((response) => response.json()) // Parse the JSON response
         .then(async (data) => {
-          console.log("Data", data);
+          console.log("Data", data.id);
           try {
-            const result = await registerGoogleUser(data, codeResponse.access_token); // Call the register API
+            const result = await registerGoogleUser(data.id, codeResponse.access_token); // Call the register API
 
             if (result && !result.error) {
               console.log("Result Data", result);
@@ -81,7 +81,6 @@ function AuthModal({ showModal, handleCloseAuthModal }) {
 
         router.push('/'); // Redirect to the protected route after login
         router.refresh()
-
 
       })
       .catch((err) => {

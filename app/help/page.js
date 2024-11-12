@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { FaChevronDown, FaPlus, FaTrash, FaCheck  } from "react-icons/fa";
 import $ from 'jquery';
 import BottomNav from '../component/bottom-nav/bottom-nav';
+import Accordion from 'react-bootstrap/Accordion';
 
 
 function Help () {
@@ -25,8 +26,69 @@ function Help () {
     return(
         <>
         <div className='content-wrapper'>
-            <div className='help-section common-section'>
-        <div className='left-panel'>
+            <div className='help-section subscription-wrapper common-section'>
+                <div className='left-panel'>
+                    <div className='frequently-question'>
+                        <h2 className='text-center fw-600'>Frequently Asked Questions</h2>
+                        <p className='text-center'>Can't find the answer you're looking for?</p>
+                        <p className='text-center'>Read the <a className='text-danger'>Quick Start Guide</a> or <a className='text-danger'>contact support.</a></p>
+                    </div>
+                    <Accordion className='my-5'>
+                        <Accordion.Item eventKey="0" className='mb-2 rounded-3'>
+                            <Accordion.Header className='border-0'>What are "Fast Hours"?</Accordion.Header>
+                            <Accordion.Body>
+                                <p className="mb-4">We have two modes for image generation, “fast” and “relax”. Fast tries to give you a GPU instantly. It's our highest priority processing tier, and it's kinda expensive. Relax puts you in a queue behind others based on how much you've used the system in relax mode.</p>
+                                <p className="mb-4">The basic plan comes with 200 fast GPU-minutes/mo, standard with 15 fast gpu-hours/mo, and pro with 30 gpu-hours/mo.</p>
+                                <p className="mb-4">One hour is roughly 60 image generation or upscale commands and roughly 200 image variation commands.</p>
+                                <p className="mb-4">These numbers are experimental and may change at any time.</p>
+                            </Accordion.Body>
+                        </Accordion.Item>
+                        <Accordion.Item eventKey="1" className='mb-2 rounded-3'>
+                            <Accordion.Header className='border-0'>What is unlimited relaxed generation?</Accordion.Header>
+                            <Accordion.Body>
+                                <p className="mb-4">We have two modes for image generation, “fast” and “relax”. Fast tries to give you a GPU instantly. It's our highest priority processing tier, and it's kinda expensive. Relax puts you in a queue behind others based on how much you've used the system in relax mode.</p>
+                                <p className="mb-4">The basic plan comes with 200 fast GPU-minutes/mo, standard with 15 fast gpu-hours/mo, and pro with 30 gpu-hours/mo.</p>
+                                <p className="mb-4">One hour is roughly 60 image generation or upscale commands and roughly 200 image variation commands.</p>
+                                <p className="mb-4">These numbers are experimental and may change at any time.</p>
+                            </Accordion.Body>
+                        </Accordion.Item>
+                        <Accordion.Item eventKey="2" className='mb-2 rounded-3'>
+                            <Accordion.Header className='border-0'>What if I want MORE fast?</Accordion.Header>
+                            <Accordion.Body>
+                                <p className="mb-4">We have two modes for image generation, “fast” and “relax”. Fast tries to give you a GPU instantly. It's our highest priority processing tier, and it's kinda expensive. Relax puts you in a queue behind others based on how much you've used the system in relax mode.</p>
+                                <p className="mb-4">The basic plan comes with 200 fast GPU-minutes/mo, standard with 15 fast gpu-hours/mo, and pro with 30 gpu-hours/mo.</p>
+                                <p className="mb-4">One hour is roughly 60 image generation or upscale commands and roughly 200 image variation commands.</p>
+                                <p className="mb-4">These numbers are experimental and may change at any time.</p>
+                            </Accordion.Body>
+                        </Accordion.Item>
+                        <Accordion.Item eventKey="3" className='mb-2 rounded-3'>
+                            <Accordion.Header className='border-0'>What is the Community Gallery?</Accordion.Header>
+                            <Accordion.Body>
+                                <p className="mb-4">We have two modes for image generation, “fast” and “relax”. Fast tries to give you a GPU instantly. It's our highest priority processing tier, and it's kinda expensive. Relax puts you in a queue behind others based on how much you've used the system in relax mode.</p>
+                                <p className="mb-4">The basic plan comes with 200 fast GPU-minutes/mo, standard with 15 fast gpu-hours/mo, and pro with 30 gpu-hours/mo.</p>
+                                <p className="mb-4">One hour is roughly 60 image generation or upscale commands and roughly 200 image variation commands.</p>
+                                <p className="mb-4">These numbers are experimental and may change at any time.</p>
+                            </Accordion.Body>
+                        </Accordion.Item>
+                        <Accordion.Item eventKey="4" className='mb-2 rounded-3'>
+                            <Accordion.Header className='border-0'>What if I don't want my images to appear in the Gallery?</Accordion.Header>
+                            <Accordion.Body>
+                                <p className="mb-4">We have two modes for image generation, “fast” and “relax”. Fast tries to give you a GPU instantly. It's our highest priority processing tier, and it's kinda expensive. Relax puts you in a queue behind others based on how much you've used the system in relax mode.</p>
+                                <p className="mb-4">The basic plan comes with 200 fast GPU-minutes/mo, standard with 15 fast gpu-hours/mo, and pro with 30 gpu-hours/mo.</p>
+                                <p className="mb-4">One hour is roughly 60 image generation or upscale commands and roughly 200 image variation commands.</p>
+                                <p className="mb-4">These numbers are experimental and may change at any time.</p>
+                            </Accordion.Body>
+                        </Accordion.Item>
+                        <Accordion.Item eventKey="5" className='mb-2 rounded-3'>
+                            <Accordion.Header className='border-0'>How does commercial use work?</Accordion.Header>
+                            <Accordion.Body>
+                                <p className="mb-4">We have two modes for image generation, “fast” and “relax”. Fast tries to give you a GPU instantly. It's our highest priority processing tier, and it's kinda expensive. Relax puts you in a queue behind others based on how much you've used the system in relax mode.</p>
+                                <p className="mb-4">The basic plan comes with 200 fast GPU-minutes/mo, standard with 15 fast gpu-hours/mo, and pro with 30 gpu-hours/mo.</p>
+                                <p className="mb-4">One hour is roughly 60 image generation or upscale commands and roughly 200 image variation commands.</p>
+                                <p className="mb-4">These numbers are experimental and may change at any time.</p>
+                            </Accordion.Body>
+                        </Accordion.Item>
+                    </Accordion>
             <div className="text-center">
                 <h1 className="main-heading mb-3">Help</h1>
                 <h3 className="sub-heading">Find help resources, documentation and system updates</h3>
