@@ -36,18 +36,15 @@ function Subscription() {
         }
     }, [pricingData, paymentMethodsData]);
 
-    const handlePaymentSubscription = (packageID) => {
-        console.log('Pavkage ID:',packageID)
-        // dispatch(openSubscriptionModal());
+    const handlePaymentSubscription = (package_id) => {
         dispatch(fetchPaymentMethod({
             paymentMethodEndPoint: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/payments/methods`,
             token,
-            packageID
+            package_id
         }));
     };
     useEffect(() => {
         if (errorPaymentMethod) {
-            console.log("Payment Data Method: ", paymentMethod,errorPaymentMethod);
             dispatch(openSubscriptionModal());
         } else if(paymentMethod){
             dispatch(openSubscriptionModal());

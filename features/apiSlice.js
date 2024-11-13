@@ -7,7 +7,8 @@ const initialState = {
     loading: false,
     error: null,
     paymentMethod: null,
-    errorPaymentMethod: null
+    errorPaymentMethod: null,
+    paymentInitializationURL: null
 };
 export const fetchPricingAndPaymentData = createAsyncThunk(
     'api/fetchPricingAndPaymentData',
@@ -116,15 +117,19 @@ export const postData = createAsyncThunk(
 
 export const fetchPaymentMethod = createAsyncThunk(
     'api/fetchPaymentMethods',
-    async ({ paymentMethodEndPoint, token, packageID }, { rejectWithValue }) => {
+    async ({ paymentMethodEndPoint, token, package_id }, { rejectWithValue }) => {
+        localStorage.setItem('package_id', package_id);
+        const package_data = {
+            package_id: package_id
+        };
         try {
-            // Fetch pricing data
             const paymentMethodResponse = await fetch(paymentMethodEndPoint, {
-                method: 'GET',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
+                body: JSON.stringify(package_data),
                 
             });
             if (!paymentMethodResponse.ok) {
@@ -133,6 +138,33 @@ export const fetchPaymentMethod = createAsyncThunk(
             const paymentMethod = await paymentMethodResponse.json();
             console.log("Payment Method: ",paymentMethod);
             return { paymentMethod };
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+export const paymentInitialization = createAsyncThunk(
+    'api/paymentIntilization',
+    async ({ paymentIntilizationEndPoint, token, selectedPaymentMethod }, { rejectWithValue }) => {
+        const packageId=  localStorage.getItem('package_id');
+        const package_intialization_data = {
+            package_id: packageId,
+            payment_method: selectedPaymentMethod
+        };
+        try {
+            const paymentInitializationResponse = await fetch(paymentIntilizationEndPoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(package_intialization_data),
+            });
+            if (!paymentInitializationResponse.ok) {
+                throw new Error('Payment Initialization not Successfully');
+            }
+            const payemntInitilizationResponseData = await paymentInitializationResponse.json();
+            return { payemntInitilizationResponseData };
         } catch (error) {
             return rejectWithValue(error.message);
         }
@@ -175,6 +207,12 @@ const apiSlice = createSlice({
             .addCase(fetchPaymentMethod.fulfilled, (state, action) => {
                 state.loading = false;
                 state.paymentMethod = action.payload
+                
+            })
+            .addCase(paymentInitialization.fulfilled, (state, action) => {
+                state.loading = false;
+                state.paymentInitializationURL = action.payload.payemntInitilizationResponseData.payment_data.checkoutUrl
+                
             });
     }
 });

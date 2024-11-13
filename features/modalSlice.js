@@ -25,7 +25,6 @@ const modalSlice = createSlice({
             state.showSubscriptionModal = true;
         },
         closeSubscriptionModal: (state) => {
-            console.log("State subcription Close", state);
             state.showSubscriptionModal = false;
         },
     },
