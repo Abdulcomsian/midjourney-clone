@@ -50,3 +50,15 @@ export const registerGoogleUser = async (googleData, token, country) => {
 
     return response.json(); // Assuming the API responds with user data or a token
 };
+
+
+export const getPricing = async () => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pricing`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+    });
+    if (!response.ok) {
+        console.log(response)
+    }
+    return response.json();
+};

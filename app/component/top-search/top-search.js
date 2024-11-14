@@ -34,7 +34,7 @@ function TopSearch({ showCreativeModal }) {
                     <div className="col-12">
                         <div className="d-flex gap-2 align-items-center">
                             <div className="search-bar py-3 px-4 w-100" onClick={showCreativeModal}>
-                                <form>
+                                <form className="mb-0">
                                     <div className="upload-file d-flex justify-content-between align-items-center position-relative gap-3">
                                         <input type="file" />
                                         <span className="icon opacity-25">

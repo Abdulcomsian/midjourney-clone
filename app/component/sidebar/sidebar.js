@@ -75,6 +75,36 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
             </Popover.Body>
         </Popover>
     );
+    const logoutPopover = (
+        <Popover id="popover-basic" rootClose="false">
+            <Popover.Body className='p-2'>
+                <ul className='list-unstyled'>
+                        {isAuthenticated &&
+                            <>
+                                <li>
+                                    <a href='/subscription' className='d-flex align-items-center gap-2 p-2 text-dark text-decoration-none rounded-5'>
+                                        <span className='icon'>
+                                            <svg height="15" width="15" className="inline-block text-light-600 dark:text-dark-400 [.active-button_&amp;]:text-light-900 md:[.group-button:hover_&amp;]:text-light-900 dark:[.active-button_&amp;]:text-dark-100 dark:md:[.group-button:hover_&amp;]:text-light-100" width="22" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1" xmlns="http://www.w3.org/2000/svg"><g id="Avatar"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 23C5.92487 23 1 18.0751 1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23ZM19.3995 17.1246C20.4086 15.6703 21 13.9042 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 13.9042 3.59138 15.6703 4.6005 17.1246C5.72595 15.6381 8.3706 15 12 15C15.6294 15 18.274 15.6381 19.3995 17.1246ZM17.9647 18.7398C17.672 17.6874 15.5694 17 12 17C8.43062 17 6.328 17.6874 6.03532 18.7398C7.6233 20.1462 9.71194 21 12 21C14.2881 21 16.3767 20.1462 17.9647 18.7398ZM12 15C9.76086 15 8 13.4274 8 10C8 7.75576 9.5791 6 12 6C14.4142 6 16 7.92158 16 10.2C16 13.4796 14.2181 15 12 15ZM10 10C10 12.2693 10.8182 13 12 13C13.1777 13 14 12.2984 14 10.2C14 8.95042 13.2157 8 12 8C10.7337 8 10 8.81582 10 10Z"></path></g></svg>
+                                        </span>
+                                        <span className='link-name'>Subscriptions</span>
+                                    </a>
+                                </li>
+                                <li>
+                                
+                                    <a className='d-flex align-items-center gap-2 p-2 text-dark text-decoration-none rounded-5'>
+                                        <span className="icon">
+                                            {/* User profile icon */}
+                                        </span>
+                                        <span className="link-name">My Profile</span>
+                                    </a>
+                                </li>
+                            </>
+                        }
+
+                </ul>
+            </Popover.Body>
+        </Popover>
+    );
     return (
         <>
             <section className='sidebar pt-3 flex-column position-fixed d-flex'>
@@ -147,16 +177,7 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
                                 </a>
                             </OverlayTrigger>
                         </li>
-                        {isAuthenticated &&
-                            <li>
-                                <a href='/subscription' className='d-flex align-items-center gap-2 p-2 rounded-5'>
-                                    <span className='icon'>
-                                        <svg height="22" class="inline-block relative" width="22" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1" xmlns="http://www.w3.org/2000/svg"><g id="Avatar"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 23C5.92487 23 1 18.0751 1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23ZM19.3995 17.1246C20.4086 15.6703 21 13.9042 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 13.9042 3.59138 15.6703 4.6005 17.1246C5.72595 15.6381 8.3706 15 12 15C15.6294 15 18.274 15.6381 19.3995 17.1246ZM17.9647 18.7398C17.672 17.6874 15.5694 17 12 17C8.43062 17 6.328 17.6874 6.03532 18.7398C7.6233 20.1462 9.71194 21 12 21C14.2881 21 16.3767 20.1462 17.9647 18.7398ZM12 15C9.76086 15 8 13.4274 8 10C8 7.75576 9.5791 6 12 6C14.4142 6 16 7.92158 16 10.2C16 13.4796 14.2181 15 12 15ZM10 10C10 12.2693 10.8182 13 12 13C13.1777 13 14 12.2984 14 10.2C14 8.95042 13.2157 8 12 8C10.7337 8 10 8.81582 10 10Z"></path></g></svg>
-                                    </span>
-                                    <span className='link-name'>Subscriptions</span>
-                                </a>
-                            </li>
-                        }
+                     
                         {isAuthenticated &&
                             <li>
                                 <OverlayTrigger trigger='click' rootClose placement="right" overlay={popover}>
@@ -175,26 +196,37 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
                         }
                         {isAuthenticated ? (
                             <>
-                                <li>
+                                {/* <li>
                                     <OverlayTrigger trigger="click" placement="right" overlay={popover}>
                                         <a className="d-flex align-items-center gap-2 p-2 rounded-5">
                                             <span className="icon">
-                                                {/* User profile icon */}
                                             </span>
                                             <span className="link-name">My Profile</span>
                                         </a>
                                     </OverlayTrigger>
-                                </li>
+                                </li> */}
                                 <li>
-                                    <a
+                                    
+                                        <a className='d-flex align-items-center gap-2 p-2 rounded-5'>
+                                            <span className='icon'>
+                                                <svg height="22" width="22" class="inline-block aspect-square w-full shrink-0 rounded-full h-auto" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1" xmlns="http://www.w3.org/2000/svg"><g id="UserCircleIcon"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" fill="none" stroke="currentColor"></path></g></svg>
+                                            </span>
+                                            <span className='link-name'  onClick={handleLogout}>Logout</span>
+                                            <OverlayTrigger  trigger='click' rootClose placement="right" overlay={logoutPopover}>
+                                            <span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" height="16"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
+                                            </span>
+                                            </OverlayTrigger>
+                                        </a>
+
+                                    {/* <a
                                         onClick={handleLogout}
                                         className="d-flex align-items-center gap-2 p-2 rounded-5"
                                     >
                                         <span className="icon">
-                                            {/* Logout icon */}
                                         </span>
                                         <span className="link-name">Logout</span>
-                                    </a>
+                                    </a> */}
                                 </li>
                             </>
                         ) : (
