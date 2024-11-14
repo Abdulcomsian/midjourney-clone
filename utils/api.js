@@ -23,7 +23,7 @@ export const loginUser = async (email, password) => {
 
     return response.json(); // Assuming the API responds with user data or a token
 };
-export const registerGoogleUser = async (googleData, token) => {
+export const registerGoogleUser = async (googleData, token, country) => {
 
     const { id, email, name, picture } = googleData;
     console.log(token);
@@ -35,6 +35,7 @@ export const registerGoogleUser = async (googleData, token) => {
         social_type: 'google', // Google as social type
         social_id: token,         // Google ID from the response
         avatar: picture,      // Avatar URL from the response
+        country: country
     };
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/google/register`, {

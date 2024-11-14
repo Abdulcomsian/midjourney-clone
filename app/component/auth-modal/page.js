@@ -21,7 +21,33 @@ function AuthModal({ showModal, handleCloseAuthModal }) {
   const handleCloseAuthModalState = () => dispatch(closeAuthModal());
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
   const [loading, setLoading] = useState(false); // To show a loading state
+  const [country, setCountry] = useState('');
 
+  useEffect(() => {
+    fetch("https://restcountries.com/v3.1/all")
+      .then(response => response.json())
+      .then(data => {
+        const map = {};
+        data.forEach(country => {
+          const { cca2, name } = country;
+          map[cca2] = name.common;
+        });
+        return map;
+      })
+      .then(map => {
+        // Fetch user's country based on IP
+        fetch("https://ipinfo.io/json")
+          .then(response => response.json())
+          .then(data => {
+            if (data && data.country) {
+              const countryName = map[data.country] || data.country;
+              setCountry(countryName); // Set country display
+            }
+          })
+          .catch(err => console.error("Error fetching IP info:", err));
+      })
+      .catch(err => console.error("Error fetching countries:", err));
+  }, []);
 
   const googleLogin = useGoogleLogin({
     onSuccess: (codeResponse) => {
@@ -38,7 +64,9 @@ function AuthModal({ showModal, handleCloseAuthModal }) {
         .then(async (data) => {
           console.log("Data", data.id);
           try {
-            const result = await registerGoogleUser(data.id, codeResponse.access_token); // Call the register API
+
+            const result = await registerGoogleUser(data, codeResponse.access_token, country); // Call the register API
+
 
             if (result && !result.error) {
               console.log("Result Data", result);
