@@ -9,12 +9,14 @@ import { resetState, fetchPricingAndPaymentData, fetchPaymentMethod } from '../.
 import { useSelector, useDispatch } from 'react-redux';
 import { openSubscriptionModal } from '../../features/modalSlice';
 import SubcriptionModal from '../component/subscription-payment-modal/pages';
+import translations from '../../i18';
 
 function Subscription() {
     const dispatch = useDispatch();
     const { token } = useSelector((state) => state.auth);
     const showSubscriptionModalState = useSelector((state) => state.modal.showSubscriptionModal);
-
+    const selectedLanguage = useSelector((state) => state.language.selectedLanguage);
+    const t = translations[selectedLanguage];
     // const { get, post, data, loading, error, reset } = useApi();
     useEffect(() => {
         if (token) {
@@ -27,7 +29,7 @@ function Subscription() {
         }
     }, [dispatch, token]);
 
-    const { pricingData, paymentMethodsData, loading, error,paymentMethod,errorPaymentMethod } = useSelector((state) => state.api);
+    const { pricingData, paymentMethodsData, loading, error, paymentMethod, errorPaymentMethod } = useSelector((state) => state.api);
     useEffect(() => {
         if (pricingData || paymentMethodsData) {
             console.log("Pricing Data: ", pricingData);
@@ -46,30 +48,30 @@ function Subscription() {
     useEffect(() => {
         if (errorPaymentMethod) {
             dispatch(openSubscriptionModal());
-        } else if(paymentMethod){
+        } else if (paymentMethod) {
             dispatch(openSubscriptionModal());
         }
-    }, [paymentMethod,errorPaymentMethod]);
-    
+    }, [paymentMethod, errorPaymentMethod]);
+
     return (
         <>
             {showSubscriptionModalState &&
-                <SubcriptionModal/>
+                <SubcriptionModal />
             }
             <div className='content-wrapper '>
                 <div className='subscription-wrapper pt-5 overflow-auto common-section'>
-                    <h1 className='main-heading fw-bold text-center'>Purchase a subscription</h1>
-                    <p className='text-center'>Choose the plan that works for you</p>
-                    <div className='link-your-account align-items-center border d-flex gap-2 justify-content-around m-auto rounded-3 w-fit-content p-3 mt-4'>
-                        <p className="text-base">Already have a subscription?</p>
+                    <h1 className='main-heading fw-bold text-center'>{t?.Heading || "Purchase a subscription"}</h1>
+                    <p className='text-center'> {t?.Text_1 || "Choose the plan that works for you"}</p>
+                    {/* <div className='link-your-account align-items-center border d-flex gap-2 justify-content-around m-auto rounded-3 w-fit-content p-3 mt-4'>
+                        <p className="text-base">{t?.Text_2 || 'Already have a subscription?'}</p>
                         <a className="text-danger d-inline-flex align-items-center gap-2">
                             <span><svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" className="size-5 inline text-splash/90 mr-1 "><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg></span>
-                            <span>Link your accounts</span>
+                            <span>{t?.link_1 || "Link your accounts"}</span>
                         </a>
-                    </div>
+                    </div> */}
 
                     <Tabs defaultActiveKey="Yearly Billing" id="justify-tab-example" className="mb-3 packages-tab" justify>
-                        <Tab eventKey="Yearly Billing" title="Yearly Billing" className='border-0'>
+                        <Tab eventKey="Yearly Billing" title={t?.Toggle_1 || "Yearly Billing"} className='border-0'>
                             <div className='packages my-5'>
                                 <div className='container-fluid'>
                                     <div className='row'>
@@ -78,21 +80,21 @@ function Subscription() {
                                                 <div className='border p-4 package-box rounded-4 mb-3'>
                                                     <h5 className='package-name fw-600'>{plan.name} Plan</h5>
                                                     <div className='price-div mt-3 d-flex align-items-center gap-2 flex-lg-wrap'>
-                                                        <div className='d-flex align-items-center gap-2'>
-                                                            <span className='text-xs'>${parseFloat(plan.price).toFixed(2)}/</span>
+                                                        {/* <div className='d-flex align-items-center gap-2'>
+                                                            <span className='text-xs'> <span>{pricingData?.currency}</span> {parseFloat(plan.price).toFixed(2)}/</span>
                                                             <span>month</span>
-                                                        </div>
+                                                        </div> */}
                                                         <div className='d-flex align-items-center gap-2'>
-                                                            <span>${parseFloat(plan.price * 12).toFixed(2)}</span>
+                                                            <span><span>{pricingData?.currency}</span> {parseFloat(plan.price * 12).toFixed(2)}</span>
                                                             <span>/ year</span>
                                                         </div>
                                                     </div>
                                                     <p className='off-text'>20% off billed annually</p>
-                                                    <button className='bg-dark border mt-3 mb-1 p-2 rounded text-white w-100' onClick={()=>handlePaymentSubscription(plan.id)}>
+                                                    <button className='bg-dark border mt-3 mb-1 p-2 rounded text-white w-100' onClick={() => handlePaymentSubscription(plan.id)}>
                                                         Subscribe
                                                     </button>
                                                     <a className='d-block text-center text-dark text-decoration-none'>
-                                                        <span>View monthly billing</span>
+                                                        <span>{t?.T_1 || "View monthly billing"}</span>
                                                     </a>
                                                     <ul className='offer-list list-unstyled py-5'>
                                                         {JSON.parse(plan.features).map((feature, index) => (
@@ -121,7 +123,7 @@ function Subscription() {
                                 </div>
                             </div>
                         </Tab>
-                        <Tab eventKey="Monthly Billing" title="Monthly Billing" className='border-0'>
+                        <Tab eventKey="Monthly Billing" title={t?.Toggle_2 || "Monthly Billing"} className='border-0'>
                             <div className='packages my-5'>
                                 <div className='container-fluid'>
                                     <div className='row'>
@@ -271,7 +273,7 @@ function Subscription() {
                         </Tab>
                     </Tabs>
 
-                  
+
                 </div>
             </div>
             <BottomNav />

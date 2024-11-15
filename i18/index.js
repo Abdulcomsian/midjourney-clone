@@ -2,16 +2,22 @@
 import en from "./en.json";
 import fr from "./fr.json";
 import am from "./am.json";
-import ke from "./ke.json"
+import es from "./es.json";
 import ar from "./ar.json";
-import it from "./it.json";
+import id from "./id.json";
+import sw from "./sw.json";
+import so from "./so.json";
+import or from "./or.json";
 const translations = {
     en,
     fr,
     am,
-    ke,
-    it,
-    ar
+    es,
+    id,
+    ar,
+    sw,
+    so,
+    or
 };
 
 export default translations;

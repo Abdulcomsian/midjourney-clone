@@ -3,7 +3,8 @@ import React, { useState } from 'react'
 import DetailImage from './gallery-image-detail/detail-image'
 import BottomNav from '../bottom-nav/bottom-nav'
 import { Tab, Tabs, Accordion } from 'react-bootstrap';
-
+import translations from '../../../i18';
+import { useSelector } from "react-redux";
 const images = [
 	{ src: 'assets/img/img-1.png', slug: 'skull.with.hair' },
 	{ src: 'assets/img/img-2.png', slug: 'skull.with.hair' },
@@ -39,14 +40,15 @@ const images = [
 ]
 function MainGallery() {
 	const [imageDetail, setImageDetail] = useState(true)
-
+	const selectedLanguage = useSelector((state) => state.language.selectedLanguage);
+	const t = translations[selectedLanguage];
 	return (
 		<>
 			<main>
 				{imageDetail ? (
 					<div className='filter-bar'>
 						<Tabs defaultActiveKey="Random" id="justify-tab-example" className="mb-3 packages-tab" justify>
-							<Tab eventKey="Random" title="Random" className='border-0'>
+							<Tab eventKey="Random" title={t?.TAb_1 || "Random"} className='border-0'>
 								<div className="gallery-grid-wrapper">
 									<div className="gallery-wrapper">
 										{images.map((item) => (
@@ -60,11 +62,11 @@ function MainGallery() {
 									</div>
 									<div className="text-center see-more-images">
 										<hr width="130" className="border-2 m-auto mb-2" />
-										<h6>log in to see more</h6>
+										<h6>{t?.text_last || "Log in to See More"}</h6>
 									</div>
 								</div>
 							</Tab>
-							<Tab eventKey="Hot" title="Hot" className='border-0'>
+							<Tab eventKey="Hot" title={t?.Tab_2 || "Hot"} className='border-0'>
 								<div className="gallery-grid-wrapper">
 									<div className="gallery-wrapper">
 										{images.map((item) => (
@@ -78,11 +80,11 @@ function MainGallery() {
 									</div>
 									<div className="text-center see-more-images">
 										<hr width="130" className="border-2 m-auto mb-2" />
-										<h6>log in to see more</h6>
+										<h6>{t?.text_last || "Log in to See More"}</h6>
 									</div>
 								</div>
 							</Tab>
-							<Tab eventKey="Today" title="Today" className='border-0'>
+							<Tab eventKey="Today" title={t?.Tab_3 || "Today"} className='border-0'>
 								<div className="gallery-grid-wrapper">
 									<div className="gallery-wrapper">
 										{images.map((item) => (
@@ -96,11 +98,11 @@ function MainGallery() {
 									</div>
 									<div className="text-center see-more-images">
 										<hr width="130" className="border-2 m-auto mb-2" />
-										<h6>log in to see more</h6>
+										<h6>{t?.text_last || "Log in to See More"}</h6>
 									</div>
 								</div>
 							</Tab>
-							<Tab eventKey="Likes" title="Likes" className='border-0'>
+							<Tab eventKey="Likes" title={t?.Tab_4 || "Likes"} className='border-0'>
 								<div className="gallery-grid-wrapper">
 									<div className="gallery-wrapper">
 										{images.map((item) => (
@@ -114,7 +116,7 @@ function MainGallery() {
 									</div>
 									<div className="text-center see-more-images">
 										<hr width="130" className="border-2 m-auto mb-2" />
-										<h6>log in to see more</h6>
+										<h6>{t?.text_last || "Log in to See More"}</h6>
 									</div>
 								</div>
 							</Tab>

@@ -8,7 +8,8 @@ import { useRouter } from 'next/navigation';
 import './global.css';
 import RegisterModal from './component/register-modal/page';
 import { Provider } from 'react-redux';
-import store from '../store/store';
+import { store, persistor } from '../store/store';
+import { PersistGate } from 'redux-persist/integration/react';
 import { useSelector } from 'react-redux';
 import LandingPage from './landing-page/page';
 import { GoogleOAuthProvider } from '@react-oauth/google';
@@ -105,7 +106,9 @@ export default function RootLayout({ children }) {
       <body className={darkThemeMode ? 'dark-mode' : 'light-mode'} style={{ overflowY: 'auto', height: '100vh' }}>
         <GoogleOAuthProvider clientId="404893580446-h7n8c6nqhh4psq4dqa9ab50ad8hvjrlk.apps.googleusercontent.com">
           <Provider store={store}>
-            <LayoutContent children={children} toggleTheme={toggleTheme} />
+            <PersistGate loading={null} persistor={persistor}>
+              <LayoutContent children={children} toggleTheme={toggleTheme} />
+            </PersistGate>
           </Provider>
         </GoogleOAuthProvider>
       </body>

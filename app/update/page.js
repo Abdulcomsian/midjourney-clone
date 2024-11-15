@@ -1,76 +1,79 @@
 "use client";
 import React from "react";
 import BootamNav from '../component/bottom-nav/bottom-nav';
-import {Tab, Tabs, OverlayTrigger, Popover, Accordion} from 'react-bootstrap';
-
-function Update (){
+import { Tab, Tabs, OverlayTrigger, Popover, Accordion } from 'react-bootstrap';
+import translations from "../../i18";
+import { useSelector } from "react-redux";
+function Update() {
+    const selectedLanguage = useSelector((state) => state.language.selectedLanguage);
+    const t = translations[selectedLanguage];
     const popoverSetting = (
         <Popover id="popover-basic" rootClose="false">
-          <Popover.Body className='p-1'>
-            <table>
-                <tbody>
-                    <tr>
-                        <td className='p-2 white-space-nowrap'></td>
-                        <td className='p-2 white-space-nowrap'>
-                            <span>Show in All</span>
-                        </td>
-                        <td className='p-2 white-space-nowrap'>
-                            <span>Notify</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className='p-2 white-space-nowrap'>
-                            <span>Announcements</span>
-                        </td>
-                        <td className='p-2 white-space-nowrap text-center'>
-                            <input type="checkbox"/>
-                        </td>
-                        <td className='p-2 white-space-nowrap text-center'>
-                            <input type="checkbox"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className='p-2 white-space-nowrap'>
-                            <span>Office Hours</span>
-                        </td>
-                        <td className='p-2 white-space-nowrap text-center'>
-                            <input type="checkbox"/>
-                        </td>
-                        <td className='p-2 white-space-nowrap text-center'>
-                            <input type="checkbox"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className='p-2 white-space-nowrap'>
-                            <span>Changelog</span>
-                        </td>
-                        <td className='p-2 white-space-nowrap text-center'>
-                            <input type="checkbox"/>
-                        </td>
-                        <td className='p-2 white-space-nowrap text-center'>
-                            <input type="checkbox"/>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-          </Popover.Body>
+            <Popover.Body className='p-1'>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td className='p-2 white-space-nowrap'></td>
+                            <td className='p-2 white-space-nowrap'>
+                                <span>Show in All</span>
+                            </td>
+                            <td className='p-2 white-space-nowrap'>
+                                <span>Notify</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className='p-2 white-space-nowrap'>
+                                <span>Announcements</span>
+                            </td>
+                            <td className='p-2 white-space-nowrap text-center'>
+                                <input type="checkbox" />
+                            </td>
+                            <td className='p-2 white-space-nowrap text-center'>
+                                <input type="checkbox" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className='p-2 white-space-nowrap'>
+                                <span>Office Hours</span>
+                            </td>
+                            <td className='p-2 white-space-nowrap text-center'>
+                                <input type="checkbox" />
+                            </td>
+                            <td className='p-2 white-space-nowrap text-center'>
+                                <input type="checkbox" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className='p-2 white-space-nowrap'>
+                                <span>Changelog</span>
+                            </td>
+                            <td className='p-2 white-space-nowrap text-center'>
+                                <input type="checkbox" />
+                            </td>
+                            <td className='p-2 white-space-nowrap text-center'>
+                                <input type="checkbox" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </Popover.Body>
         </Popover>
-      );
-    return(
+    );
+    return (
         <>
-        <div className="content-wrapper">
-        <div className="update-wrapper m-auto position-relative">
-                <h1 className="text-center fw-bold main-heading">Latest Updates</h1>
-                <div className='setting-popover'>
-                    <OverlayTrigger trigger='click' rootClose placement="bottom" overlay={popoverSetting} >
-                        <span>
-                            <svg width={18} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" className="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                        </span>     
-                    </OverlayTrigger>
-                </div>
-                <Tabs defaultActiveKey="All" id="justify-tab-example" className="update-tab w-75 justify-content-center" justify>
-                    <Tab eventKey="All" title="All" className='border-0'>
-                        <div className="d-flex gap-5 m-auto position-relative main-panel">
+            <div className="content-wrapper">
+                <div className="update-wrapper m-auto position-relative">
+                    <h1 className="text-center fw-bold main-heading">{t?.Heading_1 || "Latest Updates"}</h1>
+                    <div className='setting-popover'>
+                        <OverlayTrigger trigger='click' rootClose placement="bottom" overlay={popoverSetting} >
+                            <span>
+                                <svg width={18} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" className="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            </span>
+                        </OverlayTrigger>
+                    </div>
+                    <Tabs defaultActiveKey="All" id="justify-tab-example" className="update-tab w-75 justify-content-center" justify>
+                        <Tab eventKey="All" title="All" className='border-0'>
+                            <div className="d-flex gap-5 m-auto position-relative main-panel">
                                 <div className="border line h-100"></div>
                                 <div className="shape"></div>
                                 <div className="left-update-panel">
@@ -90,19 +93,19 @@ function Update (){
                                     <p>Hi everyone, personalization for the Niji (anime) model is available today!</p>
                                     <p>If you rate at least 200 images on <a>midjourney.com/rank-niji</a> and then add --p after your --niji prompt, you can have personalized Niji model results. This personalization doesn't only change the style, but changes all elements of the images to suit your tastes. If you're a Niji model user you should try this out. We're sure you'll love it!</p>
                                     <figure>
-                                        <img src="assets/img/update-img.png" className="img-fluid"/>
+                                        <img src="assets/img/update-img.png" className="img-fluid" />
                                     </figure>
                                     <p>If you're not a Niji model user, you can personalize your Midjourney model at any time by rating at least 200 images at <a>https://www.midjourney.com/rank</a> and then adding --p after your prompt.</p>
                                     <p>Don't be afraid to rank! It only takes about 5 minutes for 200 images.</p>
                                     <p>Have fun! Learn more about Niji personalization on the the niji・blog</p>
                                 </div>
                             </div>
-                            
+
                             <div className="d-flex gap-5 m-auto position-relative main-panel">
                                 <div className="border line h-100"></div>
                                 <div className="shape"></div>
                                 <div className="left-update-panel">
-                                <div className="date-time py-4">
+                                    <div className="date-time py-4">
                                         <span className="d-block">September 07, 2024</span>
                                         <span className="time">4:46 AM</span>
                                         <div className="announcement d-flex align-item-center gap-2">
@@ -117,7 +120,7 @@ function Update (){
                                     <h3>The web is open to all!</h3>
                                     <p>We've opened up our web platform to everyone! Now you can explore and create in a custom-built experience. Check out an overview of how to use the site.</p>
                                     <figure>
-                                        <img src="assets/img/update-img.png" className="img-fluid"/>
+                                        <img src="assets/img/update-img.png" className="img-fluid" />
                                     </figure>
                                     <p>A few notes on signing in to the site:</p>
                                     <ul className="ml-4">
@@ -134,7 +137,7 @@ function Update (){
                                 <div className="border line h-100"></div>
                                 <div className="shape"></div>
                                 <div className="left-update-panel">
-                                <div className="date-time py-4">
+                                    <div className="date-time py-4">
                                         <span className="d-block">September 07, 2024</span>
                                         <span className="time">4:46 AM</span>
                                         <div className="announcement d-flex align-item-center gap-2">
@@ -152,13 +155,13 @@ function Update (){
                                         <strong>We're releasing a new web editor today! </strong>
                                     </p>
                                     <p>
-                                        This combines reframe / repaint / vary region / pan / zoom into a single unified interface. We think this makes editing your MJ images way more seamless than before and is a huge step forward. 
+                                        This combines reframe / repaint / vary region / pan / zoom into a single unified interface. We think this makes editing your MJ images way more seamless than before and is a huge step forward.
                                         <br></br>
                                         <br></br>
                                         Here's a video showing how the editor works
                                     </p>
                                     <figure>
-                                        <img src="assets/img/update-img.png" className="img-fluid"/>
+                                        <img src="assets/img/update-img.png" className="img-fluid" />
                                     </figure>
                                     <p>
                                         <strong>Room Syncing</strong>
@@ -198,9 +201,9 @@ function Update (){
                                     </ul>
                                 </div>
                             </div>
-                    </Tab>
-                    <Tab eventKey="Announcements" title="Announcements" className='border-0'>
-                        <div className="d-flex gap-5 m-auto position-relative main-panel">
+                        </Tab>
+                        <Tab eventKey="Announcements" title="Announcements" className='border-0'>
+                            <div className="d-flex gap-5 m-auto position-relative main-panel">
                                 <div className="border line h-100"></div>
                                 <div className="shape"></div>
                                 <div className="left-update-panel">
@@ -220,19 +223,19 @@ function Update (){
                                     <p>Hi everyone, personalization for the Niji (anime) model is available today!</p>
                                     <p>If you rate at least 200 images on <a>midjourney.com/rank-niji</a> and then add --p after your --niji prompt, you can have personalized Niji model results. This personalization doesn't only change the style, but changes all elements of the images to suit your tastes. If you're a Niji model user you should try this out. We're sure you'll love it!</p>
                                     <figure>
-                                        <img src="assets/img/update-img.png" className="img-fluid"/>
+                                        <img src="assets/img/update-img.png" className="img-fluid" />
                                     </figure>
                                     <p>If you're not a Niji model user, you can personalize your Midjourney model at any time by rating at least 200 images at <a>https://www.midjourney.com/rank</a> and then adding --p after your prompt.</p>
                                     <p>Don't be afraid to rank! It only takes about 5 minutes for 200 images.</p>
                                     <p>Have fun! Learn more about Niji personalization on the the niji・blog</p>
                                 </div>
                             </div>
-                            
+
                             <div className="d-flex gap-5 m-auto position-relative main-panel">
                                 <div className="border line h-100"></div>
                                 <div className="shape"></div>
                                 <div className="left-update-panel">
-                                <div className="date-time py-4">
+                                    <div className="date-time py-4">
                                         <span className="d-block">September 07, 2024</span>
                                         <span className="time">4:46 AM</span>
                                         <div className="announcement d-flex align-item-center gap-2">
@@ -247,7 +250,7 @@ function Update (){
                                     <h3>The web is open to all!</h3>
                                     <p>We've opened up our web platform to everyone! Now you can explore and create in a custom-built experience. Check out an overview of how to use the site.</p>
                                     <figure>
-                                        <img src="assets/img/update-img.png" className="img-fluid"/>
+                                        <img src="assets/img/update-img.png" className="img-fluid" />
                                     </figure>
                                     <p>A few notes on signing in to the site:</p>
                                     <ul className="ml-4">
@@ -264,7 +267,7 @@ function Update (){
                                 <div className="border line h-100"></div>
                                 <div className="shape"></div>
                                 <div className="left-update-panel">
-                                <div className="date-time py-4">
+                                    <div className="date-time py-4">
                                         <span className="d-block">September 07, 2024</span>
                                         <span className="time">4:46 AM</span>
                                         <div className="announcement d-flex align-item-center gap-2">
@@ -282,13 +285,13 @@ function Update (){
                                         <strong>We're releasing a new web editor today! </strong>
                                     </p>
                                     <p>
-                                        This combines reframe / repaint / vary region / pan / zoom into a single unified interface. We think this makes editing your MJ images way more seamless than before and is a huge step forward. 
+                                        This combines reframe / repaint / vary region / pan / zoom into a single unified interface. We think this makes editing your MJ images way more seamless than before and is a huge step forward.
                                         <br></br>
                                         <br></br>
                                         Here's a video showing how the editor works
                                     </p>
                                     <figure>
-                                        <img src="assets/img/update-img.png" className="img-fluid"/>
+                                        <img src="assets/img/update-img.png" className="img-fluid" />
                                     </figure>
                                     <p>
                                         <strong>Room Syncing</strong>
@@ -328,9 +331,9 @@ function Update (){
                                     </ul>
                                 </div>
                             </div>
-                    </Tab>
-                    <Tab eventKey="Office Hours" title="Office Hours" className='border-0'>
-                        <div className="d-flex gap-5 m-auto position-relative main-panel">
+                        </Tab>
+                        <Tab eventKey="Office Hours" title="Office Hours" className='border-0'>
+                            <div className="d-flex gap-5 m-auto position-relative main-panel">
                                 <div className="border line h-100"></div>
                                 <div className="shape"></div>
                                 <div className="left-update-panel">
@@ -350,19 +353,19 @@ function Update (){
                                     <p>Hi everyone, personalization for the Niji (anime) model is available today!</p>
                                     <p>If you rate at least 200 images on <a>midjourney.com/rank-niji</a> and then add --p after your --niji prompt, you can have personalized Niji model results. This personalization doesn't only change the style, but changes all elements of the images to suit your tastes. If you're a Niji model user you should try this out. We're sure you'll love it!</p>
                                     <figure>
-                                        <img src="assets/img/update-img.png" className="img-fluid"/>
+                                        <img src="assets/img/update-img.png" className="img-fluid" />
                                     </figure>
                                     <p>If you're not a Niji model user, you can personalize your Midjourney model at any time by rating at least 200 images at <a>https://www.midjourney.com/rank</a> and then adding --p after your prompt.</p>
                                     <p>Don't be afraid to rank! It only takes about 5 minutes for 200 images.</p>
                                     <p>Have fun! Learn more about Niji personalization on the the niji・blog</p>
                                 </div>
                             </div>
-                            
+
                             <div className="d-flex gap-5 m-auto position-relative main-panel">
                                 <div className="border line h-100"></div>
                                 <div className="shape"></div>
                                 <div className="left-update-panel">
-                                <div className="date-time py-4">
+                                    <div className="date-time py-4">
                                         <span className="d-block">September 07, 2024</span>
                                         <span className="time">4:46 AM</span>
                                         <div className="announcement d-flex align-item-center gap-2">
@@ -377,7 +380,7 @@ function Update (){
                                     <h3>The web is open to all!</h3>
                                     <p>We've opened up our web platform to everyone! Now you can explore and create in a custom-built experience. Check out an overview of how to use the site.</p>
                                     <figure>
-                                        <img src="assets/img/update-img.png" className="img-fluid"/>
+                                        <img src="assets/img/update-img.png" className="img-fluid" />
                                     </figure>
                                     <p>A few notes on signing in to the site:</p>
                                     <ul className="ml-4">
@@ -394,7 +397,7 @@ function Update (){
                                 <div className="border line h-100"></div>
                                 <div className="shape"></div>
                                 <div className="left-update-panel">
-                                <div className="date-time py-4">
+                                    <div className="date-time py-4">
                                         <span className="d-block">September 07, 2024</span>
                                         <span className="time">4:46 AM</span>
                                         <div className="announcement d-flex align-item-center gap-2">
@@ -412,13 +415,13 @@ function Update (){
                                         <strong>We're releasing a new web editor today! </strong>
                                     </p>
                                     <p>
-                                        This combines reframe / repaint / vary region / pan / zoom into a single unified interface. We think this makes editing your MJ images way more seamless than before and is a huge step forward. 
+                                        This combines reframe / repaint / vary region / pan / zoom into a single unified interface. We think this makes editing your MJ images way more seamless than before and is a huge step forward.
                                         <br></br>
                                         <br></br>
                                         Here's a video showing how the editor works
                                     </p>
                                     <figure>
-                                        <img src="assets/img/update-img.png" className="img-fluid"/>
+                                        <img src="assets/img/update-img.png" className="img-fluid" />
                                     </figure>
                                     <p>
                                         <strong>Room Syncing</strong>
@@ -458,9 +461,9 @@ function Update (){
                                     </ul>
                                 </div>
                             </div>
-                    </Tab>
-                    <Tab eventKey="Changelog" title="Changelog" className='border-0'>
-                        <div className="d-flex gap-5 m-auto position-relative main-panel">
+                        </Tab>
+                        <Tab eventKey="Changelog" title="Changelog" className='border-0'>
+                            <div className="d-flex gap-5 m-auto position-relative main-panel">
                                 <div className="border line h-100"></div>
                                 <div className="shape"></div>
                                 <div className="left-update-panel">
@@ -480,19 +483,19 @@ function Update (){
                                     <p>Hi everyone, personalization for the Niji (anime) model is available today!</p>
                                     <p>If you rate at least 200 images on <a>midjourney.com/rank-niji</a> and then add --p after your --niji prompt, you can have personalized Niji model results. This personalization doesn't only change the style, but changes all elements of the images to suit your tastes. If you're a Niji model user you should try this out. We're sure you'll love it!</p>
                                     <figure>
-                                        <img src="assets/img/update-img.png" className="img-fluid"/>
+                                        <img src="assets/img/update-img.png" className="img-fluid" />
                                     </figure>
                                     <p>If you're not a Niji model user, you can personalize your Midjourney model at any time by rating at least 200 images at <a>https://www.midjourney.com/rank</a> and then adding --p after your prompt.</p>
                                     <p>Don't be afraid to rank! It only takes about 5 minutes for 200 images.</p>
                                     <p>Have fun! Learn more about Niji personalization on the the niji・blog</p>
                                 </div>
                             </div>
-                            
+
                             <div className="d-flex gap-5 m-auto position-relative main-panel">
                                 <div className="border line h-100"></div>
                                 <div className="shape"></div>
                                 <div className="left-update-panel">
-                                <div className="date-time py-4">
+                                    <div className="date-time py-4">
                                         <span className="d-block">September 07, 2024</span>
                                         <span className="time">4:46 AM</span>
                                         <div className="announcement d-flex align-item-center gap-2">
@@ -507,7 +510,7 @@ function Update (){
                                     <h3>The web is open to all!</h3>
                                     <p>We've opened up our web platform to everyone! Now you can explore and create in a custom-built experience. Check out an overview of how to use the site.</p>
                                     <figure>
-                                        <img src="assets/img/update-img.png" className="img-fluid"/>
+                                        <img src="assets/img/update-img.png" className="img-fluid" />
                                     </figure>
                                     <p>A few notes on signing in to the site:</p>
                                     <ul className="ml-4">
@@ -524,7 +527,7 @@ function Update (){
                                 <div className="border line h-100"></div>
                                 <div className="shape"></div>
                                 <div className="left-update-panel">
-                                <div className="date-time py-4">
+                                    <div className="date-time py-4">
                                         <span className="d-block">September 07, 2024</span>
                                         <span className="time">4:46 AM</span>
                                         <div className="announcement d-flex align-item-center gap-2">
@@ -542,13 +545,13 @@ function Update (){
                                         <strong>We're releasing a new web editor today! </strong>
                                     </p>
                                     <p>
-                                        This combines reframe / repaint / vary region / pan / zoom into a single unified interface. We think this makes editing your MJ images way more seamless than before and is a huge step forward. 
+                                        This combines reframe / repaint / vary region / pan / zoom into a single unified interface. We think this makes editing your MJ images way more seamless than before and is a huge step forward.
                                         <br></br>
                                         <br></br>
                                         Here's a video showing how the editor works
                                     </p>
                                     <figure>
-                                        <img src="assets/img/update-img.png" className="img-fluid"/>
+                                        <img src="assets/img/update-img.png" className="img-fluid" />
                                     </figure>
                                     <p>
                                         <strong>Room Syncing</strong>
@@ -588,20 +591,20 @@ function Update (){
                                     </ul>
                                 </div>
                             </div>
-                    </Tab>
-                </Tabs>
-                <div className="tab-panel">
-                    <div className="tab-content pt-5" id="pills-tabContent">
-                        <div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                            
+                        </Tab>
+                    </Tabs>
+                    <div className="tab-panel">
+                        <div className="tab-content pt-5" id="pills-tabContent">
+                            <div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+
+                            </div>
+                            <div className="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
+                            <div className="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
                         </div>
-                        <div className="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
-                        <div className="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
                     </div>
                 </div>
             </div>
-        </div>
-        <BootamNav/>
+            <BootamNav />
         </>
     )
 }

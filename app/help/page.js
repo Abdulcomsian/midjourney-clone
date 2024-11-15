@@ -1,99 +1,103 @@
 "use client";
 import React, { useState } from 'react';
-import { FaChevronDown, FaPlus, FaTrash, FaCheck  } from "react-icons/fa";
+import { FaChevronDown, FaPlus, FaTrash, FaCheck } from "react-icons/fa";
 import $ from 'jquery';
 import BottomNav from '../component/bottom-nav/bottom-nav';
 import Accordion from 'react-bootstrap/Accordion';
+import translations from '../../i18';
+import { useSelector } from "react-redux";
 
-
-function Help () {
-    const [affectedUrl,setAffectedUrl] =  useState([]);
+function Help() {
+    const [affectedUrl, setAffectedUrl] = useState([]);
     const resourcesArray = [
-        {resourceName: 'Getting Started', sulg:'A quick how-to guide to get you started making images as fast as possible'},
-        {resourceName: 'In-Depth Documentation', sulg:'A quick how-to guide to get you started making images as fast as possible'},
-        {resourceName: 'Create with Newcomers', sulg:'A quick how-to guide to get you started making images as fast as possible'},
-        {resourceName: 'Video Tutorials', sulg:'A quick how-to guide to get you started making images as fast as possible'},
-        {resourceName: 'Prompt Crafting Chatroom', sulg:'A quick how-to guide to get you started making images as fast as possible'},
-        {resourceName: 'Billing Support', sulg:'A quick how-to guide to get you started making images as fast as possible'}
+        { resourceName: 'Getting Started', sulg: 'A quick how-to guide to get you started making images as fast as possible' },
+        { resourceName: 'In-Depth Documentation', sulg: 'A quick how-to guide to get you started making images as fast as possible' },
+        { resourceName: 'Create with Newcomers', sulg: 'A quick how-to guide to get you started making images as fast as possible' },
+        { resourceName: 'Video Tutorials', sulg: 'A quick how-to guide to get you started making images as fast as possible' },
+        { resourceName: 'Prompt Crafting Chatroom', sulg: 'A quick how-to guide to get you started making images as fast as possible' },
+        { resourceName: 'Billing Support', sulg: 'A quick how-to guide to get you started making images as fast as possible' }
     ]
     const add = () => {
         setAffectedUrl(prevRowList => [...prevRowList, true]);
-      };
-    
+    };
+
     const remove = (i) => {
         setAffectedUrl(prevRowList => prevRowList.filter((_, index) => index !== i));
     };
-    return(
+    const selectedLanguage = useSelector((state) => state.language.selectedLanguage);
+    const t = translations[selectedLanguage];
+
+    return (
         <>
-        <div className='content-wrapper'>
-            <div className='help-section subscription-wrapper common-section'>
-                <div className='left-panel'>
-                    <div className='frequently-question'>
-                        <h2 className='text-center fw-600'>Frequently Asked Questions</h2>
-                        <p className='text-center'>Can't find the answer you're looking for?</p>
-                        <p className='text-center'>Read the <a className='text-danger'>Quick Start Guide</a> or <a className='text-danger'>contact support.</a></p>
-                    </div>
-                    <Accordion className='my-5'>
-                        <Accordion.Item eventKey="0" className='mb-2 rounded-3'>
-                            <Accordion.Header className='border-0'>What are "Fast Hours"?</Accordion.Header>
-                            <Accordion.Body>
-                                <p className="mb-4">We have two modes for image generation, “fast” and “relax”. Fast tries to give you a GPU instantly. It's our highest priority processing tier, and it's kinda expensive. Relax puts you in a queue behind others based on how much you've used the system in relax mode.</p>
-                                <p className="mb-4">The basic plan comes with 200 fast GPU-minutes/mo, standard with 15 fast gpu-hours/mo, and pro with 30 gpu-hours/mo.</p>
-                                <p className="mb-4">One hour is roughly 60 image generation or upscale commands and roughly 200 image variation commands.</p>
-                                <p className="mb-4">These numbers are experimental and may change at any time.</p>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                        <Accordion.Item eventKey="1" className='mb-2 rounded-3'>
-                            <Accordion.Header className='border-0'>What is unlimited relaxed generation?</Accordion.Header>
-                            <Accordion.Body>
-                                <p className="mb-4">We have two modes for image generation, “fast” and “relax”. Fast tries to give you a GPU instantly. It's our highest priority processing tier, and it's kinda expensive. Relax puts you in a queue behind others based on how much you've used the system in relax mode.</p>
-                                <p className="mb-4">The basic plan comes with 200 fast GPU-minutes/mo, standard with 15 fast gpu-hours/mo, and pro with 30 gpu-hours/mo.</p>
-                                <p className="mb-4">One hour is roughly 60 image generation or upscale commands and roughly 200 image variation commands.</p>
-                                <p className="mb-4">These numbers are experimental and may change at any time.</p>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                        <Accordion.Item eventKey="2" className='mb-2 rounded-3'>
-                            <Accordion.Header className='border-0'>What if I want MORE fast?</Accordion.Header>
-                            <Accordion.Body>
-                                <p className="mb-4">We have two modes for image generation, “fast” and “relax”. Fast tries to give you a GPU instantly. It's our highest priority processing tier, and it's kinda expensive. Relax puts you in a queue behind others based on how much you've used the system in relax mode.</p>
-                                <p className="mb-4">The basic plan comes with 200 fast GPU-minutes/mo, standard with 15 fast gpu-hours/mo, and pro with 30 gpu-hours/mo.</p>
-                                <p className="mb-4">One hour is roughly 60 image generation or upscale commands and roughly 200 image variation commands.</p>
-                                <p className="mb-4">These numbers are experimental and may change at any time.</p>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                        <Accordion.Item eventKey="3" className='mb-2 rounded-3'>
-                            <Accordion.Header className='border-0'>What is the Community Gallery?</Accordion.Header>
-                            <Accordion.Body>
-                                <p className="mb-4">We have two modes for image generation, “fast” and “relax”. Fast tries to give you a GPU instantly. It's our highest priority processing tier, and it's kinda expensive. Relax puts you in a queue behind others based on how much you've used the system in relax mode.</p>
-                                <p className="mb-4">The basic plan comes with 200 fast GPU-minutes/mo, standard with 15 fast gpu-hours/mo, and pro with 30 gpu-hours/mo.</p>
-                                <p className="mb-4">One hour is roughly 60 image generation or upscale commands and roughly 200 image variation commands.</p>
-                                <p className="mb-4">These numbers are experimental and may change at any time.</p>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                        <Accordion.Item eventKey="4" className='mb-2 rounded-3'>
-                            <Accordion.Header className='border-0'>What if I don't want my images to appear in the Gallery?</Accordion.Header>
-                            <Accordion.Body>
-                                <p className="mb-4">We have two modes for image generation, “fast” and “relax”. Fast tries to give you a GPU instantly. It's our highest priority processing tier, and it's kinda expensive. Relax puts you in a queue behind others based on how much you've used the system in relax mode.</p>
-                                <p className="mb-4">The basic plan comes with 200 fast GPU-minutes/mo, standard with 15 fast gpu-hours/mo, and pro with 30 gpu-hours/mo.</p>
-                                <p className="mb-4">One hour is roughly 60 image generation or upscale commands and roughly 200 image variation commands.</p>
-                                <p className="mb-4">These numbers are experimental and may change at any time.</p>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                        <Accordion.Item eventKey="5" className='mb-2 rounded-3'>
-                            <Accordion.Header className='border-0'>How does commercial use work?</Accordion.Header>
-                            <Accordion.Body>
-                                <p className="mb-4">We have two modes for image generation, “fast” and “relax”. Fast tries to give you a GPU instantly. It's our highest priority processing tier, and it's kinda expensive. Relax puts you in a queue behind others based on how much you've used the system in relax mode.</p>
-                                <p className="mb-4">The basic plan comes with 200 fast GPU-minutes/mo, standard with 15 fast gpu-hours/mo, and pro with 30 gpu-hours/mo.</p>
-                                <p className="mb-4">One hour is roughly 60 image generation or upscale commands and roughly 200 image variation commands.</p>
-                                <p className="mb-4">These numbers are experimental and may change at any time.</p>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion>
-            <div className="text-center">
+            <div className='content-wrapper'>
+                <div className='help-section subscription-wrapper common-section'>
+                    <div className='left-panel'>
+                        <div className='frequently-question'>
+                            <h2 className='text-center fw-600'>{t?.heading1 || "Frequently Asked Question"}</h2>
+                            <p className='text-center'>{t?.SubHeading_1 || "Can't find the answer you're looking for?"}</p>
+                            <p className='text-center'>Read the <a className='text-danger'>Quick Start Guide</a> or <a className='text-danger'>contact support.</a></p>
+                        </div>
+                        <Accordion className='my-5'>
+                            <Accordion.Item eventKey="0" className='mb-2 rounded-3'>
+                                <Accordion.Header className='border-0'>What are "Fast Hours"?</Accordion.Header>
+                                <Accordion.Body>
+                                    <p className="mb-4">We have two modes for image generation, “fast” and “relax”. Fast tries to give you a GPU instantly. It's our highest priority processing tier, and it's kinda expensive. Relax puts you in a queue behind others based on how much you've used the system in relax mode.</p>
+                                    <p className="mb-4">The basic plan comes with 200 fast GPU-minutes/mo, standard with 15 fast gpu-hours/mo, and pro with 30 gpu-hours/mo.</p>
+                                    <p className="mb-4">One hour is roughly 60 image generation or upscale commands and roughly 200 image variation commands.</p>
+                                    <p className="mb-4">These numbers are experimental and may change at any time.</p>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                            <Accordion.Item eventKey="1" className='mb-2 rounded-3'>
+                                <Accordion.Header className='border-0'>What is unlimited relaxed generation?</Accordion.Header>
+                                <Accordion.Body>
+                                    <p className="mb-4">We have two modes for image generation, “fast” and “relax”. Fast tries to give you a GPU instantly. It's our highest priority processing tier, and it's kinda expensive. Relax puts you in a queue behind others based on how much you've used the system in relax mode.</p>
+                                    <p className="mb-4">The basic plan comes with 200 fast GPU-minutes/mo, standard with 15 fast gpu-hours/mo, and pro with 30 gpu-hours/mo.</p>
+                                    <p className="mb-4">One hour is roughly 60 image generation or upscale commands and roughly 200 image variation commands.</p>
+                                    <p className="mb-4">These numbers are experimental and may change at any time.</p>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                            <Accordion.Item eventKey="2" className='mb-2 rounded-3'>
+                                <Accordion.Header className='border-0'>What if I want MORE fast?</Accordion.Header>
+                                <Accordion.Body>
+                                    <p className="mb-4">We have two modes for image generation, “fast” and “relax”. Fast tries to give you a GPU instantly. It's our highest priority processing tier, and it's kinda expensive. Relax puts you in a queue behind others based on how much you've used the system in relax mode.</p>
+                                    <p className="mb-4">The basic plan comes with 200 fast GPU-minutes/mo, standard with 15 fast gpu-hours/mo, and pro with 30 gpu-hours/mo.</p>
+                                    <p className="mb-4">One hour is roughly 60 image generation or upscale commands and roughly 200 image variation commands.</p>
+                                    <p className="mb-4">These numbers are experimental and may change at any time.</p>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                            <Accordion.Item eventKey="3" className='mb-2 rounded-3'>
+                                <Accordion.Header className='border-0'>What is the Community Gallery?</Accordion.Header>
+                                <Accordion.Body>
+                                    <p className="mb-4">We have two modes for image generation, “fast” and “relax”. Fast tries to give you a GPU instantly. It's our highest priority processing tier, and it's kinda expensive. Relax puts you in a queue behind others based on how much you've used the system in relax mode.</p>
+                                    <p className="mb-4">The basic plan comes with 200 fast GPU-minutes/mo, standard with 15 fast gpu-hours/mo, and pro with 30 gpu-hours/mo.</p>
+                                    <p className="mb-4">One hour is roughly 60 image generation or upscale commands and roughly 200 image variation commands.</p>
+                                    <p className="mb-4">These numbers are experimental and may change at any time.</p>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                            <Accordion.Item eventKey="4" className='mb-2 rounded-3'>
+                                <Accordion.Header className='border-0'>What if I don't want my images to appear in the Gallery?</Accordion.Header>
+                                <Accordion.Body>
+                                    <p className="mb-4">We have two modes for image generation, “fast” and “relax”. Fast tries to give you a GPU instantly. It's our highest priority processing tier, and it's kinda expensive. Relax puts you in a queue behind others based on how much you've used the system in relax mode.</p>
+                                    <p className="mb-4">The basic plan comes with 200 fast GPU-minutes/mo, standard with 15 fast gpu-hours/mo, and pro with 30 gpu-hours/mo.</p>
+                                    <p className="mb-4">One hour is roughly 60 image generation or upscale commands and roughly 200 image variation commands.</p>
+                                    <p className="mb-4">These numbers are experimental and may change at any time.</p>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                            <Accordion.Item eventKey="5" className='mb-2 rounded-3'>
+                                <Accordion.Header className='border-0'>How does commercial use work?</Accordion.Header>
+                                <Accordion.Body>
+                                    <p className="mb-4">We have two modes for image generation, “fast” and “relax”. Fast tries to give you a GPU instantly. It's our highest priority processing tier, and it's kinda expensive. Relax puts you in a queue behind others based on how much you've used the system in relax mode.</p>
+                                    <p className="mb-4">The basic plan comes with 200 fast GPU-minutes/mo, standard with 15 fast gpu-hours/mo, and pro with 30 gpu-hours/mo.</p>
+                                    <p className="mb-4">One hour is roughly 60 image generation or upscale commands and roughly 200 image variation commands.</p>
+                                    <p className="mb-4">These numbers are experimental and may change at any time.</p>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                        </Accordion>
+                        {/* <div className="text-center">
                 <h1 className="main-heading mb-3">Help</h1>
                 <h3 className="sub-heading">Find help resources, documentation and system updates</h3>
-            </div>
-            <div className='resources pt-5'>
+            </div> */}
+                        {/* <div className='resources pt-5'>
                 <h5 className='fw-600'>Resources</h5>
 
                 <div className='multiple-resources mt-3'>
@@ -112,8 +116,8 @@ function Help () {
                         )
                     })}
                 </div>
-            </div>
-            <div className='container-fluid'>
+            </div> */}
+                        {/* <div className='container-fluid'>
                 <div className='row'>
                     <div className='col-md-6'>
                         <div className='help-common-box border rounded-4 p-4 mt-5 pb-5'>
@@ -215,13 +219,13 @@ function Help () {
                         </div>
                     </div>
                 </div>
+            </div> */}
+                    </div>
+                    <div className='right-panel'></div>
+                </div>
             </div>
-        </div>
-        <div className='right-panel'></div>
-    </div>
-        </div>
-        <BottomNav/>
+            <BottomNav />
         </>
     )
-}   
+}
 export default Help;

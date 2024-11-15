@@ -1,32 +1,58 @@
-'use client'
+'use client';
 import React, { useState, useEffect } from "react";
 import ReactFlagsSelect from "react-flags-select";
 import { useSelector, useDispatch } from "react-redux";
 import { setLanguage } from "../../../features/languageSlice";
 import translations from "../../../i18";
+
 function TopSearch({ showCreativeModal }) {
     const selectedLanguage = useSelector((state) => state.language.selectedLanguage);
     const dispatch = useDispatch();
-    const [selected, setSelected] = React.useState("GB");
+
+    // Define mappings for country codes and language codes
+    const languageToCountryMapping = {
+        en: "GB",
+        fr: "FR",
+        sw: "KE",
+        am: "AM",
+        ar: "SA",
+        es: "ES",
+        id: "ID",
+        or: "OR",
+        so: "SO"
+    };
+
+    const countryToLanguageMapping = {
+        GB: "en",
+        FR: "fr",
+        KE: "sw",
+        AM: "am",
+        SA: "ar",
+        ES: "es",
+        ID: "id",
+        OR: "or",
+        SO: "so"
+    };
+
+    // Set initial selected country based on selectedLanguage
+    const [selected, setSelected] = useState(languageToCountryMapping[selectedLanguage]);
 
     useEffect(() => {
-        // Optionally map country code to language (e.g., "GB" -> "en")
-        const languageMapping = {
-            GB: "en",
-            FR: "fr", // Add more mappings as needed
-            KE: "ke",
-            AM: "am",
-            IT: "it",
-            SA: "ar"
-        };
-        if (selected in languageMapping) {
-            dispatch(setLanguage(languageMapping[selected]));
+        // Update Redux state when the selected country changes
+        if (selected in countryToLanguageMapping) {
+            dispatch(setLanguage(countryToLanguageMapping[selected]));
         }
-        console.log("Selected", selected);
-
     }, [selected, dispatch]);
 
+    useEffect(() => {
+        // Update the flag display when selectedLanguage changes
+        if (selectedLanguage in languageToCountryMapping) {
+            setSelected(languageToCountryMapping[selectedLanguage]);
+        }
+    }, [selectedLanguage]);
+
     const t = translations[selectedLanguage];
+
     return (
         <header>
             <div className="container-fluid">
@@ -51,10 +77,10 @@ function TopSearch({ showCreativeModal }) {
                                 <ReactFlagsSelect
                                     selected={selected}
                                     onSelect={(code) => setSelected(code)}
-                                    countries={["GB", "FR", "AM", "IT", "KE", "SA"]}
+                                    countries={["GB", "FR", "AM", "ID", "KE", "SA", "OR", "ES", "SO"]}
                                     showSelectedLabel={false}
                                     showSecondarySelectedLabel={false}
-                                    showOptionLabel={false}
+                                    showOptionLabel={true}
                                     showSecondaryOptionLabel={false}
                                     fullWidth={false}
                                     className="bg-transparent"
@@ -65,6 +91,7 @@ function TopSearch({ showCreativeModal }) {
                 </div>
             </div>
         </header>
-    )
+    );
 }
+
 export default TopSearch;

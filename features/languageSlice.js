@@ -1,8 +1,9 @@
 // src/store/languageSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
+// Set the default language (en) in case there's no stored language
 const initialState = {
-    selectedLanguage: "en", // default language
+    selectedLanguage: localStorage.getItem("selectedLanguage") || "en",
 };
 
 export const languageSlice = createSlice({
@@ -11,6 +12,7 @@ export const languageSlice = createSlice({
     reducers: {
         setLanguage: (state, action) => {
             state.selectedLanguage = action.payload;
+            localStorage.setItem("selectedLanguage", action.payload);
         },
     },
 });

@@ -1100,3 +1100,7 @@ main .filter-bar ul li button.active{
 	background-color: #F77E21;
 	color: white;
   }
+
+  .ReactFlagsSelect-module_selectOptions__3LNBJ{
+	right: -20px !important;
+  }
