@@ -13,6 +13,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { useSelector } from 'react-redux';
 import LandingPage from './landing-page/page';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import eventEmitter from '../utils/eventEmitter';
 function LayoutContent({ children, toggleTheme }) {
   const { isAuthenticated } = useSelector((state) => state.auth);
   const router = useRouter();
@@ -95,6 +96,7 @@ export default function RootLayout({ children }) {
     const newTheme = darkThemeMode ? 'light' : 'dark';
     setDarkThemeMode(!darkThemeMode);
     localStorage.setItem('theme', newTheme);
+    eventEmitter.emit('themeChange', newTheme);
   };
 
   if (!isThemeReady) {

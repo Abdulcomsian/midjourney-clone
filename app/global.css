@@ -1104,3 +1104,15 @@ main .filter-bar ul li button.active{
   .ReactFlagsSelect-module_selectOptions__3LNBJ{
 	right: -20px !important;
   }
+
+  .form-select {
+    transition: all 0.2s ease;
+}
+
+.form-select:hover {
+    border-color: #007bff; /* Primary color on hover */
+}
+
+.multi-language-dropdown select {
+    font-size: 0.95rem;
+}

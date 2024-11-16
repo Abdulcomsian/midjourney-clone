@@ -1,57 +1,63 @@
 'use client';
 import React, { useState, useEffect } from "react";
-import ReactFlagsSelect from "react-flags-select";
 import { useSelector, useDispatch } from "react-redux";
 import { setLanguage } from "../../../features/languageSlice";
 import translations from "../../../i18";
-
+import eventEmitter from "../../../utils/eventEmitter";
 function TopSearch({ showCreativeModal }) {
+    // const [darkThemeMode, setDarkThemeMode] = useState(false);
+    const [darkThemeMode, setDarkThemeMode] = useState(localStorage.getItem('theme') === 'dark');
+    // Function to handle theme change detection
+
+
+    // Read theme from localStorage on component mount and add a listener for changes
+
+
     const selectedLanguage = useSelector((state) => state.language.selectedLanguage);
     const dispatch = useDispatch();
 
-    // Define mappings for country codes and language codes
-    const languageToCountryMapping = {
-        en: "GB",
-        fr: "FR",
-        sw: "KE",
-        am: "AM",
-        ar: "SA",
-        es: "ES",
-        id: "ID",
-        or: "OR",
-        so: "SO"
-    };
+    const languageOptions = [
+        { label: "English (GB)", code: "en" },
+        { label: "French (FR)", code: "fr" },
+        { label: "Amharic (AM)", code: "am" },
+        { label: "Afaan Oromo (OR)", code: "or" },
+        { label: "Somali (SO)", code: "so" },
+        { label: "Swahili (KE)", code: "sw" },
+        { label: "Indonesian (ID)", code: "id" },
+        { label: "Arabic (SA)", code: "ar" },
+        { label: "Spanish (ES)", code: "es" }
+    ];
 
-    const countryToLanguageMapping = {
-        GB: "en",
-        FR: "fr",
-        KE: "sw",
-        AM: "am",
-        SA: "ar",
-        ES: "es",
-        ID: "id",
-        OR: "or",
-        SO: "so"
-    };
-
-    // Set initial selected country based on selectedLanguage
-    const [selected, setSelected] = useState(languageToCountryMapping[selectedLanguage]);
+    const [selected, setSelected] = useState(selectedLanguage);
 
     useEffect(() => {
-        // Update Redux state when the selected country changes
-        if (selected in countryToLanguageMapping) {
-            dispatch(setLanguage(countryToLanguageMapping[selected]));
-        }
+        // Update Redux state when the selected language changes
+        dispatch(setLanguage(selected));
     }, [selected, dispatch]);
 
     useEffect(() => {
-        // Update the flag display when selectedLanguage changes
-        if (selectedLanguage in languageToCountryMapping) {
-            setSelected(languageToCountryMapping[selectedLanguage]);
-        }
+        // Update the selected value if it changes in Redux
+        setSelected(selectedLanguage);
     }, [selectedLanguage]);
 
     const t = translations[selectedLanguage];
+
+    // Determine text color based on theme mode
+    useEffect(() => {
+        // Listen for theme changes
+        const handleThemeChange = (newTheme) => {
+            setDarkThemeMode(newTheme === 'dark');
+        };
+
+        eventEmitter.subscribe('themeChange', handleThemeChange);
+
+        // Cleanup listener on unmount
+        return () => {
+            eventEmitter.unsubscribe('themeChange', handleThemeChange);
+        };
+    }, []);
+
+    const selectTextColor = darkThemeMode ? 'text-white' : 'text-black';
 
     return (
         <header>
@@ -74,17 +80,21 @@ function TopSearch({ showCreativeModal }) {
                                 </form>
                             </div>
                             <div className="multi-language-dropdown">
-                                <ReactFlagsSelect
-                                    selected={selected}
-                                    onSelect={(code) => setSelected(code)}
-                                    countries={["GB", "FR", "AM", "ID", "KE", "SA", "OR", "ES", "SO"]}
-                                    showSelectedLabel={false}
-                                    showSecondarySelectedLabel={false}
-                                    showOptionLabel={true}
-                                    showSecondaryOptionLabel={false}
-                                    fullWidth={false}
-                                    className="bg-transparent"
-                                />
+                                <select
+                                    value={selected}
+                                    onChange={(e) => setSelected(e.target.value)}
+                                    className={`form-select bg-transparent p-2 border rounded shadow-sm ${selectTextColor}`}
+                                    style={{ minWidth: "150px", cursor: "pointer" }}
+                                >
+                                    {languageOptions.map((option) => (
+                                        <option key={option.code} value={option.code} style={{
+                                            backgroundColor: darkThemeMode ? 'black' : 'white',
+                                            color: darkThemeMode ? 'white' : 'black',
+                                        }}>
+                                            {option.label}
+                                        </option>
+                                    ))}
+                                </select>
                             </div>
                         </div>
                     </div>

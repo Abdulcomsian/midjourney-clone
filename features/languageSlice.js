@@ -1,9 +1,15 @@
-// src/store/languageSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
-// Set the default language (en) in case there's no stored language
+// Utility function to get a localStorage item safely
+const getLocalStorageItem = (key) => {
+    if (typeof window !== 'undefined') {
+        return localStorage.getItem(key);
+    }
+    return null; // Or set a default value if needed
+};
+
 const initialState = {
-    selectedLanguage: localStorage.getItem("selectedLanguage") || "en",
+    selectedLanguage: getLocalStorageItem("selectedLanguage") || "en",
 };
 
 export const languageSlice = createSlice({
@@ -12,7 +18,9 @@ export const languageSlice = createSlice({
     reducers: {
         setLanguage: (state, action) => {
             state.selectedLanguage = action.payload;
-            localStorage.setItem("selectedLanguage", action.payload);
+            if (typeof window !== 'undefined') {
+                localStorage.setItem("selectedLanguage", action.payload);
+            }
         },
     },
 });
