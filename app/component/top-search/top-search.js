@@ -17,15 +17,15 @@ function TopSearch({ showCreativeModal }) {
     const dispatch = useDispatch();
 
     const languageOptions = [
-        { label: "English (GB)", code: "en" },
-        { label: "French (FR)", code: "fr" },
-        { label: "Amharic (AM)", code: "am" },
-        { label: "Afaan Oromo (OR)", code: "or" },
-        { label: "Somali (SO)", code: "so" },
-        { label: "Swahili (KE)", code: "sw" },
-        { label: "Indonesian (ID)", code: "id" },
-        { label: "Arabic (SA)", code: "ar" },
-        { label: "Spanish (ES)", code: "es" }
+        { label: "English", code: "en" },
+        { label: "French", code: "fr" },
+        { label: "Amharic", code: "am" },
+        { label: "Afaan Oromo", code: "or" },
+        { label: "Somali", code: "so" },
+        { label: "Swahili", code: "sw" },
+        { label: "Indonesian", code: "id" },
+        { label: "Arabic", code: "ar" },
+        { label: "Spanish", code: "es" }
     ];
 
     const [selected, setSelected] = useState(selectedLanguage);

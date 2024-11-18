@@ -34,8 +34,8 @@ function Help() {
                     <div className='left-panel'>
                         <div className='frequently-question'>
                             <h2 className='text-center fw-600'>{t?.heading1 || "Frequently Asked Question"}</h2>
-                            <p className='text-center'>{t?.SubHeading_1 || "Can't find the answer you're looking for?"}</p>
-                            <p className='text-center'>Read the <a className='text-danger'>Quick Start Guide</a> or <a className='text-danger'>contact support.</a></p>
+                            {/* <p className='text-center'>{t?.SubHeading_1 || "Can't find the answer you're looking for?"}</p>
+                            <p className='text-center'>Read the <a className='text-danger'>Quick Start Guide</a> or <a className='text-danger'>contact support.</a></p> */}
                         </div>
                         <Accordion className='my-5'>
                             <Accordion.Item eventKey="0" className='mb-2 rounded-3'>

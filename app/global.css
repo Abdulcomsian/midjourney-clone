@@ -1116,3 +1116,8 @@ main .filter-bar ul li button.active{
 .multi-language-dropdown select {
     font-size: 0.95rem;
 }
+.success-ful-wrapper{
+    background-image: url('../public/assets/img/canfetti-bg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}

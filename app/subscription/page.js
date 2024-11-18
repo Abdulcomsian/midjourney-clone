@@ -62,216 +62,125 @@ function Subscription() {
                 <div className='subscription-wrapper pt-5 overflow-auto common-section'>
                     <h1 className='main-heading fw-bold text-center'>{t?.Heading || "Purchase a subscription"}</h1>
                     <p className='text-center'> {t?.Text_1 || "Choose the plan that works for you"}</p>
-                    {/* <div className='link-your-account align-items-center border d-flex gap-2 justify-content-around m-auto rounded-3 w-fit-content p-3 mt-4'>
-                        <p className="text-base">{t?.Text_2 || 'Already have a subscription?'}</p>
-                        <a className="text-danger d-inline-flex align-items-center gap-2">
-                            <span><svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" className="size-5 inline text-splash/90 mr-1 "><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg></span>
-                            <span>{t?.link_1 || "Link your accounts"}</span>
-                        </a>
-                    </div> */}
 
-                    <Tabs defaultActiveKey="Yearly Billing" id="justify-tab-example" className="mb-3 packages-tab" justify>
-                        <Tab eventKey="Yearly Billing" title={t?.Toggle_1 || "Yearly Billing"} className='border-0'>
-                            <div className='packages my-5'>
-                                <div className='container-fluid'>
-                                    <div className='row'>
-                                        {pricingData?.data?.map(plan => (
-                                            <div className='col-xxl-3 col-lg-4 col-sm-6' key={plan.id}>
-                                                <div className='border p-4 package-box rounded-4 mb-3'>
-                                                    <h5 className='package-name fw-600'>{plan.name} Plan</h5>
-                                                    <div className='price-div mt-3 d-flex align-items-center gap-2 flex-lg-wrap'>
-                                                        {/* <div className='d-flex align-items-center gap-2'>
+                    {pricingData?.data?.length > 0 ? (
+                        <Tabs defaultActiveKey="Yearly Billing" id="justify-tab-example" className="mb-3 packages-tab" justify>
+                            <Tab eventKey="Yearly Billing" title={t?.Toggle_1 || "Yearly Billing"} className='border-0'>
+                                <div className='packages my-5'>
+                                    <div className='container-fluid'>
+                                        <div className='row'>
+                                            {pricingData?.data?.map(plan => (
+                                                <div className='col-xxl-3 col-lg-4 col-sm-6' key={plan.id}>
+                                                    <div className='border p-4 package-box rounded-4 mb-3'>
+                                                        <h5 className='package-name fw-600'>{plan.name} Plan</h5>
+                                                        <div className='price-div mt-3 d-flex align-items-center gap-2 flex-lg-wrap'>
+                                                            {/* <div className='d-flex align-items-center gap-2'>
                                                             <span className='text-xs'> <span>{pricingData?.currency}</span> {parseFloat(plan.price).toFixed(2)}/</span>
                                                             <span>month</span>
                                                         </div> */}
-                                                        <div className='d-flex align-items-center gap-2'>
-                                                            <span><span>{pricingData?.currency}</span> {parseFloat(plan.price * 12).toFixed(2)}</span>
-                                                            <span>/ year</span>
+                                                            <div className='d-flex align-items-center gap-2'>
+                                                                <span><span>{pricingData?.currency}</span> {parseFloat(plan.price).toFixed(2)}</span>
+                                                                <span>/ year</span>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <p className='off-text'>20% off billed annually</p>
-                                                    <button className='bg-dark border mt-3 mb-1 p-2 rounded text-white w-100' onClick={() => handlePaymentSubscription(plan.id)}>
-                                                        Subscribe
-                                                    </button>
-                                                    <a className='d-block text-center text-dark text-decoration-none'>
-                                                        <span>{t?.T_1 || "View monthly billing"}</span>
-                                                    </a>
-                                                    <ul className='offer-list list-unstyled py-5'>
-                                                        {JSON.parse(plan.features).map((feature, index) => (
-                                                            <li key={index} className='d-flex align-items-center gap-2 py-1'>
+                                                        <p className='off-text'>20% off billed annually</p>
+                                                        <button className='bg-dark border mt-3 mb-1 p-2 rounded text-white w-100' onClick={() => handlePaymentSubscription(plan.id)}>
+                                                            Subscribe
+                                                        </button>
+                                                        <a className='d-block text-center text-dark text-decoration-none'>
+                                                            <span>{t?.T_1 || "View monthly billing"}</span>
+                                                        </a>
+                                                        <ul className='offer-list list-unstyled py-5'>
+                                                            {JSON.parse(plan.features).map((feature, index) => (
+                                                                <li key={index} className='d-flex align-items-center gap-2 py-1'>
+                                                                    <span>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash">
+                                                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
+                                                                        </svg>
+                                                                    </span>
+                                                                    <span>{feature}</span>
+                                                                </li>
+                                                            ))}
+                                                            <li className='d-flex align-items-center gap-2 py-1'>
                                                                 <span>
                                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash">
                                                                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
                                                                     </svg>
                                                                 </span>
-                                                                <span>{feature}</span>
+                                                                <span>{plan.credits} Credits</span>
                                                             </li>
-                                                        ))}
-                                                        <li className='d-flex align-items-center gap-2 py-1'>
-                                                            <span>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash">
-                                                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
-                                                                </svg>
-                                                            </span>
-                                                            <span>{plan.credits} Credits</span>
-                                                        </li>
-                                                    </ul>
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </Tab>
-                        <Tab eventKey="Monthly Billing" title={t?.Toggle_2 || "Monthly Billing"} className='border-0'>
-                            <div className='packages my-5'>
-                                <div className='container-fluid'>
-                                    <div className='row'>
-                                        <div className='col-xxl-3 col-lg-4 col-sm-6'>
-                                            <div className='border p-4 package-box rounded-4 mb-3'>
-                                                <h5 className='package-name fw-600'>Basic Plan</h5>
-                                                <div className='price-div mt-3 d-flex align-items-center gap-2'>
-                                                    <span>$10</span>
-                                                    <span>$8</span>
-                                                    <span>/ month</span>
-                                                </div>
-                                                <p className='off-text'>Save with annual billing (20% off)</p>
-                                                <button className='bg-dark border mt-3 mb-1 p-2 rounded text-white w-100'>Subscribe</button>
-                                                <a className='d-block text-center d-block text-dark text-decoration-none'><span>View monthly billing</span></a>
-                                                <ul className='offer-list list-unstyled py-5'>
-                                                    <li className='d-flex align-items-center gap-2 py-1'>
-                                                        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
-                                                        <span>Limited generations (~200 / month)</span>
-                                                    </li>
-                                                    <li className='d-flex align-items-center gap-2 py-1'>
-                                                        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
-                                                        <span>General commercial terms</span>
-                                                    </li>
-                                                    <li className='d-flex align-items-center gap-2 py-1'>
-                                                        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
-                                                        <span>Access to member gallery</span>
-                                                    </li>
-                                                    <li className='d-flex align-items-center gap-2 py-1'>
-                                                        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
-                                                        <span>Optional credit top ups</span>
-                                                    </li>
-                                                    <li className='d-flex align-items-center gap-2 py-1'>
-                                                        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
-                                                        <span>3 concurrent fast jobs</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div className='col-xxl-3 col-lg-4 col-sm-6'>
-                                            <div className='border p-4 package-box rounded-4 mb-3'>
-                                                <h5 className='package-name fw-600'>Standard Plan</h5>
-                                                <div className='price-div mt-3 d-flex align-items-center gap-2'>
-                                                    <span>$30</span>
-                                                    <span>$24</span>
-                                                    <span>/ month</span>
-                                                </div>
-                                                <p className='off-text'>Save with annual billing (20% off)</p>
-                                                <button className='bg-dark border mt-3 mb-1 p-2 rounded text-white w-100'>Subscribe</button>
-                                                <a className='d-block text-center d-block text-dark text-decoration-none'><span>View monthly billing</span></a>
-                                                <ul className='offer-list list-unstyled py-5'>
-                                                    <li className='d-flex align-items-center gap-2 py-1'>
-                                                        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
-                                                        <span>Limited generations (~200 / month)</span>
-                                                    </li>
-                                                    <li className='d-flex align-items-center gap-2 py-1'>
-                                                        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
-                                                        <span>General commercial terms</span>
-                                                    </li>
-                                                    <li className='d-flex align-items-center gap-2 py-1'>
-                                                        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
-                                                        <span>Access to member gallery</span>
-                                                    </li>
-                                                    <li className='d-flex align-items-center gap-2 py-1'>
-                                                        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
-                                                        <span>Optional credit top ups</span>
-                                                    </li>
-                                                    <li className='d-flex align-items-center gap-2 py-1'>
-                                                        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
-                                                        <span>3 concurrent fast jobs</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div className='col-xxl-3 col-lg-4 col-sm-6'>
-                                            <div className='border p-4 package-box rounded-4 mb-3'>
-                                                <h5 className='package-name fw-600'>Pro Plan</h5>
-                                                <div className='price-div mt-3 d-flex align-items-center gap-2'>
-                                                    <span>$60</span>
-                                                    <span>$48</span>
-                                                    <span>/ month</span>
-                                                </div>
-                                                <p className='off-text'>Save with annual billing (20% off)</p>
-                                                <button className='bg-dark border mt-3 mb-1 p-2 rounded text-white w-100'>Subscribe</button>
-                                                <a className='d-block text-center d-block text-dark text-decoration-none'><span>View monthly billing</span></a>
-                                                <ul className='offer-list list-unstyled py-5'>
-                                                    <li className='d-flex align-items-center gap-2 py-1'>
-                                                        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
-                                                        <span>Limited generations (~200 / month)</span>
-                                                    </li>
-                                                    <li className='d-flex align-items-center gap-2 py-1'>
-                                                        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
-                                                        <span>General commercial terms</span>
-                                                    </li>
-                                                    <li className='d-flex align-items-center gap-2 py-1'>
-                                                        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
-                                                        <span>Access to member gallery</span>
-                                                    </li>
-                                                    <li className='d-flex align-items-center gap-2 py-1'>
-                                                        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
-                                                        <span>Optional credit top ups</span>
-                                                    </li>
-                                                    <li className='d-flex align-items-center gap-2 py-1'>
-                                                        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
-                                                        <span>3 concurrent fast jobs</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div className='col-xxl-3 col-lg-4 col-sm-6'>
-                                            <div className='border p-4 package-box rounded-4 mb-3'>
-                                                <h5 className='package-name fw-600'>Mega Plan</h5>
-                                                <div className='price-div mt-3 d-flex align-items-center gap-2'>
-                                                    <span>$120</span>
-                                                    <span>$96</span>
-                                                    <span>/ month</span>
-                                                </div>
-                                                <p className='off-text'>Save with annual billing (20% off)</p>
-                                                <button className='bg-dark border mt-3 mb-1 p-2 rounded text-white w-100'>Subscribe</button>
-                                                <a className='d-block text-center d-block text-dark text-decoration-none'><span>View monthly billing</span></a>
-                                                <ul className='offer-list list-unstyled py-5'>
-                                                    <li className='d-flex align-items-center gap-2 py-1'>
-                                                        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
-                                                        <span>Limited generations (~200 / month)</span>
-                                                    </li>
-                                                    <li className='d-flex align-items-center gap-2 py-1'>
-                                                        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
-                                                        <span>General commercial terms</span>
-                                                    </li>
-                                                    <li className='d-flex align-items-center gap-2 py-1'>
-                                                        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
-                                                        <span>Access to member gallery</span>
-                                                    </li>
-                                                    <li className='d-flex align-items-center gap-2 py-1'>
-                                                        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
-                                                        <span>Optional credit top ups</span>
-                                                    </li>
-                                                    <li className='d-flex align-items-center gap-2 py-1'>
-                                                        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></span>
-                                                        <span>3 concurrent fast jobs</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </Tab>
-                    </Tabs>
+                            </Tab>
+                            <Tab eventKey="monthly Billing" title={t?.Toggle_2 || "Yearly Billing"} className='border-0'>
+                                <div className='packages my-5'>
+                                    <div className='container-fluid'>
+                                        <div className='row'>
+                                            {pricingData?.data?.map(plan => (
+                                                <div className='col-xxl-3 col-lg-4 col-sm-6' key={plan.id}>
+                                                    <div className='border p-4 package-box rounded-4 mb-3'>
+                                                        <h5 className='package-name fw-600'>{plan.name} Plan</h5>
+                                                        <div className='price-div mt-3 d-flex align-items-center gap-2 flex-lg-wrap'>
+                                                            {/* <div className='d-flex align-items-center gap-2'>
+                                                            <span className='text-xs'> <span>{pricingData?.currency}</span> {parseFloat(plan.price).toFixed(2)}/</span>
+                                                            <span>month</span>
+                                                        </div> */}
+                                                            <div className='d-flex align-items-center gap-2'>
+                                                                <span><span>{pricingData?.currency}</span> {parseFloat(plan.price / 12).toFixed(2)}</span>
+                                                                <span>/ month</span>
+                                                            </div>
+                                                        </div>
+                                                        <p className='off-text'>20% off billed annually</p>
+                                                        <button className='bg-dark border mt-3 mb-1 p-2 rounded text-white w-100' onClick={() => handlePaymentSubscription(plan.id)}>
+                                                            Subscribe
+                                                        </button>
+                                                        <a className='d-block text-center text-dark text-decoration-none'>
+                                                            <span>{t?.T_1 || "View monthly billing"}</span>
+                                                        </a>
+                                                        <ul className='offer-list list-unstyled py-5'>
+                                                            {JSON.parse(plan.features).map((feature, index) => (
+                                                                <li key={index} className='d-flex align-items-center gap-2 py-1'>
+                                                                    <span>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash">
+                                                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
+                                                                        </svg>
+                                                                    </span>
+                                                                    <span>{feature}</span>
+                                                                </li>
+                                                            ))}
+                                                            <li className='d-flex align-items-center gap-2 py-1'>
+                                                                <span>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f2330d" aria-hidden="true" height="14" className=" text-splash">
+                                                                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
+                                                                    </svg>
+                                                                </span>
+                                                                <span>{plan.credits} Credits</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            </Tab>
+                        </Tabs>
+                    ) : (
+                        <p className='text-center' style={{
+
+                            fontSize: 'larger',
+                            color: "red",
+                            display: "flex",
+                            justifyContent: "center",
+                            height: '100vh',
+                            alignItems: "center"
+                        }}>No payment methods available for your country</p>
+                    )}
 
 
                 </div>
