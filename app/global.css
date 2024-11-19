@@ -1121,3 +1121,32 @@ main .filter-bar ul li button.active{
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.package-container h5 {
+	color: white;
+}
+.package-container .active-btn {
+	background-color: #444c41;
+	color: #1f8702;
+	padding: 2px 12px;
+	border-radius: 33px;
+	margin-top: 14px;
+	font-size: 14px;
+}
+.package-container {
+	/* border: 2px solid red; */
+	background-color: black !important;
+}
+.btn-container  {
+	
+	
+	margin-left: 120px;
+}
+.btn-buy {
+	background-color: rgb(98, 94, 94);
+	display: inline-block;
+	color: white;
+	width: 100%;
+	margin-top: 12px ;
+	margin-bottom: 12px;
+}
