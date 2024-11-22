@@ -3,11 +3,13 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPaymentMethod, fetchPricingAndPaymentData, resetState } from '../../features/apiSlice';
 import { openSubscriptionModal } from '../../features/modalSlice';
+import { useRouter } from 'next/navigation'; // Import useRouter
 import translations from '../../i18';
 import BottomNav from '../component/bottom-nav/bottom-nav';
 
 function MySubscription() {
     const dispatch = useDispatch();
+    const router = useRouter(); // Initialize useRouter
     const { token } = useSelector((state) => state.auth);
     const selectedLanguage = useSelector((state) => state.language.selectedLanguage);
     const t = translations[selectedLanguage];
@@ -39,7 +41,36 @@ function MySubscription() {
             dispatch(openSubscriptionModal());
         }
     }, [paymentMethod, errorPaymentMethod]);
+    const handleCancelPlan = async () => {
+        if (!token) return;
 
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/subscription/cancel`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Subscription canceled:', data);
+
+                // Optionally refetch subscription data to update UI
+                dispatch(fetchPricingAndPaymentData({
+                    pricingEndpoint: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pricing`,
+                    paymentEndpoint: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/subscription/status`,
+                    token,
+                }));
+                router.push('/subscription');
+            } else {
+                console.error('Failed to cancel subscription:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error canceling subscription:', error);
+        }
+    };
     // Conditionally render content based on subscription status
     const renderSubscriptionContent = () => {
         if (paymentMethodsData?.data.has_active_subscription) {
@@ -58,7 +89,7 @@ function MySubscription() {
 
                         <div className="btn-container">
 
-                            <button type="button" clas="btn-custom"
+                            <button type="button" clas="btn-custom" onClick={handleCancelPlan}
                                 style={{ backgroundColor: '#3f3f3f', color: 'white', marginRight: '12px', borderRadius: "24px", border: "none", padding: "7px 14px", }} >Cancel plan </button>
                             <button type="button" clas="btn-custom" style={{ backgroundColor: '#3f3f3f', color: 'white', marginRight: '12px', borderRadius: "24px", border: "none", padding: "7px 14px", }}>Change plan </button>
                         </div>

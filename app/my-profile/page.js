@@ -1,80 +1,48 @@
 "use client";
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPaymentMethod, fetchPricingAndPaymentData, resetState } from '../../features/apiSlice';
-import { openSubscriptionModal } from '../../features/modalSlice';
 import translations from '../../i18';
 import BottomNav from '../component/bottom-nav/bottom-nav';
-
 function MyProfile() {
     const dispatch = useDispatch();
-    const { token } = useSelector((state) => state.auth);
+    const { user, token } = useSelector((state) => state.auth);
     const selectedLanguage = useSelector((state) => state.language.selectedLanguage);
     const t = translations[selectedLanguage];
-
-    const { pricingData, paymentMethodsData, loading, error, paymentMethod, errorPaymentMethod } = useSelector((state) => state.api);
+    const [profileData, setProfileData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         if (token) {
-            dispatch(resetState()); // Reset state before fetching
-            dispatch(fetchPricingAndPaymentData({
-                pricingEndpoint: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pricing`,
-                paymentEndpoint: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/subscription/status`,
-                token,
-            }));
+            fetchProfileData();
         }
-    }, [dispatch, token]);
+    }, [token]);
 
-    useEffect(() => {
-        if (pricingData || paymentMethodsData) {
-            console.log("Pricing Data: ", pricingData);
-            console.log("Payment Methods Data: ", paymentMethodsData);
-        }
-    }, [pricingData, paymentMethodsData]);
+    const fetchProfileData = async () => {
+        try {
+            const response = await fetch("https://stage-admin.footo.ai/api/profile", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
 
-    useEffect(() => {
-        if (errorPaymentMethod) {
-            dispatch(openSubscriptionModal());
-        } else if (paymentMethod) {
-            dispatch(openSubscriptionModal());
-        }
-    }, [paymentMethod, errorPaymentMethod]);
+            if (!response.ok) {
+                throw new Error("Failed to fetch profile data");
+            }
 
-    // Conditionally render content based on subscription status
-    const renderSubscriptionContent = () => {
-        if (paymentMethodsData?.data.has_active_subscription) {
-            const { subscription } = paymentMethodsData?.data;
-            console.log("Subscription", subscription);
-
-            return (
-                <div className='border p-4 package-box rounded-4 mb-3'>
-                    <h5 className='package-name fw-600'>{subscription.subscription_tier?.name || "Subscription Plan"}</h5>
-                    <div className='price-div mt-3 d-flex align-items-center gap-2'>
-                        <span>{subscription.currency_code}</span>
-                        <span>{subscription.subscription_amount}</span>
-                        <span>Amount</span>
-                    </div>
-                    <p className='off-text'>Your subscription is active until {new Date(subscription.end_date).toLocaleDateString()}</p>
-                    <ul className='offer-list list-unstyled py-5'>
-                        {Array.isArray(subscription.subscription_tier?.features)
-                            ? subscription.subscription_tier?.features.map((feature, index) => (
-                                <li key={index}>{feature}</li>
-                            ))
-                            : JSON.parse(subscription.subscription_tier?.features || '[]').map((feature, index) => (
-                                <li key={index}>{feature}</li>
-                            ))
-                        }
-                    </ul>
-
-                    <div>
-                        <p>Total Credit : <span style={{ fontSize: "large", color: "blue" }}>{subscription.subscription_tier?.credits}</span></p>
-                    </div>
-                </div>
-            );
-        } else {
-            return <p>You don't have any active subscriptions. Please consider subscribing to access premium features.</p>;
+            const data = await response.json();
+            setProfileData(data);
+            setLoading(false);
+        } catch (err) {
+            setError(err.message);
+            setLoading(false);
         }
     };
+
+    // Conditionally render content based on subscription status
+
 
     // Show loading indicator when data is being fetched
     if (loading) {
@@ -88,17 +56,43 @@ function MyProfile() {
             </div>
         );
     }
+    if (error) {
+        return (
+            <div className="content-wrapper">
+                <div className="text-center my-5 text-danger">
+                    <p>Error: {error}</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <>
             <div className='content-wrapper'>
                 <div className='subscription-wrapper pt-5 overflow-auto common-section'>
+                    <div className='text-center mb-4'>
+                        <h2 className='text-secondary'>Manage Profile</h2>
+                        <div className='text-secondary mt-2' >Edit your profile and concerned Accounts</div>
+                    </div>
                     <div className='packages my-5'>
-                        <div className='container-fluid'>
+                        <div className='container'>
                             <div className='row justify-content-center'>
-                                <div className='col-xxl-3 col-lg-4 col-sm-6'>
-                                    {renderSubscriptionContent()}
+                                <div className='col-12 col-md-10 '>
+                                    <h5 className='text-secondary text-uppercase'>Account Details</h5>
+                                    {/* {renderSubscriptionContent()} */}
+                                    <div className='d-flex flex-column gap-3 py-4'>
+                                        <div className='d-flex justify-content-between border-bottom border-dark py-2'>
+                                            <p className='text-secondary'>Email</p>
+                                            <p className='text-secondary'>{profileData.email}</p>
+                                        </div>
+                                        <div className='d-flex justify-content-between  border-bottom border-dark py-2'>
+                                            <p className='text-secondary'>Registered Date</p>
+                                            <p className='text-secondary'>{profileData.registered}</p>
+                                        </div>
+                                    </div>
                                 </div>
+
+                                <pre></pre>
                             </div>
                         </div>
                     </div>

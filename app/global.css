@@ -1126,8 +1126,8 @@ main .filter-bar ul li button.active{
 	color: white;
 }
 .package-container .active-btn {
-	background-color: #444c41;
-	color: #1f8702;
+	background-color: rgb(247, 126, 33);
+	color: #3f3f3f;
 	padding: 2px 12px;
 	border-radius: 33px;
 	margin-top: 14px;
