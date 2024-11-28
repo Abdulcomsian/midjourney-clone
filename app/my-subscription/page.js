@@ -230,7 +230,12 @@ current_subscription
               fontSize: "1.1rem",
             }}
           >
-            You don't have any active subscription.
+            You don't have any active subscription. To Subscribe a package,  <a  style={{
+              color: "black",
+            textTransform: "none",
+            textDecoration:"none"
+            }}
+            href='/subscription'>click here</a>.
           </span>
         </div>
       );
