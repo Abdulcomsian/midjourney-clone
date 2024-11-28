@@ -93,11 +93,13 @@ function MySubscription() {
       console.error("Error canceling subscription:", error);
     }
   };
+
   // Conditionally render content based on subscription status
   const renderSubscriptionContent = () => {
-    if (paymentMethodsData?.status === "success") {
+    const status = paymentMethodsData?.status;
+    const cusrrentSubscription = paymentMethodsData?.data.current_subscription;
+    if (status === "success" && cusrrentSubscription !== null) {
       const { current_subscription } = paymentMethodsData?.data;
-
       return (
         <div className="">
           {/* Card for Subscription Details */}
@@ -164,7 +166,7 @@ current_subscription
                   <div className="d-flex justify-content-between">
                     <div className="text-secondary">Purchaseh & Awarded</div>
                     <div className="text-secondary">
-                      {current_subscription.credit_balance}
+                      {current_subscription?.credit_balance}
                     </div>
                   </div>
                 </div>
@@ -177,7 +179,7 @@ current_subscription
                   Your subscription is active until{" "}
                   <span className="ml-4">
                     {new Date(
-                      current_subscription.expiry_date
+                      current_subscription?.expiry_date
                     ).toLocaleDateString()}
                   </span>
                 </p>
@@ -212,10 +214,25 @@ current_subscription
       );
     } else {
       return (
-        <p>
-          You don't have any active subscriptions. Please consider subscribing
-          to access premium features.
-        </p>
+        <div
+          style={{
+            padding: "10px",
+            borderRadius: "100px",
+            border: "1px solid red",
+            textAlign: "center",
+            width: "50%",
+            margin: "auto",
+          }}
+        >
+          <span
+            style={{
+              color: "red",
+              fontSize: "1.1rem",
+            }}
+          >
+            You don't have any active subscription.
+          </span>
+        </div>
       );
     }
   };
