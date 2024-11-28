@@ -149,22 +149,23 @@ function MySubscription() {
           <div className="d-flex grid  ">
             <div className="d-flex flex-column m-2 w-100 ">
               <div className="border p-4 rounded-4  ">
-                <h5 className="fw-bold text-secondary">Usage Details</h5>
+                <h5 className="fw-bold text-secondary">Usage Details </h5>
                 <h6 className="fw-bold text-secondary mt-4">
                   Remaining Fast hours:
                 </h6>
 
                 <div class="text-container">
                   <div className="d-flex justify-content-between">
-                    <div className="text-secondary">include</div>
-                    <div className="text-secondary">
+                    <div className="text-secondary">Credit Balance <span class="ml-4">{paymentMethodsData?.data.credit_balance}</span></div>
+                    {/* <div className="text-secondary"> */}
                       {/* {
 current_subscription
 .currency_code} */}
-                    </div>
+
+                    {/* </div> */}
                   </div>
                   <div className="d-flex justify-content-between">
-                    <div className="text-secondary">Purchaseh & Awarded</div>
+                    <div className="text-secondary">Purchases & Awarded</div>
                     <div className="text-secondary">
                       {current_subscription?.credit_balance}
                     </div>
