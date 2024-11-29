@@ -10,7 +10,7 @@ import { closeRegisterModal } from "../../../features/modalSlice";
 
 import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import { registerGoogleUser } from "../../../utils/api";
-import { socialLogin } from "../../../features/auth/authSlice";
+import { login, socialLogin } from "../../../features/auth/authSlice";
 import toast from "react-hot-toast";
 
 function RegisterModal({ showRegisterModal, handleCloseRegisterModal }) {
@@ -80,7 +80,7 @@ function RegisterModal({ showRegisterModal, handleCloseRegisterModal }) {
 
     try {
       const result = await registerUser(formData); // Call the register API
-      console.log("register api resp", result);
+      console.log("register api resp", formData);
       if (result && !result.error) {
         if (result.email) {
           // I have make this block that there is no way alterate wahy to handle that error if there is already have account registerd with the same email
@@ -95,8 +95,21 @@ function RegisterModal({ showRegisterModal, handleCloseRegisterModal }) {
         }
         if (result.message) {
           toast.success(result.message);
-          router.push("/"); // Redirect to a protected route
           dispatch(closeRegisterModal());
+          dispatch(
+            login({ email: formData.email, password: formData.password })
+          )
+            .unwrap()
+            .then(() => {
+              // handleCloseAuthModalState(); // Close modal on successful login
+
+              router.push("/"); // Redirect to the protected route after login
+              router.refresh();
+            })
+            .catch((err) => {
+              toast.error("Invalid login details");
+              // alert(err); // Display error message if login fails
+            });
         }
       } else {
         console.log("here1");
