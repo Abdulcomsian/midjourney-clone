@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TopSearch from "../top-search/top-search";
 import MainGallery from "../main-gallery/main-gallery";
 import BottomNav from "../../component/bottom-nav/bottom-nav";

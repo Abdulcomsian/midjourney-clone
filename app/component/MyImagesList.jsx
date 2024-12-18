@@ -1,9 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import { getUserGallery } from "../../utils/api";
+import { HiOutlineHeart, HiHeart } from "react-icons/hi2";
 
 export default function MyImagesList() {
   const [galleryData, setGalleryData] = useState(null);
+  const [dataRevalidate, setPageRevalidate] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -13,33 +15,56 @@ export default function MyImagesList() {
     };
 
     fetchData();
-  }, []);
+  }, [dataRevalidate]);
+
+  const handleLike = async function (imageId) {
+    const token = localStorage.getItem("token");
+    const resp = await fetch(
+      `https://stage-admin.footo.ai/api/images/like/${imageId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const data = await resp.json();
+
+    if (data?.status === "success") {
+      setPageRevalidate((is) => !is);
+    }
+  };
 
   return (
-    <div>
-      <div>
-        {galleryData && (
-          <div>
-            <ul
-              style={{
-                columnCount: 5,
-                columnGap: "0.2rem",
-                paddingLeft: 0,
-                listStyle: "none",
-              }}
-            >
-              {galleryData.map((image) => (
-                <li key={image.id}>
-                  <img
-                    src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${image.url}`}
-                    alt={image.title}
-                  />
-                </li>
-              ))}
-            </ul>
+    <>
+      {galleryData && (
+        <div className="gallery-grid-wrapper">
+          <div className="gallery-wrapper">
+            {galleryData.map((image) => (
+              <div key={image.id} className="gallery-item position-relative">
+                <img src={`${image.url}`} alt={image.title} />
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: "10px",
+                    right: "10px",
+                    fontSize: "25px",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => handleLike(image.id)}
+                >
+                  {image.likes_count > 0 ? (
+                    <HiHeart color="red" />
+                  ) : (
+                    <HiOutlineHeart color="red" />
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
-        )}
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   );
 }
