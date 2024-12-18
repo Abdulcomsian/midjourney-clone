@@ -60,7 +60,7 @@ function MainGallery() {
                         key={item.id}
                         onClick={() => setImageDetail(false)}
                       >
-                        <img src={item.src} />
+                        <img src={item.url} />
                         <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
                           <p>{item.slug}</p>
                         </div>
@@ -86,7 +86,7 @@ function MainGallery() {
                         key={item.id}
                         onClick={() => setImageDetail(false)}
                       >
-                        <img src={item.src} />
+                        <img src={item.url} />
                         <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
                           <p>{item.slug}</p>
                         </div>
@@ -106,7 +106,7 @@ function MainGallery() {
               >
                 <div className="gallery-grid-wrapper">
                   <div className="gallery-wrapper">
-                    {images.map((item) => (
+                    {galleryImages.map((item) => (
                       <div
                         className="gallery-item position-relative"
                         key={item.id}
@@ -132,7 +132,7 @@ function MainGallery() {
               >
                 <div className="gallery-grid-wrapper">
                   <div className="gallery-wrapper">
-                    {images.map((item) => (
+                    {galleryImages.map((item) => (
                       <div
                         className="gallery-item position-relative"
                         key={item.id}
