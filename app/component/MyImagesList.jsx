@@ -1,7 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { getUserGallery } from "../../utils/api";
-import { HiOutlineHeart, HiHeart } from "react-icons/hi2";
+
+import Like from "./like";
 
 export default function MyImagesList() {
   const [galleryData, setGalleryData] = useState(null);
@@ -54,11 +55,7 @@ export default function MyImagesList() {
                   }}
                   onClick={() => handleLike(image.id)}
                 >
-                  {image.likes_count > 0 ? (
-                    <HiHeart color="red" />
-                  ) : (
-                    <HiOutlineHeart color="red" />
-                  )}
+                  <Like isLiked={image.likes_count} />
                 </div>
               </div>
             ))}

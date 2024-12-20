@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 function MainGallery() {
   const [galleryImages, setGalleryImages] = useState([]);
   const [imageDetail, setImageDetail] = useState(true);
+  const [selectedImageId, setSelectedImageId] = useState(undefined);
   const selectedLanguage = useSelector(
     (state) => state.language.selectedLanguage
   );
@@ -52,13 +53,16 @@ function MainGallery() {
                 title={t?.TAb_1 || "Random"}
                 className="border-0"
               >
-                <div className="gallery-grid-wrapper">
+                <div className="gallery-grid-wrapper rounded-lg overflow-hidden">
                   <div className="gallery-wrapper">
                     {galleryImages.map((item) => (
                       <div
                         className="gallery-item position-relative"
                         key={item.id}
-                        onClick={() => setImageDetail(false)}
+                        onClick={() => {
+                          setImageDetail(false);
+                          setSelectedImageId(item.id);
+                        }}
                       >
                         <img src={item.url} />
                         <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
@@ -84,7 +88,10 @@ function MainGallery() {
                       <div
                         className="gallery-item position-relative"
                         key={item.id}
-                        onClick={() => setImageDetail(false)}
+                        onClick={() => {
+                          setImageDetail(false);
+                          setSelectedImageId(item.id);
+                        }}
                       >
                         <img src={item.url} />
                         <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
@@ -110,7 +117,10 @@ function MainGallery() {
                       <div
                         className="gallery-item position-relative"
                         key={item.id}
-                        onClick={() => setImageDetail(false)}
+                        onClick={() => {
+                          setImageDetail(false);
+                          setSelectedImageId(item.id);
+                        }}
                       >
                         <img src={item.src} />
                         <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
@@ -136,7 +146,10 @@ function MainGallery() {
                       <div
                         className="gallery-item position-relative"
                         key={item.id}
-                        onClick={() => setImageDetail(false)}
+                        onClick={() => {
+                          setImageDetail(false);
+                          setSelectedImageId(item.id);
+                        }}
                       >
                         <img src={item.src} />
                         <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
@@ -154,7 +167,7 @@ function MainGallery() {
             </Tabs>
           </div>
         ) : (
-          <DetailImage />
+          <DetailImage selectedImageId={selectedImageId} />
         )}
       </main>
     </>
