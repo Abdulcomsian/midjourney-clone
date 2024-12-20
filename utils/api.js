@@ -106,10 +106,10 @@ export const getImageCreatingId = async (data) => {
   }
   return response.json();
 };
-export const getImageCreatedImages = async (imagesID) => {
+export const getImageCreatedImages = async (jobId) => {
   const authToken = localStorage.getItem("token");
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/images/${imagesID}`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/images/${jobId}`,
     {
       method: "GET",
       headers: {

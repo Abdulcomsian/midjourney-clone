@@ -18,6 +18,8 @@ import {
 } from "../../../features/apiSlice";
 import Notification from "../Notification";
 import { Alert } from "react-bootstrap";
+import Pusher from "pusher-js";
+import Link from "next/link";
 
 function TopSearch({ showCreativeModal }) {
   const [serviceTypes, setServiceTypes] = useState([]);
@@ -30,6 +32,8 @@ function TopSearch({ showCreativeModal }) {
   const [iscreatingId, setIsCreatingId] = useState(false);
   const [paymentMethodsData, setPaymentMethodData] = useState(null);
   const [imageGenerationId, setImageGenerationId] = useState(null);
+  const [generatedImageUrl, setGeneratedImageUrl] = useState(null);
+
   const [showImageLoadingNotification, setShowImageLoadingNotification] =
     useState(null);
   // const {
@@ -40,7 +44,10 @@ function TopSearch({ showCreativeModal }) {
   //   paymentMethod,
   //   errorPaymentMethod,
   // } = useSelector((state) => state.api);
-  const { token } = useSelector((state) => state.auth);
+  const { token, user_id } = useSelector((state) => state.auth);
+
+  // console.log(user_id, "user id");
+  // console.log(token, "token");
 
   // useEffect(() => {
   //   fetchPricingAndPaymentData({
@@ -63,12 +70,12 @@ function TopSearch({ showCreativeModal }) {
             },
           }
         );
-        console.log("payment resp", paymentResponse);
+        // console.log("payment resp", paymentResponse);
         if (!paymentResponse.ok) {
           throw new Error("Failed to fetch payment methods data");
         }
         const paymentMethodsData = await paymentResponse.json();
-        console.log("payment status data:", paymentMethodsData);
+        // console.log("payment status data:", paymentMethodsData);
         setPaymentMethodData(paymentMethodsData);
       };
 
@@ -184,7 +191,80 @@ function TopSearch({ showCreativeModal }) {
 
   const selectTextColor = darkThemeMode ? "text-white" : "text-black";
 
-  const handleImageGeneration = async function () {
+  const pusherRef = useRef(null); 
+  const channelRef = useRef(null); 
+
+  // Initialize Pusher connection once
+  
+  useEffect(() => {
+    const initializePusher = () => {
+      pusherRef.current = new Pusher("0194957b7ee87fdc5149", {
+        cluster: "ap2",
+        forceTLS: true,
+        authEndpoint: '/api/pusher/auth',
+        auth: {
+          headers: {
+            Authorization : `Bearer ${token}`,
+          }
+        }
+      });
+
+      const channelName = `private-footo.user.${user_id}`;
+      channelRef.current = pusherRef.current.subscribe(channelName);
+
+      console.log("Channel subscribed:", channelRef.current);
+
+      channelRef.current.bind("image-event", (data) => {
+        console.log("Received image event:", data);
+      });
+
+      pusherRef.current.connection.bind("connected", () =>
+        console.log("Pusher connection established.")
+      );
+
+      pusherRef.current.connection.bind("error", (err) =>
+        console.error("Pusher connection error:", err)
+      );
+
+      pusherRef.current.connection.bind("disconnected", () =>
+        console.warn("Pusher connection disconnected.")
+      );
+    };
+
+    initializePusher();
+
+    return () => {
+      if (channelRef.current) {
+        channelRef.current.unbind_all();
+        channelRef.current.unsubscribe();
+      }
+      if (pusherRef.current) {
+        pusherRef.current.disconnect();
+      }
+    };
+  }, [])
+
+  const bindImageEvent = (jobId) => {
+    if (!channelRef.current) return;
+
+    channelRef.current.bind("image-event", async (data) => {
+      console.log("event data:", data);
+      if (data.job_id) {
+        try {
+          const response = await getImageCreatedImages(jobId);
+          if (response.status === "success") {
+            console.log("Generated Image URL:", response?.data?.url);
+            setGeneratedImageUrl(response.data.url);
+            setShowImageLoadingNotification(false);
+          }
+        } catch (error) {
+          console.error("Error fetching generated images:", error);
+        }
+      }
+    });
+  };
+
+  const handleImageGeneration = async () => {
     try {
       setIsCreatingId(true);
       const resp = await getImageCreatingId({
@@ -195,24 +275,22 @@ function TopSearch({ showCreativeModal }) {
 
       if (resp.job_id) {
         setImageGenerationId(resp.job_id);
+        console.log("Job ID:", resp.job_id);
         setPrompt("");
-        setPaymentMethodData(null);
-        setShowDetailPrompt(false);
         setShowImageLoadingNotification(true);
-      }
 
-      const response = await getImageCreatedImages(resp.job_id);
-      console.log("respo after generating image ID", response);
+        bindImageEvent(resp.job_id);
+      }
     } catch (error) {
-      console.log(error);
+      console.error("Error generating image ID:", error);
     } finally {
       setIsCreatingId(false);
     }
   };
-
+  
   return (
     <header>
-      {imageGenerationId && showImageLoadingNotification && (
+      {/* {imageGenerationId && showImageLoadingNotification && (
         <Alert
           className="position-absolute"
           style={{ top: "10px", right: "-38px", zIndex: 10 }}
@@ -221,7 +299,32 @@ function TopSearch({ showCreativeModal }) {
         >
           Creating images...
         </Alert>
+      )} */}
+      {imageGenerationId && showImageLoadingNotification && (
+        <Alert
+          className="position-absolute"
+          style={{ top: "10px", right: "-38px", zIndex: 10 }}
+          key="info"
+          variant="info"
+        >
+          <div>
+            <p>Image generated successfully!</p>
+            <Link href="/account/my-images">
+              <img
+                src={generatedImageUrl}
+                alt="img"
+                style={{
+                  width: "50px",
+                  height: "auto",
+                  cursor: "pointer",
+                  borderRadius: "8px",
+                }}
+              />
+            </Link>
+          </div>
+        </Alert>
       )}
+
       <div className="container-fluid">
         <div className="row">
           <div className="col-12">
