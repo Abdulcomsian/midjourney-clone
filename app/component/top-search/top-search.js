@@ -274,6 +274,7 @@ function TopSearch({ showCreativeModal }) {
           style={{ top: "10px", right: "-38px", zIndex: 10 }}
           key="info"
           variant="info"
+          onClose={() => setShowImageLoadingNotification(false)} dismissible
         >
           <div>
             
@@ -289,7 +290,7 @@ function TopSearch({ showCreativeModal }) {
                     borderRadius: "8px",
                   }} />
               </Link></>
-              :<p>Image in Queue!</p>}
+              :<p>Image generation queued successfully</p>}
               
           
           </div>
