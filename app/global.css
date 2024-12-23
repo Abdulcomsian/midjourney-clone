@@ -1208,6 +1208,17 @@ button.btn-outline-light:hover {
 .btn-container {
   margin-left: 120px;
 }
+
+.c-btn-primary{
+  background-color: var(--active-nav-bg);
+  color: var(--active-nav-color);
+}
+.btn-generate-image{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1;
+}
 .btn-buy {
   background-color: rgb(98, 94, 94);
   display: inline-block;
@@ -1216,3 +1227,9 @@ button.btn-outline-light:hover {
   margin-top: 12px;
   margin-bottom: 12px;
 }
+
+.no-focus:focus {
+  outline: none;
+}
+
+

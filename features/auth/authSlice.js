@@ -4,9 +4,14 @@ import { loginUser } from '../../utils/api';
 
 const getLocalStorageItem = (key) => {
     if (typeof window !== 'undefined') {
-        return localStorage.getItem(key);
+        const value = localStorage.getItem(key);
+        try {
+            return JSON.parse(value); // Parse JSON strings for complex objects or numbers
+        } catch {
+            return value; // Return the string directly if parsing fails
+        }
     }
-    return null; // or some default value
+    return null;
 };
 
 // Thunk for handling login
@@ -18,6 +23,7 @@ export const login = createAsyncThunk(
             return {
                 token: response.access_token,  // Store token
                 user: response.username,       // Store user info (assuming "username")
+                user_id: response.user_id,     // Store user_id
             };
         } catch (err) {
             return rejectWithValue(err.message);
@@ -28,6 +34,7 @@ export const login = createAsyncThunk(
 const authSlice = createSlice({
     name: 'auth',
     initialState: {
+        user_id: getLocalStorageItem('user_id') || null,
         user: getLocalStorageItem('user') || null,
         token: getLocalStorageItem('token') || null,
         isAuthenticated: !!getLocalStorageItem('token'),
@@ -36,10 +43,12 @@ const authSlice = createSlice({
     },
     reducers: {
         logout: (state) => {
+            state.user_id = null;
             state.user = null;
-            state.token = null;  // Clear token on logout
+            state.token = null;
             state.isAuthenticated = false;
             if (typeof window !== 'undefined') {
+                localStorage.removeItem('user_id');
                 localStorage.removeItem('user');
                 localStorage.removeItem('token');
             }
@@ -52,7 +61,7 @@ const authSlice = createSlice({
                 localStorage.setItem('user', JSON.stringify(action.payload.user));
                 localStorage.setItem('token', action.payload.token);
             }
-        }
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -62,11 +71,13 @@ const authSlice = createSlice({
             })
             .addCase(login.fulfilled, (state, action) => {
                 state.status = 'succeeded';
+                state.user_id = action.payload.user_id; // Set user_id
                 state.user = action.payload.user;
                 state.token = action.payload.token;
                 state.isAuthenticated = true;
 
                 if (typeof window !== 'undefined') {
+                    localStorage.setItem('user_id', JSON.stringify(action.payload.user_id)); // Save as string
                     localStorage.setItem('user', action.payload.user);
                     localStorage.setItem('token', action.payload.token);
                 }
@@ -80,3 +91,4 @@ const authSlice = createSlice({
 
 export const { logout, socialLogin } = authSlice.actions;
 export default authSlice.reducer;
+

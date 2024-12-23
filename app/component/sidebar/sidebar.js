@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../../features/auth/authSlice";
 import { useRouter, usePathname } from "next/navigation";
 import translations from "../../../i18";
+import Link from "next/link";
 
 function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
   const [darkThemeMode, setDarkThemeMode] = useState(false);
@@ -298,7 +299,10 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
             </li>
             {isAuthenticated && (
               <li>
-                <a className="d-flex align-items-center gap-2 p-2 rounded-5">
+                <Link
+                  href="/account/my-images"
+                  className="d-flex align-items-center gap-2 p-2 rounded-5"
+                >
                   <span className="icon custom-icon">
                     <svg
                       version="1.0"
@@ -323,7 +327,7 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
                   <span className="link-name">
                     {t?.NavigationTitle_3 || "My Images"}
                   </span>
-                </a>
+                </Link>
               </li>
             )}
             {isAuthenticated && (
