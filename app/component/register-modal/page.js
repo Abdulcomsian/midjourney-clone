@@ -13,7 +13,7 @@ import { registerGoogleUser } from "../../../utils/api";
 import { login, socialLogin } from "../../../features/auth/authSlice";
 import toast from "react-hot-toast";
 
-function RegisterModal({ showRegisterModal, handleCloseRegisterModal }) {
+function RegisterModal() {
   const router = useRouter();
   const dispatch = useDispatch();
   const showModalState = useSelector((state) => state.modal.showRegisterModal);
