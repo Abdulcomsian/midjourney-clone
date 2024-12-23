@@ -36,27 +36,10 @@ function TopSearch({ showCreativeModal }) {
 
   const [showImageLoadingNotification, setShowImageLoadingNotification] =
     useState(null);
-  // const {
-  //   pricingData,
-  //   paymentMethodsData,
-  //   loading,
-  //   error,
-  //   paymentMethod,
-  //   errorPaymentMethod,
-  // } = useSelector((state) => state.api);
+
   const { token, user_id } = useSelector((state) => state.auth);
 
-  // console.log(user_id, "user id");
-  // console.log(token, "token");
 
-  // useEffect(() => {
-  //   fetchPricingAndPaymentData({
-  //     pricingEndpoint: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pricing`,
-  //     paymentEndpoint: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/subscription/status`,
-  //     token,
-  //   });
-  // }, []);
-  //   const dispatch = useDispatch();
 
   useEffect(() => {
     try {
@@ -83,24 +66,9 @@ function TopSearch({ showCreativeModal }) {
     } catch (error) {
       console.log(error);
     }
-    // if (token) {
-    //   dispatch(resetState()); // Reset state before fetching
-    //   dispatch(
-    //     fetchPricingAndPaymentData({
-    //       pricingEndpoint: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pricing`,
-    //       paymentEndpoint: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/subscription/status`,
-    //       token,
-    //     })
-    //   );
-    // }
+
   }, [token]);
 
-  // useEffect(() => {
-  //   if (pricingData || paymentMethodsData) {
-  //     console.log("Pricing Data: ", pricingData);
-  //     console.log("Payment Methods Data: ", paymentMethodsData);
-  //   }
-  // }, [pricingData, paymentMethodsData]);
 
   const hasScubscription =
     paymentMethodsData?.data?.current_subscription !== null;
@@ -195,41 +163,42 @@ function TopSearch({ showCreativeModal }) {
   const channelRef = useRef(null); 
 
   // Initialize Pusher connection once
-  
-  useEffect(() => {
-    const initializePusher = () => {
-      pusherRef.current = new Pusher("0194957b7ee87fdc5149", {
-        cluster: "ap2",
-        forceTLS: true,
-        authEndpoint: '/api/pusher/auth',
-        auth: {
-          headers: {
-            Authorization : `Bearer ${token}`,
-          }
+  const initializePusher = () => {
+    pusherRef.current = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY, {
+      cluster: "ap2",
+      forceTLS: true,
+      authEndpoint: 'https://stage.footo.ai/api/pusher/auth',
+      auth: {
+        headers: {
+          Authorization : `Bearer ${token}`,
         }
-      });
+      }
+    });
 
-      const channelName = `private-footo.user.${user_id}`;
-      channelRef.current = pusherRef.current.subscribe(channelName);
+    const channelName = `private-footo.user.${user_id}`;
+    channelRef.current = pusherRef.current.subscribe(channelName);
+    Pusher.logToConsole = true;
+    console.log("Channel subscribed:", channelRef.current);
 
-      console.log("Channel subscribed:", channelRef.current);
+    channelRef.current.bind("image-event", (data) => {
+      console.log("Received image event:", data);
+      setGeneratedImageUrl(data.url)
+    });
 
-      channelRef.current.bind("image-event", (data) => {
-        console.log("Received image event:", data);
-      });
+    pusherRef.current.connection.bind("connected", () =>
+      console.log("Pusher connection established.")
+    );
 
-      pusherRef.current.connection.bind("connected", () =>
-        console.log("Pusher connection established.")
-      );
+    pusherRef.current.connection.bind("error", (err) =>
+      console.error("Pusher connection error:", err)
+    );
 
-      pusherRef.current.connection.bind("error", (err) =>
-        console.error("Pusher connection error:", err)
-      );
-
-      pusherRef.current.connection.bind("disconnected", () =>
-        console.warn("Pusher connection disconnected.")
-      );
-    };
+    pusherRef.current.connection.bind("disconnected", () =>
+      console.warn("Pusher connection disconnected.")
+    );
+  };
+  useEffect(() => {
+    
 
     initializePusher();
 
@@ -253,7 +222,6 @@ function TopSearch({ showCreativeModal }) {
         try {
           const response = await getImageCreatedImages(jobId);
           if (response.status === "success") {
-            console.log("Generated Image URL:", response?.data?.url);
             setGeneratedImageUrl(response.data.url);
             setShowImageLoadingNotification(false);
           }
@@ -308,19 +276,22 @@ function TopSearch({ showCreativeModal }) {
           variant="info"
         >
           <div>
-            <p>Image generated successfully!</p>
-            <Link href="/account/my-images">
-              <img
-                src={generatedImageUrl}
-                alt="img"
-                style={{
-                  width: "50px",
-                  height: "auto",
-                  cursor: "pointer",
-                  borderRadius: "8px",
-                }}
-              />
-            </Link>
+            
+            {generatedImageUrl ?
+            <><p>Image generated successfully!</p><Link href="/account/my-images">
+                <img
+                  src={generatedImageUrl}
+                  alt="img"
+                  style={{
+                    width: "50px",
+                    height: "auto",
+                    cursor: "pointer",
+                    borderRadius: "8px",
+                  }} />
+              </Link></>
+              :<p>Image in Queue!</p>}
+              
+          
           </div>
         </Alert>
       )}
