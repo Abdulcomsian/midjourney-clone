@@ -12,7 +12,7 @@ import { registerGoogleUser } from "../../../utils/api";
 import { socialLogin } from "../../../features/auth/authSlice";
 import toast from "react-hot-toast";
 
-function AuthModal({ showModal, handleCloseAuthModal }) {
+function AuthModal() {
   const router = useRouter();
   const dispatch = useDispatch();
   const { status, error } = useSelector((state) => state.auth); // Get auth state from Redux store
