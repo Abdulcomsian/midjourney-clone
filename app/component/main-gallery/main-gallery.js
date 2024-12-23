@@ -42,12 +42,36 @@ function MainGallery() {
       <main>
         {imageDetail ? (
           <div className="filter-bar">
-            <Tabs
+             <div className="gallery-grid-wrapper rounded-lg overflow-hidden">
+                  <div className="gallery-wrapper">
+                    {galleryImages.map((item) => (
+                      <div
+                        className="gallery-item position-relative"
+                        key={item.id}
+                        onClick={() => {
+                          setImageDetail(false);
+                          setSelectedImageId(item.id);
+                        }}
+                      >
+                        <img src={item.url} />
+                        <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
+                          <p>{item.slug}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="text-center see-more-images">
+                    <hr width="130" className="border-2 m-auto mb-2" />
+                    <h6>{t?.text_last || "Log in to See More"}</h6>
+                  </div>
+                </div>
+            {/* <Tabs
               defaultActiveKey="Random"
               id="justify-tab-example"
               className="mb-3 packages-tab"
               justify
             >
+             
               <Tab
                 eventKey="Random"
                 title={t?.TAb_1 || "Random"}
@@ -164,7 +188,7 @@ function MainGallery() {
                   </div>
                 </div>
               </Tab>
-            </Tabs>
+            </Tabs> */}
           </div>
         ) : (
           <DetailImage selectedImageId={selectedImageId} />

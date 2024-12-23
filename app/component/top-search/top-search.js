@@ -258,16 +258,7 @@ function TopSearch({ showCreativeModal }) {
   
   return (
     <header>
-      {/* {imageGenerationId && showImageLoadingNotification && (
-        <Alert
-          className="position-absolute"
-          style={{ top: "10px", right: "-38px", zIndex: 10 }}
-          key="info"
-          variant="info"
-        >
-          Creating images...
-        </Alert>
-      )} */}
+     
       {imageGenerationId && showImageLoadingNotification && (
         <Alert
           className="position-absolute"
