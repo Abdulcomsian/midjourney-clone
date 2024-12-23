@@ -1,25 +1,19 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { setLanguage } from "../../../features/languageSlice";
 import translations from "../../../i18";
 import eventEmitter from "../../../utils/eventEmitter";
-import PromptBox from "../promptbox";
+
+import Link from "next/link";
+import Pusher from "pusher-js";
+import { Alert } from "react-bootstrap";
 import {
   getImageCreatedImages,
   getImageCreatingId,
   getServiceType,
 } from "../../../utils/api";
 import Button from "../Button";
-import { error } from "jquery";
-import {
-  fetchPricingAndPaymentData,
-  resetState,
-} from "../../../features/apiSlice";
-import Notification from "../Notification";
-import { Alert } from "react-bootstrap";
-import Pusher from "pusher-js";
-import Link from "next/link";
 
 function TopSearch({ showCreativeModal }) {
   const [serviceTypes, setServiceTypes] = useState([]);
