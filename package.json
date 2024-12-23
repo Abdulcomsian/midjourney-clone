@@ -12,6 +12,7 @@
 		"@testing-library/user-event": "^13.5.0",
 		"axios": "^1.7.7",
 		"bootstrap": "^5.3.3",
+		"dayjs": "^1.11.13",
 		"dotenv": "^16.4.5",
 		"jquery": "^3.7.1",
 		"jwt-decode": "^4.0.0",
@@ -53,5 +54,8 @@
 			"last 1 safari version"
 		]
 	},
-	"packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
+	"packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610",
+	"devDependencies": {
+		"typescript": "5.7.2"
+	}
 }
