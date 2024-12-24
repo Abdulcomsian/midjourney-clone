@@ -33,8 +33,6 @@ function TopSearch({ showCreativeModal }) {
 
   const { token, user_id } = useSelector((state) => state.auth);
 
-
-
   useEffect(() => {
     try {
       const fetchSubscriptionStatus = async function () {
@@ -60,17 +58,29 @@ function TopSearch({ showCreativeModal }) {
     } catch (error) {
       console.log(error);
     }
-
   }, [token]);
-
 
   const hasScubscription =
     paymentMethodsData?.data?.current_subscription !== null;
 
+  // console.log(hasScubscription, "hasScubscription")
   const promptRef = useRef(null);
-  // Function to handle theme change detection
 
-  // Read theme from localStorage on component mount and add a listener for changes
+  const handleClearTextArea = () => {
+    setPrompt("");
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        handleClearTextArea();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   const selectedLanguage = useSelector(
     (state) => state.language.selectedLanguage
@@ -134,6 +144,7 @@ function TopSearch({ showCreativeModal }) {
   useEffect(() => {
     async function fetchServiceType() {
       const resp = await getServiceType();
+      console.log(resp, "serviceType");
       if (resp.status === "success") {
         setServiceTypes(resp.data);
       }
@@ -153,20 +164,20 @@ function TopSearch({ showCreativeModal }) {
 
   const selectTextColor = darkThemeMode ? "text-white" : "text-black";
 
-  const pusherRef = useRef(null); 
-  const channelRef = useRef(null); 
+  const pusherRef = useRef(null);
+  const channelRef = useRef(null);
 
   // Initialize Pusher connection once
   const initializePusher = () => {
     pusherRef.current = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY, {
       cluster: "ap2",
       forceTLS: true,
-      authEndpoint: 'https://stage.footo.ai/api/pusher/auth',
+      authEndpoint: "https://stage.footo.ai/api/pusher/auth",
       auth: {
         headers: {
-          Authorization : `Bearer ${token}`,
-        }
-      }
+          Authorization: `Bearer ${token}`,
+        },
+      },
     });
 
     const channelName = `private-footo.user.${user_id}`;
@@ -176,7 +187,7 @@ function TopSearch({ showCreativeModal }) {
 
     channelRef.current.bind("image-event", (data) => {
       console.log("Received image event:", data);
-      setGeneratedImageUrl(data.url)
+      setGeneratedImageUrl(data.url);
     });
 
     pusherRef.current.connection.bind("connected", () =>
@@ -192,8 +203,6 @@ function TopSearch({ showCreativeModal }) {
     );
   };
   useEffect(() => {
-    
-
     initializePusher();
 
     return () => {
@@ -205,7 +214,7 @@ function TopSearch({ showCreativeModal }) {
         pusherRef.current.disconnect();
       }
     };
-  }, [])
+  }, []);
 
   const bindImageEvent = (jobId) => {
     if (!channelRef.current) return;
@@ -249,35 +258,38 @@ function TopSearch({ showCreativeModal }) {
       setIsCreatingId(false);
     }
   };
-  
+
   return (
     <header>
-     
       {imageGenerationId && showImageLoadingNotification && (
         <Alert
           className="position-absolute"
           style={{ top: "10px", right: "-38px", zIndex: 10 }}
           key="info"
           variant="info"
-          onClose={() => setShowImageLoadingNotification(false)} dismissible
+          onClose={() => setShowImageLoadingNotification(false)}
+          dismissible
         >
           <div>
-            
-            {generatedImageUrl ?
-            <><p>Image generated successfully!</p><Link href="/account/my-images">
-                <img
-                  src={generatedImageUrl}
-                  alt="img"
-                  style={{
-                    width: "50px",
-                    height: "auto",
-                    cursor: "pointer",
-                    borderRadius: "8px",
-                  }} />
-              </Link></>
-              :<p>Image generation queued successfully</p>}
-              
-          
+            {generatedImageUrl ? (
+              <>
+                <p>Image generated successfully!</p>
+                <Link href="/account/my-images">
+                  <img
+                    src={generatedImageUrl}
+                    alt="img"
+                    style={{
+                      width: "50px",
+                      height: "auto",
+                      cursor: "pointer",
+                      borderRadius: "8px",
+                    }}
+                  />
+                </Link>
+              </>
+            ) : (
+              <p>Image generation queued successfully</p>
+            )}
           </div>
         </Alert>
       )}
@@ -318,7 +330,12 @@ function TopSearch({ showCreativeModal }) {
                       </span>
                       <input
                         className="w-100 border-0 opacity-50"
-                        placeholder={t?.searchPlaceholder || "Search..."}
+                        placeholder={
+                          hasScubscription
+                            ? "Type your idea here to generate an image"
+                            : t?.searchPlaceholder ||
+                              "Subscribe to start creating …"
+                        }
                         value={prompt}
                       />
                       <span className="icon opacity-25">
@@ -354,14 +371,56 @@ function TopSearch({ showCreativeModal }) {
                       >
                         {iscreatingId ? "Generating..." : "Generate"}
                       </Button>
+                      <div className="credit_info">
+                        {serviceTypes?.map((service) => (
+                          <div>
+                            {selectedService === service.id ? (
+                              <span>
+                                Uses <b>{service.credit_cost}</b> credits{" "}
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="12"
+                                  height="12"
+                                  fill="currentColor"
+                                  class="bi bi-info-circle"
+                                  viewBox="0 0 16 16"
+                                >
+                                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                  <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
+                                </svg>
+                              </span>
+                            ) : (
+                              ""
+                            )}
+                          </div>
+                        ))}
+                      </div>
                       <textarea
-                        className=" border-0 no-focus mb-4"
+                        className="position-relative border-0 no-focus mb-4"
                         rows={10}
                         style={{ resize: "none", width: "80%" }}
                         placeholder="Describe what you want to see..."
                         value={prompt}
                         onChange={(e) => setPrompt(e.target.value)}
                       ></textarea>
+                      {prompt.length > 0 && (
+                        <span
+                          className="position-absolute top-5 right-5 py-2"
+                          onClick={handleClearTextArea}
+                          style={{ cursor: "pointer", marginLeft: "10px" }}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="bi bi-eraser"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M8.086 2.207a2 2 0 0  1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828zm2.121.707a1 1 0 0 0-1.414 0L4.16 7.547l5.293 5.293 4.633-4.633a1 1 0 0 0 0-1.414zM8.746 13.547 3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293z" />
+                          </svg>
+                        </span>
+                      )}
                       <div className="d-flex align-items-center justify-content-between">
                         <div className="d-flex align-items-center gap-3">
                           {serviceTypes?.map((service) => (

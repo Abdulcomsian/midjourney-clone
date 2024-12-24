@@ -62,7 +62,7 @@ function MainGallery() {
                   </div>
                   <div className="text-center see-more-images">
                     <hr width="130" className="border-2 m-auto mb-2" />
-                    <h6>{t?.text_last || "Log in to See More"}</h6>
+                    {/* <h6>{t?.text_last || "Log in to See More"}</h6> */}
                   </div>
                 </div>
             {/* <Tabs

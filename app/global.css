@@ -879,6 +879,10 @@ main .filter-bar ul li button.active {
   flex-basis: 43%;
   background-size: cover;
 }
+.modal-left-side {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
 .creative-modal .modal-right-side {
   flex-basis: 55%;
   padding: 2rem;
@@ -1209,15 +1213,24 @@ button.btn-outline-light:hover {
   margin-left: 120px;
 }
 
-.c-btn-primary{
-  background-color: var(--active-nav-bg);
-  color: var(--active-nav-color);
+.c-btn-primary {
+  /* background-color: var(--active-nav-bg); */
+  background-color: #f77e21 !important;
+  /* color: var(--active-nav-color); */
+  color: #fff !important;
 }
-.btn-generate-image{
+.btn-generate-image {
   position: absolute;
   top: 20px;
   right: 20px;
   z-index: 1;
+}
+.credit_info {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  z-index: 1;
+  font-size: 11px !important;
 }
 .btn-buy {
   background-color: rgb(98, 94, 94);
@@ -1231,5 +1244,3 @@ button.btn-outline-light:hover {
 .no-focus:focus {
   outline: none;
 }
-
-
