@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { openAuthModal } from "../../features/modalSlice";
 import { openRegisterModal } from "../../features/modalSlice";
 import { Toaster } from "react-hot-toast";
-const LandingPage = ({ handleShow, handleRegisterShow }) => {
+const LandingPage = () => {
   const dispatch = useDispatch();
   const handleSignInClick = () => {
     dispatch(openAuthModal());
