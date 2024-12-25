@@ -1,50 +1,90 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import DetailImage from "./gallery-image-detail/detail-image";
-import BottomNav from "../bottom-nav/bottom-nav";
-import { Tab, Tabs, Accordion } from "react-bootstrap";
-import translations from "../../../i18";
 import { useSelector } from "react-redux";
+import translations from "../../../i18";
 
 function MainGallery() {
   const [galleryImages, setGalleryImages] = useState([]);
   const [imageDetail, setImageDetail] = useState(true);
   const [selectedImageId, setSelectedImageId] = useState(undefined);
+  const [page, setPage] = useState(1); // For pagination
+  const [hasMore, setHasMore] = useState(true); // To track if more images exist
+  const observer = useRef();
   const selectedLanguage = useSelector(
     (state) => state.language.selectedLanguage
   );
   const t = translations[selectedLanguage];
 
-  useEffect(() => {
-    const fetchGallery = async function () {
-      const token = localStorage.getItem("token");
-      const resp = await fetch(
-        `https://stage-admin.footo.ai/api/images/gallery`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      const data = await resp.json();
-
-      if (data.length > 0) {
-        setGalleryImages(data);
+  // Fetch gallery images based on the current page
+  const fetchGallery = useCallback(async () => {
+    const token = localStorage.getItem("token");
+    const resp = await fetch(
+      `https://stage-admin.footo.ai/api/images/gallery?page=${page}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       }
-    };
+    );
+    const data = await resp.json();
+
+    if (data.length > 0) {
+      setGalleryImages((prev) => [...prev, ...data]); // Append new images
+    } else {
+      setHasMore(false); // No more images to load
+    }
+  }, [page]);
+
+  useEffect(() => {
     fetchGallery();
-  }, []);
+  }, [fetchGallery]);
+
+  // Observer to detect when the user scrolls near the bottom
+  const lastImageRef = useCallback(
+    (node) => {
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setPage((prevPage) => prevPage + 1); // Load next page
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [hasMore]
+  );
 
   return (
     <>
       <main>
         {imageDetail ? (
           <div className="filter-bar">
-             <div className="gallery-grid-wrapper rounded-lg overflow-hidden">
-                  <div className="gallery-wrapper">
-                    {galleryImages.map((item) => (
+            
+            <div className="gallery-grid-wrapper rounded-lg overflow-hidden">
+              <div className="gallery-wrapper">
+                {galleryImages.map((item, index) => {
+                  if (galleryImages.length === index + 1) {
+                    // Attach observer to the last image
+                    return (
+                      <div
+                        className="gallery-item position-relative"
+                        key={item.id}
+                        ref={lastImageRef}
+                        onClick={() => {
+                          setImageDetail(false);
+                          setSelectedImageId(item.id);
+                        }}
+                      >
+                        <img src={item.url} alt={item.slug} />
+                        <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
+                          <p>{item.slug}</p>
+                        </div>
+                      </div>
+                    );
+                  } else {
+                    return (
                       <div
                         className="gallery-item position-relative"
                         key={item.id}
@@ -53,142 +93,21 @@ function MainGallery() {
                           setSelectedImageId(item.id);
                         }}
                       >
-                        <img src={item.url} />
+                        <img src={item.url} alt={item.slug} />
                         <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
                           <p>{item.slug}</p>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                  <div className="text-center see-more-images">
-                    <hr width="130" className="border-2 m-auto mb-2" />
-                    {/* <h6>{t?.text_last || "Log in to See More"}</h6> */}
-                  </div>
+                    );
+                  }
+                })}
+              </div>
+              {hasMore && (
+                <div className="text-center see-more-images">
+                  <p>Loading more images...</p>
                 </div>
-            {/* <Tabs
-              defaultActiveKey="Random"
-              id="justify-tab-example"
-              className="mb-3 packages-tab"
-              justify
-            >
-             
-              <Tab
-                eventKey="Random"
-                title={t?.TAb_1 || "Random"}
-                className="border-0"
-              >
-                <div className="gallery-grid-wrapper rounded-lg overflow-hidden">
-                  <div className="gallery-wrapper">
-                    {galleryImages.map((item) => (
-                      <div
-                        className="gallery-item position-relative"
-                        key={item.id}
-                        onClick={() => {
-                          setImageDetail(false);
-                          setSelectedImageId(item.id);
-                        }}
-                      >
-                        <img src={item.url} />
-                        <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
-                          <p>{item.slug}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="text-center see-more-images">
-                    <hr width="130" className="border-2 m-auto mb-2" />
-                    <h6>{t?.text_last || "Log in to See More"}</h6>
-                  </div>
-                </div>
-              </Tab>
-              <Tab
-                eventKey="Hot"
-                title={t?.Tab_2 || "Hot"}
-                className="border-0"
-              >
-                <div className="gallery-grid-wrapper">
-                  <div className="gallery-wrapper">
-                    {galleryImages.map((item) => (
-                      <div
-                        className="gallery-item position-relative"
-                        key={item.id}
-                        onClick={() => {
-                          setImageDetail(false);
-                          setSelectedImageId(item.id);
-                        }}
-                      >
-                        <img src={item.url} />
-                        <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
-                          <p>{item.slug}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="text-center see-more-images">
-                    <hr width="130" className="border-2 m-auto mb-2" />
-                    <h6>{t?.text_last || "Log in to See More"}</h6>
-                  </div>
-                </div>
-              </Tab>
-              <Tab
-                eventKey="Today"
-                title={t?.Tab_3 || "Today"}
-                className="border-0"
-              >
-                <div className="gallery-grid-wrapper">
-                  <div className="gallery-wrapper">
-                    {galleryImages.map((item) => (
-                      <div
-                        className="gallery-item position-relative"
-                        key={item.id}
-                        onClick={() => {
-                          setImageDetail(false);
-                          setSelectedImageId(item.id);
-                        }}
-                      >
-                        <img src={item.src} />
-                        <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
-                          <p>{item.slug}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="text-center see-more-images">
-                    <hr width="130" className="border-2 m-auto mb-2" />
-                    <h6>{t?.text_last || "Log in to See More"}</h6>
-                  </div>
-                </div>
-              </Tab>
-              <Tab
-                eventKey="Likes"
-                title={t?.Tab_4 || "Likes"}
-                className="border-0"
-              >
-                <div className="gallery-grid-wrapper">
-                  <div className="gallery-wrapper">
-                    {galleryImages.map((item) => (
-                      <div
-                        className="gallery-item position-relative"
-                        key={item.id}
-                        onClick={() => {
-                          setImageDetail(false);
-                          setSelectedImageId(item.id);
-                        }}
-                      >
-                        <img src={item.src} />
-                        <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
-                          <p>{item.slug}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="text-center see-more-images">
-                    <hr width="130" className="border-2 m-auto mb-2" />
-                    <h6>{t?.text_last || "Log in to See More"}</h6>
-                  </div>
-                </div>
-              </Tab>
-            </Tabs> */}
+              )}
+            </div>
           </div>
         ) : (
           <DetailImage selectedImageId={selectedImageId} />
@@ -197,4 +116,5 @@ function MainGallery() {
     </>
   );
 }
+
 export default MainGallery;

@@ -5,14 +5,18 @@ import "react-tabs-scrollable/dist/rts.css";
 import { getUserGallery } from "../../../../utils/api";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import { MdOutlineClose } from "react-icons/md";
+import Link from "next/link";
 
 // Enable custom format parsing
 function DetailImage({ selectedImageId: initialSelectedImageId }) {
   const [galleryData, setGalleryData] = useState([]);
-  const [selectedImageId, setSelectedImageId] = useState(initialSelectedImageId);
+  const [selectedImageId, setSelectedImageId] = useState(
+    initialSelectedImageId
+  );
   const [activeTab, setActiveTab] = useState(1);
   const [isHovered, setIsHovered] = useState(false);
-  dayjs.extend(customParseFormat); 
+  dayjs.extend(customParseFormat);
   const onTabClick = (e, index) => {
     setActiveTab(index);
     console.log("Tab Index", index);
@@ -34,15 +38,15 @@ function DetailImage({ selectedImageId: initialSelectedImageId }) {
   };
   const formatDate = (dateString) => {
     if (!dateString) return "Unknown date"; // Handle undefined or null dates
-  
+
     const now = dayjs();
     const date = dayjs(dateString, "DD/MM/YYYY"); // Parse the date with your format
-  
+
     if (!date.isValid()) return "Invalid date"; // Handle invalid date formats
-  
+
     if (now.isSame(date, "day")) return "Today";
     const diffDays = now.diff(date, "day");
-  
+
     return `${diffDays} day${diffDays > 1 ? "s" : ""} ago`;
   };
   const selectedImageItem = galleryData.find(
@@ -50,13 +54,28 @@ function DetailImage({ selectedImageId: initialSelectedImageId }) {
   );
   console.log("Selected image item:", selectedImageItem);
 
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        console.log("Escape key pressed");
+        window.location.href = "/";
+      }
+    };
+  
+    window.addEventListener("keydown", handleKeyDown);
+  
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
+  
   return (
     <div className="image-detail-wrapper">
       <div
         className="detail-left-container"
         style={{
           position: "relative",
-          zIndex: -1,
           top: "18px",
           height: "85vh",
         }}
@@ -72,59 +91,42 @@ function DetailImage({ selectedImageId: initialSelectedImageId }) {
                 transform: "none",
               }}
             >
-              <img src={selectedImageItem?.url} alt="Selected" />
+              <img
+                src={selectedImageItem?.url}
+                alt="Selected"
+                style={{
+                  pointerEvents: "none !important",
+        
+                }}
+              />
+            <div
+              style={{
+                position: "absolute",
+                top: "10px",
+                right: "10px",
+                cursor: "pointer",
+                zIndex: 2000, 
+                background: "rgba(255, 255, 255, 0.8)",
+                borderRadius: "50%",
+                padding: "5px",
+              }}
+              onClick={(e) => {
+                console.log("Close icon clicked", e);
+                window.location.href = "/";
+              }}
+            >
+              <MdOutlineClose size={24} />
+            </div>
             </div>
           </TabScreen>
-          <div
-            style={{
-              position: "absolute",
-              top: "13%",
-              left: "95%",
-              cursor: "pointer",
-            }}
-            className="close-button"
-          >
-            <a
-              href="/"
-              className="text-decoration-none"
-              style={{ color: "GrayText" }}
-            >
-              <div
-                style={{
-                  width: "30px",
-                  height: "30px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  backgroundColor: isHovered ? "#f0f0f0" : "transparent",
-                  borderRadius: "50%",
-                  transition: "background-color 0.3s ease",
-                }}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-              >
-                <p
-                  style={{
-                    margin: 0,
-                    fontSize: "16px",
-                    lineHeight: "1",
-                  }}
-                >
-                  X
-                </p>
-              </div>
-            </a>
-          </div>
         </div>
       </div>
       <div className="detail-right-container">
-      {galleryData.map((item, index) => (
+        {galleryData.map((item, index) => (
           <TabScreen key={index} index={index} activeTab={activeTab}>
             <div className="img-data">
               <p>{formatDate(item.created_at)}</p>
-              <p className="my-3">
-                {item.prompt}
-              </p>
+              <p className="my-3">{item.prompt}</p>
               {/* <ul className="list-unstyled d-flex flex-wrap gap-2 p-0 m-0">
                 <li>
                   <span className="white-space-nowrap rounded py-1 px-2">
@@ -161,7 +163,6 @@ function DetailImage({ selectedImageId: initialSelectedImageId }) {
           </TabScreen>
         ))}
         <Tabs activeTab={activeTab} onTabClick={onTabClick}>
-          
           {galleryData.map((item, index) => (
             <Tab key={index}>
               <div className="tab-img">
