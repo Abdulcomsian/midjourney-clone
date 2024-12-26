@@ -1231,6 +1231,7 @@ button.btn-outline-light:hover {
   right: 20px;
   z-index: 1;
   font-size: 11px !important;
+  color: #000;
 }
 .btn-buy {
   background-color: rgb(98, 94, 94);

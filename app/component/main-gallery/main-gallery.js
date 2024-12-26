@@ -4,23 +4,24 @@ import DetailImage from "./gallery-image-detail/detail-image";
 import { useSelector } from "react-redux";
 import translations from "../../../i18";
 import { Tab, Tabs } from "react-bootstrap";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 function MainGallery() {
   const [galleryImages, setGalleryImages] = useState([]);
   const [imageDetail, setImageDetail] = useState(true);
   const [selectedImageId, setSelectedImageId] = useState(undefined);
-  const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const observer = useRef();
+  const [page, setPage] = useState(1);
+
   const selectedLanguage = useSelector(
     (state) => state.language.selectedLanguage
   );
   const t = translations[selectedLanguage];
 
-  const fetchGallery = useCallback(async () => {
+  const fetchGallery = async (currentPage) => {
     const token = localStorage.getItem("token");
     const resp = await fetch(
-      `https://stage-admin.footo.ai/api/images/gallery?page=${page}`,
+      `https://stage-admin.footo.ai/api/images/gallery?page=${currentPage}`,
       {
         method: "GET",
         headers: {
@@ -32,28 +33,25 @@ function MainGallery() {
     const data = await resp.json();
 
     if (data.length > 0) {
-      setGalleryImages((prev) => [...prev, ...data]);
+      setGalleryImages((prevImages) => {
+        const uniqueImages = data.filter(
+          (newImage) =>
+            !prevImages.some((prevImage) => prevImage.id === newImage.id)
+        );
+        return [...prevImages, ...uniqueImages];
+      });
     } else {
       setHasMore(false);
     }
-  }, [page]);
+  };
 
   useEffect(() => {
-    fetchGallery();
-  }, [fetchGallery]);
+    fetchGallery(page);
+  }, [page]);
 
-  const lastImageRef = useCallback(
-    (node) => {
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasMore) {
-          setPage((prevPage) => prevPage + 1);
-        }
-      });
-      if (node) observer.current.observe(node);
-    },
-    [hasMore]
-  );
+  const loadMoreImages = () => {
+    setPage((prevPage) => prevPage + 1);
+  };
 
   return (
     <>
@@ -71,7 +69,14 @@ function MainGallery() {
                 title={t?.TAb_1 || "Random"}
                 className="border-0"
               >
-                <div className="gallery-grid-wrapper rounded-lg overflow-hidden">
+                <InfiniteScroll
+                  dataLength={galleryImages.length}
+                  next={loadMoreImages}
+                  hasMore={hasMore}
+                  loader={<h4>Loading...</h4>}
+                  endMessage={<p>No more images to show</p>}
+                  className="gallery-grid-wrapper rounded-lg overflow-hidden"
+                >
                   <div className="gallery-wrapper">
                     {galleryImages.map((item, index) => {
                       if (galleryImages.length === index + 1) {
@@ -80,7 +85,6 @@ function MainGallery() {
                           <div
                             className="gallery-item position-relative"
                             key={index}
-                            ref={lastImageRef}
                             onClick={() => {
                               setImageDetail(false);
                               setSelectedImageId(item.id);
@@ -111,14 +115,21 @@ function MainGallery() {
                       }
                     })}
                   </div>
-                </div>
+                </InfiniteScroll>
               </Tab>
               <Tab
                 eventKey="Hot"
                 title={t?.Tab_2 || "Hot"}
                 className="border-0"
               >
-                <div className="gallery-grid-wrapper rounded-lg overflow-hidden">
+                <InfiniteScroll
+                  dataLength={galleryImages.length}
+                  next={loadMoreImages}
+                  hasMore={hasMore}
+                  loader={<h4>Loading...</h4>}
+                  endMessage={<p>No more images to show</p>}
+                  className="gallery-grid-wrapper rounded-lg overflow-hidden"
+                >
                   <div className="gallery-wrapper">
                     {galleryImages.map((item, index) => {
                       if (galleryImages.length === index + 1) {
@@ -127,7 +138,6 @@ function MainGallery() {
                           <div
                             className="gallery-item position-relative"
                             key={index}
-                            ref={lastImageRef}
                             onClick={() => {
                               setImageDetail(false);
                               setSelectedImageId(item.id);
@@ -158,14 +168,21 @@ function MainGallery() {
                       }
                     })}
                   </div>
-                </div>
+                </InfiniteScroll>
               </Tab>
               <Tab
                 eventKey="Today"
                 title={t?.Tab_3 || "Today"}
                 className="border-0"
               >
-                <div className="gallery-grid-wrapper rounded-lg overflow-hidden">
+                <InfiniteScroll
+                  dataLength={galleryImages.length}
+                  next={loadMoreImages}
+                  hasMore={hasMore}
+                  loader={<h4>Loading...</h4>}
+                  endMessage={<p>No more images to show</p>}
+                  className="gallery-grid-wrapper rounded-lg overflow-hidden"
+                >
                   <div className="gallery-wrapper">
                     {galleryImages.map((item, index) => {
                       if (galleryImages.length === index + 1) {
@@ -174,7 +191,6 @@ function MainGallery() {
                           <div
                             className="gallery-item position-relative"
                             key={index}
-                            ref={lastImageRef}
                             onClick={() => {
                               setImageDetail(false);
                               setSelectedImageId(item.id);
@@ -205,14 +221,21 @@ function MainGallery() {
                       }
                     })}
                   </div>
-                </div>
+                </InfiniteScroll>
               </Tab>
               <Tab
                 eventKey="Likes"
                 title={t?.Tab_4 || "Likes"}
                 className="border-0"
               >
-                <div className="gallery-grid-wrapper rounded-lg overflow-hidden">
+                <InfiniteScroll
+                  dataLength={galleryImages.length}
+                  next={loadMoreImages}
+                  hasMore={hasMore}
+                  loader={<h4>Loading...</h4>}
+                  endMessage={<p>No more images to show</p>}
+                  className="gallery-grid-wrapper rounded-lg overflow-hidden"
+                >
                   <div className="gallery-wrapper">
                     {galleryImages.map((item, index) => {
                       if (galleryImages.length === index + 1) {
@@ -221,7 +244,6 @@ function MainGallery() {
                           <div
                             className="gallery-item position-relative"
                             key={index}
-                            ref={lastImageRef}
                             onClick={() => {
                               setImageDetail(false);
                               setSelectedImageId(item.id);
@@ -252,7 +274,7 @@ function MainGallery() {
                       }
                     })}
                   </div>
-                </div>
+                </InfiniteScroll>
               </Tab>
             </Tabs>
           </div>
