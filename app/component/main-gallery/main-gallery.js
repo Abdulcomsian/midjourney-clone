@@ -1,77 +1,71 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import DetailImage from "./gallery-image-detail/detail-image";
-import BottomNav from "../bottom-nav/bottom-nav";
-import { Tab, Tabs, Accordion } from "react-bootstrap";
-import translations from "../../../i18";
 import { useSelector } from "react-redux";
+import translations from "../../../i18";
+import { Tab, Tabs } from "react-bootstrap";
 
 function MainGallery() {
   const [galleryImages, setGalleryImages] = useState([]);
   const [imageDetail, setImageDetail] = useState(true);
   const [selectedImageId, setSelectedImageId] = useState(undefined);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const observer = useRef();
   const selectedLanguage = useSelector(
     (state) => state.language.selectedLanguage
   );
   const t = translations[selectedLanguage];
 
-  useEffect(() => {
-    const fetchGallery = async function () {
-      const token = localStorage.getItem("token");
-      const resp = await fetch(
-        `https://stage-admin.footo.ai/api/images/gallery`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      const data = await resp.json();
-
-      if (data.length > 0) {
-        setGalleryImages(data);
+  const fetchGallery = useCallback(async () => {
+    const token = localStorage.getItem("token");
+    const resp = await fetch(
+      `https://stage-admin.footo.ai/api/images/gallery?page=${page}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       }
-    };
+    );
+    const data = await resp.json();
+
+    if (data.length > 0) {
+      setGalleryImages((prev) => [...prev, ...data]);
+    } else {
+      setHasMore(false);
+    }
+  }, [page]);
+
+  useEffect(() => {
     fetchGallery();
-  }, []);
+  }, [fetchGallery]);
+
+  const lastImageRef = useCallback(
+    (node) => {
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setPage((prevPage) => prevPage + 1);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [hasMore]
+  );
 
   return (
     <>
       <main>
         {imageDetail ? (
           <div className="filter-bar">
-             <div className="gallery-grid-wrapper rounded-lg overflow-hidden">
-                  <div className="gallery-wrapper">
-                    {galleryImages.map((item) => (
-                      <div
-                        className="gallery-item position-relative"
-                        key={item.id}
-                        onClick={() => {
-                          setImageDetail(false);
-                          setSelectedImageId(item.id);
-                        }}
-                      >
-                        <img src={item.url} />
-                        <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
-                          <p>{item.slug}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="text-center see-more-images">
-                    <hr width="130" className="border-2 m-auto mb-2" />
-                    <h6>{t?.text_last || "Log in to See More"}</h6>
-                  </div>
-                </div>
-            {/* <Tabs
+            <Tabs
               defaultActiveKey="Random"
-              id="justify-tab-example"
+              id="gallery-tabs"
               className="mb-3 packages-tab"
               justify
             >
-             
               <Tab
                 eventKey="Random"
                 title={t?.TAb_1 || "Random"}
@@ -79,25 +73,43 @@ function MainGallery() {
               >
                 <div className="gallery-grid-wrapper rounded-lg overflow-hidden">
                   <div className="gallery-wrapper">
-                    {galleryImages.map((item) => (
-                      <div
-                        className="gallery-item position-relative"
-                        key={item.id}
-                        onClick={() => {
-                          setImageDetail(false);
-                          setSelectedImageId(item.id);
-                        }}
-                      >
-                        <img src={item.url} />
-                        <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
-                          <p>{item.slug}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="text-center see-more-images">
-                    <hr width="130" className="border-2 m-auto mb-2" />
-                    <h6>{t?.text_last || "Log in to See More"}</h6>
+                    {galleryImages.map((item, index) => {
+                      if (galleryImages.length === index + 1) {
+                        // Attach observer to the last image
+                        return (
+                          <div
+                            className="gallery-item position-relative"
+                            key={index}
+                            ref={lastImageRef}
+                            onClick={() => {
+                              setImageDetail(false);
+                              setSelectedImageId(item.id);
+                            }}
+                          >
+                            <img src={item.url} alt={item.slug} />
+                            <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
+                              <p>{item.slug}</p>
+                            </div>
+                          </div>
+                        );
+                      } else {
+                        return (
+                          <div
+                            className="gallery-item position-relative"
+                            key={index}
+                            onClick={() => {
+                              setImageDetail(false);
+                              setSelectedImageId(item.id);
+                            }}
+                          >
+                            <img src={item.url} alt={item.slug} />
+                            <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
+                              <p>{item.slug}</p>
+                            </div>
+                          </div>
+                        );
+                      }
+                    })}
                   </div>
                 </div>
               </Tab>
@@ -106,27 +118,45 @@ function MainGallery() {
                 title={t?.Tab_2 || "Hot"}
                 className="border-0"
               >
-                <div className="gallery-grid-wrapper">
+                <div className="gallery-grid-wrapper rounded-lg overflow-hidden">
                   <div className="gallery-wrapper">
-                    {galleryImages.map((item) => (
-                      <div
-                        className="gallery-item position-relative"
-                        key={item.id}
-                        onClick={() => {
-                          setImageDetail(false);
-                          setSelectedImageId(item.id);
-                        }}
-                      >
-                        <img src={item.url} />
-                        <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
-                          <p>{item.slug}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="text-center see-more-images">
-                    <hr width="130" className="border-2 m-auto mb-2" />
-                    <h6>{t?.text_last || "Log in to See More"}</h6>
+                    {galleryImages.map((item, index) => {
+                      if (galleryImages.length === index + 1) {
+                        // Attach observer to the last image
+                        return (
+                          <div
+                            className="gallery-item position-relative"
+                            key={index}
+                            ref={lastImageRef}
+                            onClick={() => {
+                              setImageDetail(false);
+                              setSelectedImageId(item.id);
+                            }}
+                          >
+                            <img src={item.url} alt={item.slug} />
+                            <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
+                              <p>{item.slug}</p>
+                            </div>
+                          </div>
+                        );
+                      } else {
+                        return (
+                          <div
+                            className="gallery-item position-relative"
+                            key={index}
+                            onClick={() => {
+                              setImageDetail(false);
+                              setSelectedImageId(item.id);
+                            }}
+                          >
+                            <img src={item.url} alt={item.slug} />
+                            <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
+                              <p>{item.slug}</p>
+                            </div>
+                          </div>
+                        );
+                      }
+                    })}
                   </div>
                 </div>
               </Tab>
@@ -135,27 +165,45 @@ function MainGallery() {
                 title={t?.Tab_3 || "Today"}
                 className="border-0"
               >
-                <div className="gallery-grid-wrapper">
+                <div className="gallery-grid-wrapper rounded-lg overflow-hidden">
                   <div className="gallery-wrapper">
-                    {galleryImages.map((item) => (
-                      <div
-                        className="gallery-item position-relative"
-                        key={item.id}
-                        onClick={() => {
-                          setImageDetail(false);
-                          setSelectedImageId(item.id);
-                        }}
-                      >
-                        <img src={item.src} />
-                        <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
-                          <p>{item.slug}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="text-center see-more-images">
-                    <hr width="130" className="border-2 m-auto mb-2" />
-                    <h6>{t?.text_last || "Log in to See More"}</h6>
+                    {galleryImages.map((item, index) => {
+                      if (galleryImages.length === index + 1) {
+                        // Attach observer to the last image
+                        return (
+                          <div
+                            className="gallery-item position-relative"
+                            key={index}
+                            ref={lastImageRef}
+                            onClick={() => {
+                              setImageDetail(false);
+                              setSelectedImageId(item.id);
+                            }}
+                          >
+                            <img src={item.url} alt={item.slug} />
+                            <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
+                              <p>{item.slug}</p>
+                            </div>
+                          </div>
+                        );
+                      } else {
+                        return (
+                          <div
+                            className="gallery-item position-relative"
+                            key={index}
+                            onClick={() => {
+                              setImageDetail(false);
+                              setSelectedImageId(item.id);
+                            }}
+                          >
+                            <img src={item.url} alt={item.slug} />
+                            <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
+                              <p>{item.slug}</p>
+                            </div>
+                          </div>
+                        );
+                      }
+                    })}
                   </div>
                 </div>
               </Tab>
@@ -164,31 +212,49 @@ function MainGallery() {
                 title={t?.Tab_4 || "Likes"}
                 className="border-0"
               >
-                <div className="gallery-grid-wrapper">
+                <div className="gallery-grid-wrapper rounded-lg overflow-hidden">
                   <div className="gallery-wrapper">
-                    {galleryImages.map((item) => (
-                      <div
-                        className="gallery-item position-relative"
-                        key={item.id}
-                        onClick={() => {
-                          setImageDetail(false);
-                          setSelectedImageId(item.id);
-                        }}
-                      >
-                        <img src={item.src} />
-                        <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
-                          <p>{item.slug}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="text-center see-more-images">
-                    <hr width="130" className="border-2 m-auto mb-2" />
-                    <h6>{t?.text_last || "Log in to See More"}</h6>
+                    {galleryImages.map((item, index) => {
+                      if (galleryImages.length === index + 1) {
+                        // Attach observer to the last image
+                        return (
+                          <div
+                            className="gallery-item position-relative"
+                            key={index}
+                            ref={lastImageRef}
+                            onClick={() => {
+                              setImageDetail(false);
+                              setSelectedImageId(item.id);
+                            }}
+                          >
+                            <img src={item.url} alt={item.slug} />
+                            <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
+                              <p>{item.slug}</p>
+                            </div>
+                          </div>
+                        );
+                      } else {
+                        return (
+                          <div
+                            className="gallery-item position-relative"
+                            key={index}
+                            onClick={() => {
+                              setImageDetail(false);
+                              setSelectedImageId(item.id);
+                            }}
+                          >
+                            <img src={item.url} alt={item.slug} />
+                            <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
+                              <p>{item.slug}</p>
+                            </div>
+                          </div>
+                        );
+                      }
+                    })}
                   </div>
                 </div>
               </Tab>
-            </Tabs> */}
+            </Tabs>
           </div>
         ) : (
           <DetailImage selectedImageId={selectedImageId} />
@@ -197,4 +263,5 @@ function MainGallery() {
     </>
   );
 }
+
 export default MainGallery;
