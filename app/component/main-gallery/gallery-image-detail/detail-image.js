@@ -2,15 +2,16 @@
 import React, { useEffect, useState } from "react";
 import { Tabs, Tab, TabScreen } from "react-tabs-scrollable";
 import "react-tabs-scrollable/dist/rts.css";
-import { getUserGallery } from "../../../../utils/api";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { MdOutlineClose } from "react-icons/md";
 import Link from "next/link";
 
 // Enable custom format parsing
-function DetailImage({ selectedImageId: initialSelectedImageId }) {
-  const [galleryData, setGalleryData] = useState([]);
+function DetailImage({
+  selectedImageId: initialSelectedImageId,
+  galleryImages,
+}) {
   const [selectedImageId, setSelectedImageId] = useState(
     initialSelectedImageId
   );
@@ -23,14 +24,8 @@ function DetailImage({ selectedImageId: initialSelectedImageId }) {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const resp = await getUserGallery();
-      console.log("User gallery response:", resp);
-      setGalleryData(resp);
-    };
-
-    fetchData();
-  }, []);
+    setSelectedImageId(initialSelectedImageId);
+  }, [initialSelectedImageId]);
 
   const Onimageclick = (item) => {
     console.log("Selected Item:", item);
@@ -49,9 +44,10 @@ function DetailImage({ selectedImageId: initialSelectedImageId }) {
 
     return `${diffDays} day${diffDays > 1 ? "s" : ""} ago`;
   };
-  const selectedImageItem = galleryData.find(
+  const selectedImageItem = galleryImages.find(
     (item) => item.id === selectedImageId
   );
+
   console.log("Selected image item:", selectedImageItem);
 
   useEffect(() => {
@@ -61,15 +57,14 @@ function DetailImage({ selectedImageId: initialSelectedImageId }) {
         window.location.href = "/";
       }
     };
-  
+
     window.addEventListener("keydown", handleKeyDown);
-  
+
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
 
-  
   return (
     <div className="image-detail-wrapper">
       <div
@@ -96,37 +91,38 @@ function DetailImage({ selectedImageId: initialSelectedImageId }) {
                 alt="Selected"
                 style={{
                   pointerEvents: "none !important",
-        
                 }}
               />
-            <div
-              style={{
-                position: "absolute",
-                top: "10px",
-                right: "10px",
-                cursor: "pointer",
-                zIndex: 2000, 
-                background: "rgba(255, 255, 255, 0.8)",
-                borderRadius: "50%",
-                padding: "5px",
-              }}
-              onClick={(e) => {
-                console.log("Close icon clicked", e);
-                window.location.href = "/";
-              }}
-            >
-              <MdOutlineClose size={24} />
-            </div>
+              <div
+                style={{
+                  position: "absolute",
+                  top: "10px",
+                  right: "10px",
+                  cursor: "pointer",
+                  zIndex: 1,
+                  background: "rgba(255, 255, 255, 0.8)",
+                  borderRadius: "50%",
+                  padding: "5px",
+                }}
+                onClick={(e) => {
+                  console.log("Close icon clicked", e);
+                  window.location.href = "/";
+                }}
+              >
+                <MdOutlineClose size={24} />
+              </div>
             </div>
           </TabScreen>
         </div>
       </div>
       <div className="detail-right-container">
-        {galleryData.map((item, index) => (
+        {galleryImages.map((item, index) => (
           <TabScreen key={index} index={index} activeTab={activeTab}>
             <div className="img-data">
               <p>{formatDate(item.created_at)}</p>
-              <p className="my-3">{item.prompt}</p>
+              {/* <p className="my-3">{item.prompt}</p> */}
+              <div>{selectedImageItem?.prompt || "No prompt available"}</div>
+
               {/* <ul className="list-unstyled d-flex flex-wrap gap-2 p-0 m-0">
                 <li>
                   <span className="white-space-nowrap rounded py-1 px-2">
@@ -163,7 +159,7 @@ function DetailImage({ selectedImageId: initialSelectedImageId }) {
           </TabScreen>
         ))}
         <Tabs activeTab={activeTab} onTabClick={onTabClick}>
-          {galleryData.map((item, index) => (
+          {galleryImages.map((item, index) => (
             <Tab key={index}>
               <div className="tab-img">
                 <img
