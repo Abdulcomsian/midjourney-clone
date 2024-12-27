@@ -299,7 +299,7 @@ function TopSearch({ showCreativeModal }) {
           <div className="col-12">
             <div className="d-flex gap-2 align-items-center">
               <div
-                className="search-bar py-3 px-4 w-100 position-relative"
+                className="search-bar z-10 py-3 px-4 w-100 position-relative"
                 onClick={() =>
                   hasScubscription
                     ? setShowDetailPrompt(true)
@@ -398,7 +398,7 @@ function TopSearch({ showCreativeModal }) {
                       <textarea
                         className="position-relative border-0 no-focus mb-4"
                         rows={10}
-                        style={{ resize: "none", width: "80%" }}
+                        style={{ resize: "none", width: "80%", zIndex: 2000,  }}
                         placeholder="Describe what you want to see..."
                         value={prompt}
                         onChange={(e) => setPrompt(e.target.value)}

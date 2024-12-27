@@ -591,7 +591,7 @@ main .filter-bar ul li button.active {
   border-radius: 32px;
   position: absolute;
   left: 50%;
-  z-index: 9;
+  z-index: 0 !important;
   top: 55%;
   transform: translate(-50%, -50%);
   --tw-shadow-color: rgba(115, 121, 140, 0.3);

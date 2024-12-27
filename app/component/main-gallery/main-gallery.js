@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import DetailImage from "./gallery-image-detail/detail-image";
 import { useSelector } from "react-redux";
 import translations from "../../../i18";
@@ -48,6 +48,7 @@ function MainGallery() {
   useEffect(() => {
     fetchGallery(page);
   }, [page]);
+  
 
   const loadMoreImages = () => {
     setPage((prevPage) => prevPage + 1);
@@ -279,7 +280,7 @@ function MainGallery() {
             </Tabs>
           </div>
         ) : (
-          <DetailImage selectedImageId={selectedImageId} />
+          <DetailImage selectedImageId={selectedImageId} galleryImages={galleryImages} />
         )}
       </main>
     </>
