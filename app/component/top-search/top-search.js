@@ -249,6 +249,7 @@ function TopSearch({ showCreativeModal }) {
         console.log("Job ID:", resp.job_id);
         setPrompt("");
         setShowImageLoadingNotification(true);
+        setShowDetailPrompt(false);
 
         bindImageEvent(resp.job_id);
       }
@@ -398,7 +399,7 @@ function TopSearch({ showCreativeModal }) {
                       <textarea
                         className="position-relative border-0 no-focus mb-4"
                         rows={10}
-                        style={{ resize: "none", width: "80%", zIndex: 2000,  }}
+                        style={{ resize: "none", width: "80%", zIndex: 2000 }}
                         placeholder="Describe what you want to see..."
                         value={prompt}
                         onChange={(e) => setPrompt(e.target.value)}

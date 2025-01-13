@@ -5,18 +5,23 @@ import "react-tabs-scrollable/dist/rts.css";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { MdOutlineClose } from "react-icons/md";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 // Enable custom format parsing
 function DetailImage({
   selectedImageId: initialSelectedImageId,
   galleryImages,
+  onClose,
 }) {
   const [selectedImageId, setSelectedImageId] = useState(
     initialSelectedImageId
   );
+
+  console.log("Gallery images", galleryImages);
+
   const [activeTab, setActiveTab] = useState(1);
   const [isHovered, setIsHovered] = useState(false);
+  const router = useRouter();
   dayjs.extend(customParseFormat);
   const onTabClick = (e, index) => {
     setActiveTab(index);
@@ -31,6 +36,7 @@ function DetailImage({
     console.log("Selected Item:", item);
     setSelectedImageId(item.id);
   };
+
   const formatDate = (dateString) => {
     if (!dateString) return "Unknown date"; // Handle undefined or null dates
 
@@ -76,22 +82,12 @@ function DetailImage({
         }}
       >
         <div className="image-wrapper">
-          <TabScreen>
-            <div
-              className="img-container"
-              style={{
-                position: "static",
-                width: "100%",
-                objectFit: "cover",
-                transform: "none",
-              }}
-            >
+          {selectedImageItem ? (
+            <div className="img-container">
               <img
-                src={selectedImageItem?.url}
+                src={selectedImageItem.url}
                 alt="Selected"
-                style={{
-                  pointerEvents: "none !important",
-                }}
+                style={{ width: "100%", objectFit: "cover" }}
               />
               <div
                 style={{
@@ -104,60 +100,28 @@ function DetailImage({
                   borderRadius: "50%",
                   padding: "5px",
                 }}
-                onClick={(e) => {
-                  console.log("Close icon clicked", e);
-                  window.location.href = "/";
-                }}
+                onClick={onClose}
               >
                 <MdOutlineClose size={24} />
               </div>
             </div>
-          </TabScreen>
+          ) : (
+            <p>Image not found</p>
+          )}
         </div>
       </div>
       <div className="detail-right-container">
-        {galleryImages.map((item, index) => (
-          <TabScreen key={index} index={index} activeTab={activeTab}>
-            <div className="img-data">
-              <p>{formatDate(item.created_at)}</p>
-              {/* <p className="my-3">{item.prompt}</p> */}
-              <div>{selectedImageItem?.prompt || "No prompt available"}</div>
-
-              {/* <ul className="list-unstyled d-flex flex-wrap gap-2 p-0 m-0">
-                <li>
-                  <span className="white-space-nowrap rounded py-1 px-2">
-                    chaos 50
-                  </span>
-                </li>
-                <li>
-                  <span className="white-space-nowrap rounded py-1 px-2">
-                    ar 5:7
-                  </span>
-                </li>
-                <li>
-                  <span className="white-space-nowrap rounded py-1 px-2">
-                    style raw
-                  </span>
-                </li>
-                <li>
-                  <span className="white-space-nowrap rounded py-1 px-2">
-                    v 6.1
-                  </span>
-                </li>
-                <li>
-                  <span className="white-space-nowrap rounded py-1 px-2">
-                    stylize 1000
-                  </span>
-                </li>
-                <li>
-                  <span className="white-space-nowrap rounded py-1 px-2">
-                    personalize ap4xwe8
-                  </span>
-                </li>
-              </ul> */}
-            </div>
-          </TabScreen>
-        ))}
+        {selectedImageItem ? (
+          <div className="img-data">
+            <p>{formatDate(selectedImageItem.created_at)}</p>
+            <p className="my-3" style={{ fontWeight: "bold" }}>
+              {selectedImageItem.username}
+            </p>
+            <div>{selectedImageItem.prompt || "No prompt available"}</div>
+          </div>
+        ) : (
+          <p>No details available</p>
+        )}
         <Tabs activeTab={activeTab} onTabClick={onTabClick}>
           {galleryImages.map((item, index) => (
             <Tab key={index}>
@@ -165,7 +129,7 @@ function DetailImage({
                 <img
                   src={item.url}
                   alt={`Gallery Item ${index}`}
-                  onClick={() => Onimageclick(item)}
+                  onClick={() => Onimageclick(item)} // Update selected image when clicked
                 />
               </div>
             </Tab>

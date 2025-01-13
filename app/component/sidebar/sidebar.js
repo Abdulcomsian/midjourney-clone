@@ -358,7 +358,7 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
             )}
             <li>
               <a
-                href="/update"
+                href={`https://docs.footo.ai/${selectedLanguage}`}
                 className={`d-flex align-items-center gap-2 p-2 rounded-5 ${isActive(
                   "/update"
                 )}`}

@@ -5,11 +5,13 @@ import { useSelector } from "react-redux";
 import translations from "../../../i18";
 import { Tab, Tabs } from "react-bootstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
-
+import Like from "../like";
 function MainGallery() {
   const [galleryImages, setGalleryImages] = useState([]);
-  const [imageDetail, setImageDetail] = useState(true);
+  const [imageDetail, setImageDetail] = useState(false);
+  const [dataRevalidate, setPageRevalidate] = useState(false);
   const [selectedImageId, setSelectedImageId] = useState(undefined);
+  const [showDetail, setShowDetail] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
 
@@ -47,17 +49,36 @@ function MainGallery() {
 
   useEffect(() => {
     fetchGallery(page);
-  }, [page]);
-  
+  }, [page, dataRevalidate, imageDetail]);
 
   const loadMoreImages = () => {
     setPage((prevPage) => prevPage + 1);
   };
+  const handleCloseDetail = () => {
+    setImageDetail(false); // Go back to MyImage
+  };
+  const handleLike = async function (imageId) {
+    const token = localStorage.getItem("token");
+    const resp = await fetch(
+      `https://stage-admin.footo.ai/api/images/like/${imageId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const data = await resp.json();
 
+    if (data?.status === "success") {
+      setPageRevalidate((is) => !is);
+    }
+  };
   return (
     <>
       <main>
-        {imageDetail ? (
+        {!imageDetail ? (
           <div className="filter-bar">
             <Tabs
               defaultActiveKey="Random"
@@ -84,32 +105,64 @@ function MainGallery() {
                         // Attach observer to the last image
                         return (
                           <div
+                            key={item.id}
                             className="gallery-item position-relative"
-                            key={index}
-                            onClick={() => {
-                              setImageDetail(false);
-                              setSelectedImageId(item.id);
-                            }}
+                            style={{ cursor: "pointer" }}
                           >
-                            <img src={item.url} alt={item.slug} />
-                            <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
-                              <p>{item.slug}</p>
+                            <img
+                              src={`${item.url}`}
+                              alt={item.title}
+                              onClick={() => {
+                                setImageDetail(true);
+                                setSelectedImageId(item.id);
+                              }} // Call the click handler
+                            />
+                            <div
+                              style={{
+                                position: "absolute",
+                                bottom: "10px",
+                                right: "10px",
+                                fontSize: "25px",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => {
+                                handleLike(item.id);
+                                // setSelecteditemId(item.id);
+                              }}
+                            >
+                              <Like isLiked={item.likes_count} />
                             </div>
                           </div>
                         );
                       } else {
                         return (
                           <div
+                            key={item.id}
                             className="gallery-item position-relative"
-                            key={index}
-                            onClick={() => {
-                              setImageDetail(false);
-                              setSelectedImageId(item.id);
-                            }}
+                            style={{ cursor: "pointer" }}
                           >
-                            <img src={item.url} alt={item.slug} />
-                            <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
-                              <p>{item.slug}</p>
+                            <img
+                              src={`${item.url}`}
+                              alt={item.title}
+                              onClick={() => {
+                                setImageDetail(true);
+                                setSelectedImageId(item.id);
+                              }} // Call the click handler
+                            />
+                            <div
+                              style={{
+                                position: "absolute",
+                                bottom: "10px",
+                                right: "10px",
+                                fontSize: "25px",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => {
+                                handleLike(item.id);
+                                // setSelecteditemId(item.id);
+                              }}
+                            >
+                              <Like isLiked={item.likes_count} />
                             </div>
                           </div>
                         );
@@ -140,11 +193,28 @@ function MainGallery() {
                             className="gallery-item position-relative"
                             key={index}
                             onClick={() => {
-                              setImageDetail(false);
+                              setImageDetail(true);
                               setSelectedImageId(item.id);
                             }}
                           >
                             <img src={item.url} alt={item.slug} />
+                            <div
+                              style={{
+                                position: "absolute",
+                                bottom: "10px",
+                                right: "10px",
+                                fontSize: "25px",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => {
+                                e.stopPropagation();
+                                console.log("Like button clicked");
+                                handleLike(item.id);
+                                // setSelectedImageId(image.id);
+                              }}
+                            >
+                              <Like isLiked={item.likes_count} />
+                            </div>
                             <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
                               <p>{item.slug}</p>
                             </div>
@@ -156,11 +226,28 @@ function MainGallery() {
                             className="gallery-item position-relative"
                             key={index}
                             onClick={() => {
-                              setImageDetail(false);
+                              setImageDetail(true);
                               setSelectedImageId(item.id);
                             }}
                           >
                             <img src={item.url} alt={item.slug} />
+                            <div
+                              style={{
+                                position: "absolute",
+                                bottom: "10px",
+                                right: "10px",
+                                fontSize: "25px",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => {
+                                e.stopPropagation();
+                                console.log("Like button clicked");
+                                handleLike(item.id);
+                                // setSelectedImageId(image.id);
+                              }}
+                            >
+                              <Like isLiked={item.likes_count} />
+                            </div>
                             <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
                               <p>{item.slug}</p>
                             </div>
@@ -193,11 +280,28 @@ function MainGallery() {
                             className="gallery-item position-relative"
                             key={index}
                             onClick={() => {
-                              setImageDetail(false);
+                              setImageDetail(true);
                               setSelectedImageId(item.id);
                             }}
                           >
                             <img src={item.url} alt={item.slug} />
+                            <div
+                              style={{
+                                position: "absolute",
+                                bottom: "10px",
+                                right: "10px",
+                                fontSize: "25px",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => {
+                                e.stopPropagation();
+                                console.log("Like button clicked");
+                                handleLike(item.id);
+                                // setSelectedImageId(image.id);
+                              }}
+                            >
+                              <Like isLiked={item.likes_count} />
+                            </div>
                             <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
                               <p>{item.slug}</p>
                             </div>
@@ -209,11 +313,28 @@ function MainGallery() {
                             className="gallery-item position-relative"
                             key={index}
                             onClick={() => {
-                              setImageDetail(false);
+                              setImageDetail(true);
                               setSelectedImageId(item.id);
                             }}
                           >
                             <img src={item.url} alt={item.slug} />
+                            <div
+                              style={{
+                                position: "absolute",
+                                bottom: "10px",
+                                right: "10px",
+                                fontSize: "25px",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => {
+                                e.stopPropagation();
+                                console.log("Like button clicked");
+                                handleLike(item.id);
+                                // setSelectedImageId(image.id);
+                              }}
+                            >
+                              <Like isLiked={item.likes_count} />
+                            </div>
                             <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
                               <p>{item.slug}</p>
                             </div>
@@ -246,11 +367,28 @@ function MainGallery() {
                             className="gallery-item position-relative"
                             key={index}
                             onClick={() => {
-                              setImageDetail(false);
+                              setImageDetail(true);
                               setSelectedImageId(item.id);
                             }}
                           >
                             <img src={item.url} alt={item.slug} />
+                            <div
+                              style={{
+                                position: "absolute",
+                                bottom: "10px",
+                                right: "10px",
+                                fontSize: "25px",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => {
+                                e.stopPropagation();
+                                console.log("Like button clicked");
+                                handleLike(item.id);
+                                // setSelectedImageId(image.id);
+                              }}
+                            >
+                              <Like isLiked={item.likes_count} />
+                            </div>
                             <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
                               <p>{item.slug}</p>
                             </div>
@@ -262,11 +400,28 @@ function MainGallery() {
                             className="gallery-item position-relative"
                             key={index}
                             onClick={() => {
-                              setImageDetail(false);
+                              setImageDetail(true);
                               setSelectedImageId(item.id);
                             }}
                           >
                             <img src={item.url} alt={item.slug} />
+                            <div
+                              style={{
+                                position: "absolute",
+                                bottom: "10px",
+                                right: "10px",
+                                fontSize: "25px",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => {
+                                e.stopPropagation();
+                                console.log("Like button clicked");
+                                handleLike(item.id);
+                                // setSelectedImageId(image.id);
+                              }}
+                            >
+                              <Like isLiked={item.likes_count} />
+                            </div>
                             <div className="img-slug p-4 position-absolute bottom-0 d-flex h-100 w-100 align-items-end text-white cursor-pointer">
                               <p>{item.slug}</p>
                             </div>
@@ -280,7 +435,11 @@ function MainGallery() {
             </Tabs>
           </div>
         ) : (
-          <DetailImage selectedImageId={selectedImageId} galleryImages={galleryImages} />
+          <DetailImage
+            selectedImageId={selectedImageId}
+            galleryImages={galleryImages}
+            onClose={handleCloseDetail}
+          />
         )}
       </main>
     </>

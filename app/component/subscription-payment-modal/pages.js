@@ -64,6 +64,7 @@ function SubcriptionModal() {
                   <Form.Check // prettier-ignore
                     type="radio"
                     id={`default-${index}`}
+                    name="paymentMethod"
                     label={item.name}
                     className="mb-3"
                     onChange={() =>
