@@ -75,10 +75,12 @@ function SubcriptionModal() {
           <>
             {paymentMethod.paymentMethod.methods.map((item, index) => (
               <div key={index} className="d-flex align-items-center gap-2 mb-3">
-                <figure>
+                <figure style={{ margin: "0" }}>
                   <img
-                    src="assets/images/payment-methods/chapapay.svg"
-                    alt={`${item.name} logo`}
+                    // src="https://stage.footo.ai/assets/images/payment-methods/chapapay.svg"
+                    src = {`${item.icon}`}
+                    alt={`${item} logo`}
+                    style={{ width: 80 }}
                   />
                 </figure>
                 <Form.Check // prettier-ignore
