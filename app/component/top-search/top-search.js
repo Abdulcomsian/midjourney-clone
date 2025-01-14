@@ -8,6 +8,7 @@ import { LuEraser } from "react-icons/lu";
 import Link from "next/link";
 import Pusher from "pusher-js";
 import { Alert } from "react-bootstrap";
+import toast from "react-hot-toast";
 import {
   getImageCreatedImages,
   getImageCreatingId,
@@ -62,6 +63,7 @@ function TopSearch({ showCreativeModal }) {
 
   const hasScubscription =
     paymentMethodsData?.data?.current_subscription !== null;
+  console.log("Payment Data", paymentMethodsData);
 
   // console.log(hasScubscription, "hasScubscription")
   const promptRef = useRef(null);
@@ -235,8 +237,43 @@ function TopSearch({ showCreativeModal }) {
     });
   };
 
+  // const handleImageGeneration = async () => {
+  //   try {
+  //     setIsCreatingId(true);
+  //     const resp = await getImageCreatingId({
+  //       prompt,
+  //       service_type: `${selectedService}`,
+  //       visibility: "public",
+  //     });
+
+  //     if (resp.job_id) {
+  //       setImageGenerationId(resp.job_id);
+  //       console.log("Job ID:", resp.job_id);
+  //       setPrompt("");
+  //       setShowImageLoadingNotification(true);
+  //       setShowDetailPrompt(false);
+
+  //       bindImageEvent(resp.job_id);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error generating image ID:", error);
+  //   } finally {
+  //     setIsCreatingId(false);
+  //   }
+  // };
   const handleImageGeneration = async () => {
     try {
+      if (
+        paymentMethodsData?.data?.credit_balance <
+        serviceTypes.find((service) => service.id === selectedService)
+          ?.credit_cost
+      ) {
+        // Show alert if balance is less than the credit cost
+        setShowImageLoadingNotification(false);
+        toast.error("You do not have enough credits to generate this image.");
+        return;
+      }
+
       setIsCreatingId(true);
       const resp = await getImageCreatingId({
         prompt,
@@ -259,7 +296,6 @@ function TopSearch({ showCreativeModal }) {
       setIsCreatingId(false);
     }
   };
-
   return (
     <header>
       {imageGenerationId && showImageLoadingNotification && (

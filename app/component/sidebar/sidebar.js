@@ -365,50 +365,25 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
               >
                 <span className="icon">
                   <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 64 64"
-                    fill="currentColor"
-                    width="22"
                     height="22"
+                    class="inline-block relative"
+                    width="22"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
                     stroke="none"
-                    strokeWidth="2"
+                    stroke-width="1"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <circle
-                      cx="32"
-                      cy="24"
-                      r="14"
-                      fill="none"
-                      stroke="black"
-                      strokeWidth="2"
-                    />
-                    <line
-                      x1="32"
-                      y1="28"
-                      x2="32"
-                      y2="38"
-                      stroke="black"
-                      strokeWidth="2"
-                    />
-                    <rect
-                      x="22"
-                      y="40"
-                      width="20"
-                      height="8"
-                      rx="4"
-                      ry="4"
-                      fill="none"
-                      stroke="black"
-                      strokeWidth="2"
-                    />
-                    <rect
-                      x="28"
-                      y="48"
-                      width="8"
-                      height="6"
-                      fill="none"
-                      stroke="black"
-                      strokeWidth="2"
-                    />
+                    <g id="ColorSwatchIcon">
+                      <path
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M4.098 19.902a3.75 3.75 0 0 0 5.304 0l6.401-6.402M6.75 21A3.75 3.75 0 0 1 3 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 0 0 3.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008Z"
+                        fill="none"
+                        stroke="currentColor"
+                      ></path>
+                    </g>
                   </svg>
                 </span>
                 <span className="link-name">
@@ -431,50 +406,22 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
                 >
                   <span className="icon">
                     <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 64 64"
-                      fill="currentColor"
-                      width="22"
                       height="22"
+                      class="inline-block relative"
+                      width="22"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
                       stroke="none"
-                      strokeWidth="2"
+                      stroke-width="1"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <circle
-                        cx="32"
-                        cy="24"
-                        r="14"
-                        fill="none"
-                        stroke="black"
-                        strokeWidth="2"
-                      />
-                      <line
-                        x1="32"
-                        y1="28"
-                        x2="32"
-                        y2="38"
-                        stroke="black"
-                        strokeWidth="2"
-                      />
-                      <rect
-                        x="22"
-                        y="40"
-                        width="20"
-                        height="8"
-                        rx="4"
-                        ry="4"
-                        fill="none"
-                        stroke="black"
-                        strokeWidth="2"
-                      />
-                      <rect
-                        x="28"
-                        y="48"
-                        width="8"
-                        height="6"
-                        fill="none"
-                        stroke="black"
-                        strokeWidth="2"
-                      />
+                      <g id="Avatar">
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M12 23C5.92487 23 1 18.0751 1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23ZM19.3995 17.1246C20.4086 15.6703 21 13.9042 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 13.9042 3.59138 15.6703 4.6005 17.1246C5.72595 15.6381 8.3706 15 12 15C15.6294 15 18.274 15.6381 19.3995 17.1246ZM17.9647 18.7398C17.672 17.6874 15.5694 17 12 17C8.43062 17 6.328 17.6874 6.03532 18.7398C7.6233 20.1462 9.71194 21 12 21C14.2881 21 16.3767 20.1462 17.9647 18.7398ZM12 15C9.76086 15 8 13.4274 8 10C8 7.75576 9.5791 6 12 6C14.4142 6 16 7.92158 16 10.2C16 13.4796 14.2181 15 12 15ZM10 10C10 12.2693 10.8182 13 12 13C13.1777 13 14 12.2984 14 10.2C14 8.95042 13.2157 8 12 8C10.7337 8 10 8.81582 10 10Z"
+                        ></path>
+                      </g>
                     </svg>
                   </span>
                   <span className="link-name">{t?.Tb_1 || "Subscription"}</span>

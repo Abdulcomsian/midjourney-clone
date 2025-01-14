@@ -4,9 +4,9 @@ import { Tabs, Tab, TabScreen } from "react-tabs-scrollable";
 import "react-tabs-scrollable/dist/rts.css";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import { MdOutlineClose } from "react-icons/md";
+import { MdOutlineClose, MdDownload } from "react-icons/md";
 import { useRouter } from "next/navigation";
-
+import { saveAs } from "file-saver";
 // Enable custom format parsing
 function DetailImage({
   selectedImageId: initialSelectedImageId,
@@ -55,6 +55,17 @@ function DetailImage({
   );
 
   console.log("Selected image item:", selectedImageItem);
+  const handleDownload = () => {
+    const filename = selectedImageItem.prompt || "downloaded-image.jpg";
+    fetch(selectedImageItem.url)
+      .then((response) => response.blob())
+      .then((blob) => {
+        saveAs(blob, `${filename}.jpg`);
+      })
+      .catch((error) => {
+        console.error("Error downloading image:", error);
+      });
+  };
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -89,6 +100,7 @@ function DetailImage({
                 alt="Selected"
                 style={{ width: "100%", objectFit: "cover" }}
               />
+
               <div
                 style={{
                   position: "absolute",
@@ -103,6 +115,21 @@ function DetailImage({
                 onClick={onClose}
               >
                 <MdOutlineClose size={24} />
+              </div>
+              <div
+                style={{
+                  position: "absolute",
+                  top: "10px",
+                  right: "50px",
+                  cursor: "pointer",
+                  zIndex: 1,
+                  background: "rgba(255, 255, 255, 0.8)",
+                  borderRadius: "50%",
+                  padding: "5px",
+                }}
+                onClick={handleDownload}
+              >
+                <MdDownload size={24} title="Download Image" />
               </div>
             </div>
           ) : (

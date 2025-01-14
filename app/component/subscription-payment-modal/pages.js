@@ -15,32 +15,50 @@ function SubcriptionModal() {
   const dispatch = useDispatch();
   const handleCloseSubscriptionModalState = () =>
     dispatch(closeSubscriptionModal());
+
   const { paymentMethod, errorPaymentMethod, paymentInitializationURL } =
     useSelector((state) => state.api);
-
-  console.log("errorPaymentMethod", errorPaymentMethod);
+  const [loading, setLoading] = useState(false); // Track loading state
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
   const { token } = useSelector((state) => state.auth);
   const router = useRouter();
+
   const handlePaymentMethodChange = (item) => {
     setSelectedPaymentMethod(item); // Update the state with the selected payment method
   };
-  const paymentIntilaziationHandling = () => {
-    dispatch(
-      paymentInitialization({
-        paymentIntilizationEndPoint: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/payments/initialize`,
-        token,
-        selectedPaymentMethod,
-      })
-    );
+
+  const paymentIntilaziationHandling = async () => {
+    if (!selectedPaymentMethod) return; // Ensure a payment method is selected
+    setLoading(true); // Set loading to true
+
+    try {
+      await dispatch(
+        paymentInitialization({
+          paymentIntilizationEndPoint: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/payments/initialize`,
+          token,
+          selectedPaymentMethod,
+        })
+      );
+    } catch (error) {
+      console.error("Payment initialization error:", error);
+    } finally {
+      setLoading(false); // Set loading to false after API response
+    }
   };
+
+  // Log `loading` state changes
+  useEffect(() => {
+    console.log("Loading state:", loading);
+  }, [loading]);
+
   useEffect(() => {
     if (paymentInitializationURL) {
       const Url = paymentInitializationURL;
       router.push(Url); // Redirect to the protected route after login
       router.refresh();
     }
-  }, [paymentInitializationURL]);
+  }, [paymentInitializationURL, router]);
+
   return (
     <Modal
       show={showModalState}
@@ -55,30 +73,36 @@ function SubcriptionModal() {
           <p className="text-center">{errorPaymentMethod}</p>
         ) : paymentMethod.paymentMethod.methods.length > 0 ? (
           <>
-            {paymentMethod.paymentMethod.methods.map((item, index) => {
-              return (
-                <div className="d-flex align-items-center gap-2">
-                  <figure>
-                    <img src="assets/images/payment-methods/chapapay.svg" />
-                  </figure>
-                  <Form.Check // prettier-ignore
-                    type="radio"
-                    id={`default-${index}`}
-                    name="paymentMethod"
-                    label={item.name}
-                    className="mb-3"
-                    onChange={() =>
-                      handlePaymentMethodChange(item.name.toLowerCase())
-                    }
+            {paymentMethod.paymentMethod.methods.map((item, index) => (
+              <div key={index} className="d-flex align-items-center gap-2 mb-3">
+                <figure>
+                  <img
+                    src="assets/images/payment-methods/chapapay.svg"
+                    alt={`${item.name} logo`}
                   />
-                </div>
-              );
-            })}
+                </figure>
+                <Form.Check // prettier-ignore
+                  type="radio"
+                  id={`default-${index}`}
+                  name="paymentMethod"
+                  label={item.name}
+                  className="mb-0"
+                  onChange={() =>
+                    handlePaymentMethodChange(item.name.toLowerCase())
+                  }
+                />
+              </div>
+            ))}
             <Button
               className="w-100 btn-warning"
               onClick={paymentIntilaziationHandling}
+              disabled={loading} // Disable button while loading
             >
-              Pay Now
+              {loading ? (
+                <span className="spinner-border spinner-border-sm me-2" />
+              ) : (
+                "Pay Now"
+              )}
             </Button>
           </>
         ) : (
@@ -88,4 +112,5 @@ function SubcriptionModal() {
     </Modal>
   );
 }
+
 export default SubcriptionModal;
