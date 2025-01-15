@@ -78,8 +78,8 @@ function SubcriptionModal() {
                 <figure style={{ margin: "0" }}>
                   <img
                     // src="https://stage.footo.ai/assets/images/payment-methods/chapapay.svg"
-                    src = {`${item.icon}`}
-                    alt={`${item} logo`}
+                    src = {`/assets${item.icon}`}
+                    alt={`${item.display_name}`}
                     style={{ width: 80 }}
                   />
                 </figure>
