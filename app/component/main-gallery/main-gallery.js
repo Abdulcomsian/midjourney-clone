@@ -109,12 +109,18 @@ function MainGallery() {
                           right: "10px",
                           fontSize: "25px",
                           cursor: "pointer",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "5px",
                         }}
                         onClick={(e) => {
                           e.stopPropagation(); // Prevent event bubbling
                           handleLike(item.id);
                         }}
                       >
+                        <span style={{ fontSize: "large" }}>
+                          {item.likes_count}
+                        </span>{" "}
                         <Like isLiked={item.likes_count} />
                       </div>
                     </div>

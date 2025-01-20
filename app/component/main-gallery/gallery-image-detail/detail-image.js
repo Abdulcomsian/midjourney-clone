@@ -4,7 +4,13 @@ import { Tabs, Tab, TabScreen } from "react-tabs-scrollable";
 import "react-tabs-scrollable/dist/rts.css";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import { MdOutlineClose, MdDownload } from "react-icons/md";
+import {
+  MdOutlineClose,
+  MdDownload,
+  MdOutlineShare,
+  MdDelete,
+  MdVisibility,
+} from "react-icons/md";
 import { useRouter } from "next/navigation";
 import { saveAs } from "file-saver";
 // Enable custom format parsing
@@ -66,7 +72,22 @@ function DetailImage({
         console.error("Error downloading image:", error);
       });
   };
-
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          text: selectedImageItem.prompt,
+          url: selectedImageItem.url || window.location.href,
+        });
+        console.log("Content shared successfully!");
+      } catch (error) {
+        console.error("Error sharing content:", error);
+      }
+    } else {
+      console.warn("Web Share API is not supported in your browser.");
+      alert("Sharing is not supported on this device.");
+    }
+  };
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
@@ -130,6 +151,51 @@ function DetailImage({
                 onClick={handleDownload}
               >
                 <MdDownload size={24} title="Download Image" />
+              </div>
+              <div
+                style={{
+                  position: "absolute",
+                  top: "10px",
+                  right: "90px",
+                  cursor: "pointer",
+                  zIndex: 1,
+                  background: "rgba(255, 255, 255, 0.8)",
+                  borderRadius: "50%",
+                  padding: "5px",
+                }}
+                onClick={handleShare}
+              >
+                <MdOutlineShare size={24} title="Download Image" />
+              </div>
+              <div
+                style={{
+                  position: "absolute",
+                  top: "10px",
+                  right: "130px",
+                  cursor: "pointer",
+                  zIndex: 1,
+                  background: "rgba(255, 255, 255, 0.8)",
+                  borderRadius: "50%",
+                  padding: "5px",
+                }}
+                onClick={handleDownload}
+              >
+                <MdVisibility size={24} title="Download Image" />
+              </div>
+              <div
+                style={{
+                  position: "absolute",
+                  top: "10px",
+                  right: "170px",
+                  cursor: "pointer",
+                  zIndex: 1,
+                  background: "rgba(255, 255, 255, 0.8)",
+                  borderRadius: "50%",
+                  padding: "5px",
+                }}
+                onClick={handleDownload}
+              >
+                <MdDelete size={24} title="Download Image" />
               </div>
             </div>
           ) : (

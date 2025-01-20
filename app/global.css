@@ -1245,3 +1245,7 @@ button.btn-outline-light:hover {
 .no-focus:focus {
   outline: none;
 }
+.popover-active{
+  background-color: #f2330d1a;
+  color: #f2330d!important;
+}

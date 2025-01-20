@@ -34,10 +34,22 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
     dispatch(logout()); // Dispatch the logout action
     router.push("/landing-page");
   };
-  const isActive = (path) => {
-    console.log("Active path", path, "Active path name", pathname);
+  // const isActive = (path) => {
+  //   console.log("Active path", path, "Active path name", pathname);
 
-    return pathname === path ? "active" : ""; // Add 'active' class if the path matches
+  //   return pathname === path ? "active" : ""; // Add 'active' class if the path matches
+  // };
+
+  const isActive = (path, type) => {
+    console.log("Active path:", path, "Current pathname:", pathname);
+
+    if (pathname === path) {
+      if (type === "popover") {
+        return "popover-active"; // Return a specific class for popovers
+      }
+      return "active"; // Default active class for other elements
+    }
+    return ""; // Return empty string if not active
   };
   const popover = (
     <Popover id="popover-basic" rootClose="false">
@@ -182,7 +194,10 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
               <li>
                 <a
                   href="/my-subscription"
-                  className="d-flex align-items-center gap-2 p-2 text-dark text-decoration-none rounded-5"
+                  className={`d-flex align-items-center gap-2 p-2 rounded-5 text-black text-decoration-none ${isActive(
+                    "/my-subscription",
+                    "popover" // Specify type as "popover"
+                  )}`}
                 >
                   <span className="icon">
                     <svg
@@ -211,7 +226,10 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
               <li>
                 <a
                   href="/my-profile"
-                  className="d-flex align-items-center gap-2 p-2 text-dark text-decoration-none rounded-5"
+                  className={`d-flex align-items-center gap-2 p-2 rounded-5 text-black text-decoration-none ${isActive(
+                    "/my-profile",
+                    "popover" // Specify type as "popover"
+                  )}`}
                 >
                   <span className="icon">
                     <svg
@@ -293,7 +311,7 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
                   </svg>
                 </span>
                 <span className="link-name">
-                  {t?.NavigationTitle_2 || "Discover"}
+                  {t?.NavigationTitle_2 || "Create"}
                 </span>
               </a>
             </li>
@@ -496,45 +514,34 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
 
             {isAuthenticated ? (
               <>
-                {/* <li>
-                                    <OverlayTrigger trigger="click" placement="right" overlay={popover}>
-                                        <a className="d-flex align-items-center gap-2 p-2 rounded-5">
-                                            <span className="icon">
-                                            </span>
-                                            <span className="link-name">My Profile</span>
-                                        </a>
-                                    </OverlayTrigger>
-                                </li> */}
                 <li>
                   <a className="d-flex align-items-center gap-2 p-2 rounded-5">
-                    <div onClick={handleLogout}>
-                      <span className="icon">
-                        <svg
-                          height="22"
-                          width="22"
-                          class="inline-block aspect-square w-full shrink-0 rounded-full h-auto"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          stroke="none"
-                          stroke-width="1"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <g id="UserCircleIcon">
-                            <path
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                              fill="none"
-                              stroke="currentColor"
-                            ></path>
-                          </g>
-                        </svg>
-                      </span>
-                      <span className=" ml-2 link-name">
-                        {t?.NavigationTitle_9 || "Logout"}
-                      </span>
-                    </div>
+                    <span className="icon">
+                      <svg
+                        height="22"
+                        width="22"
+                        class="inline-block aspect-square w-full shrink-0 rounded-full h-auto"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        stroke="none"
+                        stroke-width="1"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g id="UserCircleIcon">
+                          <path
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            fill="none"
+                            stroke="currentColor"
+                          ></path>
+                        </g>
+                      </svg>
+                    </span>
+                    <span className=" ml-2 link-name" onClick={handleLogout}>
+                      {t?.NavigationTitle_9 || "Logout"}
+                    </span>
                     <OverlayTrigger
                       trigger="click"
                       rootClose
@@ -560,15 +567,6 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
                       </span>
                     </OverlayTrigger>
                   </a>
-
-                  {/* <a
-                                        onClick={handleLogout}
-                                        className="d-flex align-items-center gap-2 p-2 rounded-5"
-                                    >
-                                        <span className="icon">
-                                        </span>
-                                        <span className="link-name">Logout</span>
-                                    </a> */}
                 </li>
               </>
             ) : (

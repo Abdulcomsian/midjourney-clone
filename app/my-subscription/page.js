@@ -141,7 +141,7 @@ function MySubscription() {
                   padding: "7px 14px",
                 }}
               >
-                Change plan{" "}
+                Upgrade plan{" "}
               </button>
             </div>
           </div>
@@ -156,9 +156,14 @@ function MySubscription() {
 
                 <div class="text-container">
                   <div className="d-flex justify-content-between">
-                    <div className="text-secondary">Credit Balance <span class="ml-4">{paymentMethodsData?.data.credit_balance}</span></div>
+                    <div className="text-secondary">
+                      Credit Balance{" "}
+                      <span class="ml-4">
+                        {paymentMethodsData?.data.credit_balance}
+                      </span>
+                    </div>
                     {/* <div className="text-secondary"> */}
-                      {/* {
+                    {/* {
 current_subscription
 .currency_code} */}
 
@@ -231,12 +236,18 @@ current_subscription
               fontSize: "1.1rem",
             }}
           >
-            You don't have any active subscription. To Subscribe a package,  <a  style={{
-              color: "black",
-            textTransform: "none",
-            textDecoration:"none"
-            }}
-            href='/subscription'>click here</a>.
+            You don't have any active subscription. To Subscribe a package,{" "}
+            <a
+              style={{
+                color: "black",
+                textTransform: "none",
+                textDecoration: "none",
+              }}
+              href="/subscription"
+            >
+              click here
+            </a>
+            .
           </span>
         </div>
       );
