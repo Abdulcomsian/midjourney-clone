@@ -10,14 +10,18 @@ import {
   MdOutlineShare,
   MdDelete,
   MdVisibility,
+  MdVisibilityOff,
 } from "react-icons/md";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { saveAs } from "file-saver";
+import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 // Enable custom format parsing
 function DetailImage({
   selectedImageId: initialSelectedImageId,
   galleryImages,
   onClose,
+  onDelete,
 }) {
   const [selectedImageId, setSelectedImageId] = useState(
     initialSelectedImageId
@@ -27,7 +31,10 @@ function DetailImage({
 
   const [activeTab, setActiveTab] = useState(1);
   const [isHovered, setIsHovered] = useState(false);
+  const { token } = useSelector((state) => state.auth);
   const router = useRouter();
+  const pathname = usePathname();
+
   dayjs.extend(customParseFormat);
   const onTabClick = (e, index) => {
     setActiveTab(index);
@@ -88,6 +95,66 @@ function DetailImage({
       alert("Sharing is not supported on this device.");
     }
   };
+
+  const handlevisibility = async () => {
+    if (!token) return;
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/images/visibility/${selectedImageId}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        toast.success(data.message);
+        // Optionally refetch subscription data to update UI
+        onClose();
+      } else {
+        console.error("Failed to cancel subscription:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error canceling subscription:", error);
+    }
+  };
+  const handleDelete = async () => {
+    if (!token || !selectedImageId) return;
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/images/delete/${selectedImageId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        toast.success(data.message);
+
+        // Notify the parent to remove the deleted image from the gallery
+        onDelete(selectedImageId); // Call the function passed from the parent
+
+        // Close the details modal
+        onClose();
+      } else {
+        toast.error("Failed to delete image.");
+      }
+    } catch (error) {
+      console.error("Error deleting image:", error);
+      toast.error("An error occurred.");
+    }
+  };
+
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
@@ -167,36 +234,40 @@ function DetailImage({
               >
                 <MdOutlineShare size={24} title="Download Image" />
               </div>
-              <div
-                style={{
-                  position: "absolute",
-                  top: "10px",
-                  right: "130px",
-                  cursor: "pointer",
-                  zIndex: 1,
-                  background: "rgba(255, 255, 255, 0.8)",
-                  borderRadius: "50%",
-                  padding: "5px",
-                }}
-                onClick={handleDownload}
-              >
-                <MdVisibility size={24} title="Download Image" />
-              </div>
-              <div
-                style={{
-                  position: "absolute",
-                  top: "10px",
-                  right: "170px",
-                  cursor: "pointer",
-                  zIndex: 1,
-                  background: "rgba(255, 255, 255, 0.8)",
-                  borderRadius: "50%",
-                  padding: "5px",
-                }}
-                onClick={handleDownload}
-              >
-                <MdDelete size={24} title="Download Image" />
-              </div>
+              {pathname === "/account/my-images" && (
+                <>
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "10px",
+                      right: "130px",
+                      cursor: "pointer",
+                      zIndex: 1,
+                      background: "rgba(255, 255, 255, 0.8)",
+                      borderRadius: "50%",
+                      padding: "5px",
+                    }}
+                    onClick={handlevisibility}
+                  >
+                    <MdVisibility size={24} title="Visibility" />
+                  </div>
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "10px",
+                      right: "170px",
+                      cursor: "pointer",
+                      zIndex: 1,
+                      background: "rgba(255, 255, 255, 0.8)",
+                      borderRadius: "50%",
+                      padding: "5px",
+                    }}
+                    onClick={handleDelete}
+                  >
+                    <MdDelete size={24} title="Delete Image" />
+                  </div>
+                </>
+              )}
             </div>
           ) : (
             <p>Image not found</p>

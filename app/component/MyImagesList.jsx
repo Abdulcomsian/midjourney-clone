@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import { getUserGallery } from "../../utils/api";
 import DetailImage from "./main-gallery/gallery-image-detail/detail-image";
@@ -24,6 +22,7 @@ export default function MyImagesList() {
   const handleCloseDetail = () => {
     setImageDetail(false); // Go back to MyImage
   };
+
   const handleImageClick = (imageId) => {
     console.log("Image clicked", imageId);
     setSelectedImageId(imageId);
@@ -51,10 +50,15 @@ export default function MyImagesList() {
     }
   };
 
+  const handleImageDelete = (imageId) => {
+    // Update the galleryData state to remove the deleted image
+    setGalleryData((prevGalleryData) =>
+      prevGalleryData.filter((image) => image.id !== imageId)
+    );
+  };
+
   return (
     <>
-      {/* <h2 className="mb-4">My Images</h2> */}
-
       {!imageDetail ? (
         galleryData && (
           <div className="gallery-grid-wrapper" style={{ marginTop: "100px" }}>
@@ -74,10 +78,7 @@ export default function MyImagesList() {
                       fontSize: "25px",
                       cursor: "pointer",
                     }}
-                    onClick={() => {
-                      handleLike(image.id);
-                      // setSelectedImageId(image.id);
-                    }}
+                    onClick={() => handleLike(image.id)}
                   >
                     <Like isLiked={image.likes_count} />
                   </div>
@@ -91,6 +92,7 @@ export default function MyImagesList() {
           selectedImageId={selectedImageId}
           galleryImages={galleryData} // Corrected the prop name
           onClose={handleCloseDetail}
+          onDelete={handleImageDelete} // Pass the handleImageDelete function to DetailImage
         />
       )}
     </>

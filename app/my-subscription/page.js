@@ -10,7 +10,7 @@ import { openSubscriptionModal } from "../../features/modalSlice";
 import { useRouter } from "next/navigation"; // Import useRouter
 import translations from "../../i18";
 import BottomNav from "../component/bottom-nav/bottom-nav";
-
+import toast from "react-hot-toast";
 function MySubscription() {
   const dispatch = useDispatch();
   const router = useRouter(); // Initialize useRouter
@@ -75,8 +75,7 @@ function MySubscription() {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("Subscription canceled:", data);
-
+        toast.success(data.message);
         // Optionally refetch subscription data to update UI
         dispatch(
           fetchPricingAndPaymentData({
