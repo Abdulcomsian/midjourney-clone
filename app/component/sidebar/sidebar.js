@@ -6,9 +6,11 @@ import { logout } from "../../../features/auth/authSlice";
 import { useRouter, usePathname } from "next/navigation";
 import translations from "../../../i18";
 import Link from "next/link";
-
+import { openAuthModal } from "../../../features/modalSlice";
+import { openRegisterModal } from "../../../features/modalSlice";
 function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
   const [darkThemeMode, setDarkThemeMode] = useState(false);
+
   const { user, token, isAuthenticated } = useSelector((state) => state.auth);
   const selectedLanguage = useSelector(
     (state) => state.language.selectedLanguage
@@ -16,6 +18,13 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
   const router = useRouter();
   const pathname = usePathname();
   const dispatch = useDispatch();
+  const handleSignInClick = () => {
+    dispatch(openAuthModal());
+  };
+
+  const handleSignUpClick = () => {
+    dispatch(openRegisterModal());
+  };
   const t = translations[selectedLanguage];
   useEffect(() => {
     // Check user's saved theme preference in localStorage
@@ -32,7 +41,7 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
   }, []);
   const handleLogout = () => {
     dispatch(logout()); // Dispatch the logout action
-    router.push("/landing-page");
+    router.push("/");
   };
   // const isActive = (path) => {
   //   console.log("Active path", path, "Active path name", pathname);
@@ -573,7 +582,7 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
               <>
                 <li>
                   <a
-                    onClick={showModal}
+                    onClick={handleSignInClick}
                     className="d-flex align-items-center gap-2 p-2 rounded-5"
                   >
                     <span className="icon">
@@ -600,7 +609,7 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
                 </li>
                 <li>
                   <a
-                    onClick={showRegisterModal}
+                    onClick={handleSignUpClick}
                     className="d-flex align-items-center gap-2 p-2 rounded-5"
                   >
                     <span className="icon">

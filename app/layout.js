@@ -42,24 +42,24 @@ function LayoutContent({ children, toggleTheme }) {
 
   return (
     <>
-      {isAuthenticated ? (
-        <div
-          className="main-wrapper d-flex"
-          style={{ overflowY: "auto", height: "100vh", width: "100%" }}
-        >
-          <Sidebar
-            showModal={handleShow}
-            showRegisterModal={handleRegisterShow}
-            darkModeHandle={toggleTheme}
-          />
-          {children}
-          <AuthModal showModal={show} handleCloseAuthModal={handleClose} />
-          <RegisterModal
-            showRegisterModal={showRegister}
-            handleCloseRegisterModal={handleRegisterClose}
-          />
-        </div>
-      ) : (
+      {/* {isAuthenticated ? ( */}
+      <div
+        className="main-wrapper d-flex"
+        style={{ overflowY: "auto", height: "100vh", width: "100%" }}
+      >
+        <Sidebar
+          showModal={handleShow}
+          showRegisterModal={handleRegisterShow}
+          darkModeHandle={toggleTheme}
+        />
+        {children}
+        <AuthModal showModal={show} handleCloseAuthModal={handleClose} />
+        <RegisterModal
+          showRegisterModal={showRegister}
+          handleCloseRegisterModal={handleRegisterClose}
+        />
+      </div>
+      {/* ) : (
         <>
           <LandingPage
             showModal={handleShow}
@@ -68,7 +68,7 @@ function LayoutContent({ children, toggleTheme }) {
           <AuthModal showModal={show} handleCloseAuthModal={handleClose} />
           <RegisterModal showModal={show} handleCloseAuthModal={handleClose} />
         </>
-      )}
+      )} */}
     </>
   );
 }
