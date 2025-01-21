@@ -45,8 +45,20 @@ export default function MyImagesList() {
     );
     const data = await resp.json();
 
-    if (data?.status === "success") {
-      setPageRevalidate((is) => !is);
+    if (data?.status === "1") {
+      setGalleryData((prevImages) =>
+        prevImages.map((image) =>
+          image.id === imageId
+            ? {
+                ...image,
+                like_status: !image.like_status, // Toggle the like status
+                likes_count: image.like_status
+                  ? image.likes_count - 1 // Decrease count if liked
+                  : image.likes_count + 1, // Increase count if unliked
+              }
+            : image
+        )
+      );
     }
   };
 
@@ -80,6 +92,9 @@ export default function MyImagesList() {
                     }}
                     onClick={() => handleLike(image.id)}
                   >
+                    <span style={{ fontSize: "large" }}>
+                      {image.likes_count}
+                    </span>{" "}
                     <Like isLiked={image.likes_count} />
                   </div>
                 </div>

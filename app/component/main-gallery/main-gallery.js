@@ -67,10 +67,23 @@ function MainGallery() {
         },
       }
     );
+
     const data = await resp.json();
 
-    if (data?.status === "success") {
-      setPageRevalidate((is) => !is);
+    if (data?.status === "1") {
+      setGalleryImages((prevImages) =>
+        prevImages.map((image) =>
+          image.id === imageId
+            ? {
+                ...image,
+                like_status: !image.like_status, // Toggle the like status
+                likes_count: image.like_status
+                  ? image.likes_count - 1 // Decrease count if liked
+                  : image.likes_count + 1, // Increase count if unliked
+              }
+            : image
+        )
+      );
     }
   };
 
@@ -121,7 +134,7 @@ function MainGallery() {
                         <span style={{ fontSize: "large" }}>
                           {item.likes_count}
                         </span>{" "}
-                        <Like isLiked={item.likes_count} />
+                        <Like isLiked={item.like_status} />
                       </div>
                     </div>
                   ))}

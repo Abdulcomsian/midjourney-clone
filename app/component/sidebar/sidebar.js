@@ -197,7 +197,7 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
                   className={`d-flex align-items-center gap-2 p-2 rounded-5 text-black text-decoration-none ${isActive(
                     "/my-subscription",
                     "popover" // Specify type as "popover"
-                  )}`}
+                  )} link-hover`}
                 >
                   <span className="icon">
                     <svg
@@ -229,7 +229,7 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
                   className={`d-flex align-items-center gap-2 p-2 rounded-5 text-black text-decoration-none ${isActive(
                     "/my-profile",
                     "popover" // Specify type as "popover"
-                  )}`}
+                  )} link-hover`}
                 >
                   <span className="icon">
                     <svg

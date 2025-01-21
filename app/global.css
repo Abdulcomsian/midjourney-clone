@@ -976,6 +976,7 @@ main .filter-bar ul li button.active {
     left: 110px;
   }
 }
+
 @media only screen and (max-width: 1200px) {
   .content-wrapper .gallery-wrapper {
     column-count: 3;
@@ -1248,4 +1249,13 @@ button.btn-outline-light:hover {
 .popover-active{
   background-color: #f2330d1a;
   color: #f2330d!important;
+}
+.link-hover {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.link-hover:hover {
+  background-color: #f8f9fa; /* Light background color on hover */
+  color: #007bff; /* Blue text on hover */
+  text-decoration: none;
 }
