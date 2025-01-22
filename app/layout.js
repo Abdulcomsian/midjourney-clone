@@ -81,10 +81,14 @@ export default function RootLayout({ children }) {
 
   const [darkThemeMode, setDarkThemeMode] = useState(() => {
     if (typeof window !== "undefined") {
-      const savedTheme = localStorage.getItem("theme");
+      let savedTheme = localStorage.getItem("theme");
+      if (!savedTheme) {
+        savedTheme = "dark"; // Default to dark mode
+        localStorage.setItem("theme", savedTheme);
+      }
       return savedTheme === "dark";
     }
-    return true;
+    return true; // Default to true for server-side rendering
   });
   const [isThemeReady, setIsThemeReady] = useState(false);
 

@@ -1,4 +1,3 @@
-"use client";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
@@ -19,10 +18,10 @@ function SubcriptionModal() {
   const { paymentMethod, errorPaymentMethod, paymentInitializationURL } =
     useSelector((state) => state.api);
 
-  console.log("Payment methods data", paymentMethod);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [loading, setLoading] = useState(false); // Track loading state
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
+  const [phoneError, setPhoneError] = useState(false); // Error state for phone number
   const { token } = useSelector((state) => state.auth);
   const router = useRouter();
 
@@ -31,7 +30,17 @@ function SubcriptionModal() {
   };
 
   const paymentIntilaziationHandling = async () => {
-    if (!selectedPaymentMethod) return; // Ensure a payment method is selected
+    if (!selectedPaymentMethod) {
+      alert("Please select a payment method.");
+      return;
+    }
+
+    if (paymentMethod.paymentMethod.has_phone_number === 0 && !phoneNumber) {
+      setPhoneError(true); // Set error if phone number is required but not filled
+      return;
+    }
+
+    setPhoneError(false); // Clear error if validation passes
     setLoading(true); // Set loading to true
 
     try {
@@ -49,11 +58,6 @@ function SubcriptionModal() {
       setLoading(false); // Set loading to false after API response
     }
   };
-
-  // Log `loading` state changes
-  useEffect(() => {
-    console.log("Loading state:", loading);
-  }, [loading]);
 
   useEffect(() => {
     if (paymentInitializationURL) {
@@ -81,7 +85,6 @@ function SubcriptionModal() {
               <div key={index} className="d-flex align-items-center gap-2 mb-3">
                 <figure style={{ margin: "0" }}>
                   <img
-                    // src="https://stage.footo.ai/assets/images/payment-methods/chapapay.svg"
                     src={`/assets${item.icon}`}
                     alt={`${item.display_name}`}
                     style={{ width: 80 }}
@@ -113,8 +116,15 @@ function SubcriptionModal() {
                       placeholder="Enter phone number"
                       value={phoneNumber}
                       onChange={(e) => setPhoneNumber(e.target.value)}
+                      isInvalid={phoneError} // Highlight invalid state
                     />
                   </div>
+                  {/* Error message displayed below the input field */}
+                  {phoneError && (
+                    <div className="text-danger mt-1">
+                      Phone number is required.
+                    </div>
+                  )}
                 </Form.Group>
               </div>
             )}
