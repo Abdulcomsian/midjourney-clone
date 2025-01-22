@@ -18,6 +18,9 @@ function SubcriptionModal() {
 
   const { paymentMethod, errorPaymentMethod, paymentInitializationURL } =
     useSelector((state) => state.api);
+
+  console.log("Payment methods data", paymentMethod);
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [loading, setLoading] = useState(false); // Track loading state
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
   const { token } = useSelector((state) => state.auth);
@@ -37,6 +40,7 @@ function SubcriptionModal() {
           paymentIntilizationEndPoint: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/payments/initialize`,
           token,
           selectedPaymentMethod,
+          phoneNumber,
         })
       );
     } catch (error) {
@@ -78,7 +82,7 @@ function SubcriptionModal() {
                 <figure style={{ margin: "0" }}>
                   <img
                     // src="https://stage.footo.ai/assets/images/payment-methods/chapapay.svg"
-                    src = {`/assets${item.icon}`}
+                    src={`/assets${item.icon}`}
                     alt={`${item.display_name}`}
                     style={{ width: 80 }}
                   />
@@ -95,6 +99,25 @@ function SubcriptionModal() {
                 />
               </div>
             ))}
+
+            {paymentMethod.paymentMethod.has_phone_number === 0 && (
+              <div className="mb-3">
+                <Form.Group>
+                  <Form.Label>Phone Number</Form.Label>
+                  <div className="d-flex">
+                    <span className="input-group-text">
+                      {paymentMethod.paymentMethod.phone_prefix}
+                    </span>
+                    <Form.Control
+                      type="tel"
+                      placeholder="Enter phone number"
+                      value={phoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
+                    />
+                  </div>
+                </Form.Group>
+              </div>
+            )}
             <Button
               className="w-100 btn-warning"
               onClick={paymentIntilaziationHandling}

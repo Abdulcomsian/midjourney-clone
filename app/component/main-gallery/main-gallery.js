@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import translations from "../../../i18";
 import { Tab, Tabs } from "react-bootstrap";
 import Like from "../like";
+import toast from "react-hot-toast";
 
 function MainGallery() {
   const [galleryImages, setGalleryImages] = useState([]);
@@ -20,30 +21,68 @@ function MainGallery() {
   );
   const t = translations[selectedLanguage];
 
+  // const fetchGallery = async (currentPage) => {
+  //   const token = localStorage.getItem("token");
+  //   const resp = await fetch(
+  //     `https://stage-admin.footo.ai/api/images/gallery?page=${currentPage}`,
+  //     {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     }
+  //   );
+  //   const data = await resp.json();
+
+  //   if (data.length > 0) {
+  //     setGalleryImages((prevImages) => {
+  //       const uniqueImages = data.filter(
+  //         (newImage) =>
+  //           !prevImages.some((prevImage) => prevImage.id === newImage.id)
+  //       );
+  //       return [...prevImages, ...uniqueImages];
+  //     });
+  //   } else {
+  //     setHasMore(false);
+  //   }
+  // };
+
   const fetchGallery = async (currentPage) => {
     const token = localStorage.getItem("token");
-    const resp = await fetch(
-      `https://stage-admin.footo.ai/api/images/gallery?page=${currentPage}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const data = await resp.json();
+    const headers = {
+      "Content-Type": "application/json",
+    };
 
-    if (data.length > 0) {
-      setGalleryImages((prevImages) => {
-        const uniqueImages = data.filter(
-          (newImage) =>
-            !prevImages.some((prevImage) => prevImage.id === newImage.id)
-        );
-        return [...prevImages, ...uniqueImages];
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
+
+    const endpoint = token
+      ? `https://stage-admin.footo.ai/api/images/gallery?page=${currentPage}`
+      : `https://stage-admin.footo.ai/api/images/public-gallery?page=${currentPage}`;
+
+    try {
+      const resp = await fetch(endpoint, {
+        method: "GET",
+        headers,
       });
-    } else {
-      setHasMore(false);
+
+      const data = await resp.json();
+
+      if (data.length > 0) {
+        setGalleryImages((prevImages) => {
+          const uniqueImages = data.filter(
+            (newImage) =>
+              !prevImages.some((prevImage) => prevImage.id === newImage.id)
+          );
+          return [...prevImages, ...uniqueImages];
+        });
+      } else {
+        setHasMore(false);
+      }
+    } catch (error) {
+      console.error("Error fetching gallery images:", error);
     }
   };
 
@@ -57,6 +96,10 @@ function MainGallery() {
 
   const handleLike = async (imageId) => {
     const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("You need to be logged in to like an image.");
+      return;
+    }
     const resp = await fetch(
       `https://stage-admin.footo.ai/api/images/like/${imageId}`,
       {
