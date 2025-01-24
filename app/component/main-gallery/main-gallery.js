@@ -127,6 +127,20 @@ function MainGallery() {
             : image
         )
       );
+    } else if (data?.status === 0) {
+      setGalleryImages((prevImages) =>
+        prevImages.map((image) =>
+          image.id === imageId
+            ? {
+                ...image,
+                like_status: !image.like_status, // Toggle the like status
+                likes_count: image.like_status
+                  ? image.likes_count - 1 // Decrease count if liked
+                  : image.likes_count + 1, // Increase count if unliked
+              }
+            : image
+        )
+      );
     }
   };
 

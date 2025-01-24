@@ -142,7 +142,13 @@ export const fetchPaymentMethod = createAsyncThunk(
 export const paymentInitialization = createAsyncThunk(
   "api/paymentIntilization",
   async (
-    { paymentIntilizationEndPoint, token, selectedPaymentMethod, phoneNumber },
+    {
+      paymentIntilizationEndPoint,
+      token,
+      selectedPaymentMethod,
+      phoneNumber,
+      promoCode,
+    },
     { rejectWithValue }
   ) => {
     const packageId = localStorage.getItem("package_id");
@@ -150,6 +156,7 @@ export const paymentInitialization = createAsyncThunk(
       package_id: packageId,
       payment_method: selectedPaymentMethod,
       phone_number: phoneNumber,
+      promo_code: promoCode,
     };
     try {
       const paymentInitializationResponse = await fetch(

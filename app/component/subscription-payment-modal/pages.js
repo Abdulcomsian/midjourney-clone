@@ -19,6 +19,8 @@ function SubcriptionModal() {
     useSelector((state) => state.api);
 
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [promoCode, setPromoCode] = useState("");
+
   const [loading, setLoading] = useState(false); // Track loading state
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
   const [phoneError, setPhoneError] = useState(false); // Error state for phone number
@@ -50,6 +52,7 @@ function SubcriptionModal() {
           token,
           selectedPaymentMethod,
           phoneNumber,
+          promoCode,
         })
       );
     } catch (error) {
@@ -106,8 +109,10 @@ function SubcriptionModal() {
             {paymentMethod.paymentMethod.has_phone_number === 0 && (
               <div className="mb-3">
                 <Form.Group>
-                  <Form.Label>Phone Number</Form.Label>
-                  <div className="d-flex">
+                  <Form.Label style={{ fontWeight: "bold", fontSize: "18px" }}>
+                    Phone Number
+                  </Form.Label>
+                  <div className="d-flex gap-1 justify-content-center">
                     <span className="input-group-text">
                       {paymentMethod.paymentMethod.phone_prefix}
                     </span>
@@ -117,6 +122,7 @@ function SubcriptionModal() {
                       value={phoneNumber}
                       onChange={(e) => setPhoneNumber(e.target.value)}
                       isInvalid={phoneError} // Highlight invalid state
+                      className="w-50"
                     />
                   </div>
                   {/* Error message displayed below the input field */}
@@ -128,6 +134,27 @@ function SubcriptionModal() {
                 </Form.Group>
               </div>
             )}
+
+            <div className="mb-3">
+              <Form.Group>
+                <Form.Label
+                  className="text-bold"
+                  style={{ fontWeight: "bold", fontSize: "18px" }}
+                >
+                  Promo Code
+                </Form.Label>
+                <div className="d-flex justify-content-center">
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter Promo Code"
+                    value={promoCode}
+                    onChange={(e) => setPromoCode(e.target.value)}
+                    className="w-50"
+                  />
+                </div>
+              </Form.Group>
+            </div>
+
             <Button
               className="w-100 btn-warning"
               onClick={paymentIntilaziationHandling}

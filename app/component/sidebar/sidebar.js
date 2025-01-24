@@ -202,11 +202,40 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
             <>
               <li>
                 <a
+                  href=""
+                  className={`d-flex align-items-center gap-2 p-2 rounded-5 text-black text-decoration-none`}
+                  onClick={handleLogout}
+                >
+                  <span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="2"
+                      stroke="currentColor"
+                      aria-hidden="true"
+                      height="16"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
+                      ></path>
+                    </svg>
+                  </span>
+                  <span className="link-name">
+                    {" "}
+                    {t?.NavigationTitle_9 || "Logout"}
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a
                   href="/my-subscription"
                   className={`d-flex align-items-center gap-2 p-2 rounded-5 text-black text-decoration-none ${isActive(
                     "/my-subscription",
                     "popover" // Specify type as "popover"
-                  )} link-hover`}
+                  )}`}
                 >
                   <span className="icon">
                     <svg
@@ -238,7 +267,7 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
                   className={`d-flex align-items-center gap-2 p-2 rounded-5 text-black text-decoration-none ${isActive(
                     "/my-profile",
                     "popover" // Specify type as "popover"
-                  )} link-hover`}
+                  )}`}
                 >
                   <span className="icon">
                     <svg
@@ -548,7 +577,7 @@ function Sidebar({ showModal, showRegisterModal, darkModeHandle }) {
                         </g>
                       </svg>
                     </span>
-                    <span className=" ml-2 link-name" onClick={handleLogout}>
+                    <span className=" ml-2 link-name">
                       {t?.NavigationTitle_9 || "Logout"}
                     </span>
                     <OverlayTrigger
