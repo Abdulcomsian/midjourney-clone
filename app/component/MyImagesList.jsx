@@ -90,7 +90,7 @@ export default function MyImagesList() {
                       fontSize: "25px",
                       cursor: "pointer",
                     }}
-                    onClick={() => handleLike(image.id)}
+                    // onClick={() => handleLike(image.id)}
                   >
                     <span style={{ fontSize: "large" }}>
                       {image.likes_count}

@@ -16,6 +16,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { saveAs } from "file-saver";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import { Modal, Button } from "react-bootstrap";
 // Enable custom format parsing
 function DetailImage({
   selectedImageId: initialSelectedImageId,
@@ -34,7 +35,7 @@ function DetailImage({
   const { token } = useSelector((state) => state.auth);
   const router = useRouter();
   const pathname = usePathname();
-
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   dayjs.extend(customParseFormat);
   const onTabClick = (e, index) => {
     setActiveTab(index);
@@ -153,6 +154,7 @@ function DetailImage({
       console.error("Error deleting image:", error);
       toast.error("An error occurred.");
     }
+    setShowDeleteModal(false);
   };
 
   useEffect(() => {
@@ -262,9 +264,13 @@ function DetailImage({
                       borderRadius: "50%",
                       padding: "5px",
                     }}
-                    onClick={handleDelete}
+                    // onClick={handleDelete}
                   >
-                    <MdDelete size={24} title="Delete Image" />
+                    <MdDelete
+                      size={24}
+                      title="Delete Image"
+                      onClick={() => setShowDeleteModal(true)}
+                    />
                   </div>
                 </>
               )}
@@ -300,6 +306,26 @@ function DetailImage({
           ))}
         </Tabs>
       </div>
+
+      {/* Bootstrap Delete Confirmation Modal */}
+      <Modal
+        show={showDeleteModal}
+        onHide={() => setShowDeleteModal(false)}
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Delete</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete this image?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={handleDelete}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
